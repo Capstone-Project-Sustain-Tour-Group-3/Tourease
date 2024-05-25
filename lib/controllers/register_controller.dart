@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -42,7 +40,8 @@ class RegisterController extends GetxController {
         namaLengkapController.text.isNotEmpty &&
         emailController.text.isNotEmpty &&
         nomorTeleponController.text.isNotEmpty &&
-        passwordController.text.isNotEmpty;
+        passwordController.text.isNotEmpty &&
+        isTermsAccepted.value;
   }
 
   void validatorNamaPengguna(String value) {
