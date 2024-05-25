@@ -6,4 +6,9 @@ class AssetsCollection {
   static String onboarding4 = 'assets/images/onboarding_4.svg';
   static String registerSuccess = 'assets/images/register_success.svg';
   static String registerFailed = 'assets/images/register_failed.svg';
+  static String chatbot = 'assets/images/chatbot.svg';
+  static String chatbotIcon = 'assets/images/chatbot_icon.png';
+  static String chatbotIconSvg = 'assets/images/chatbot_icon.svg';
+  static String arrowBack = 'assets/images/arrow_back.svg';
+  static String sendIcon = 'assets/images/send.svg';
 }
