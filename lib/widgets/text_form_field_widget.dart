@@ -15,6 +15,7 @@ class TextFormFieldWidget extends StatelessWidget {
     this.errorText,
     required this.isPassword,
     this.colorTitleText,
+    this.keyboardType,
   });
 
   final String titleForm;
@@ -24,6 +25,7 @@ class TextFormFieldWidget extends StatelessWidget {
   final String? errorText;
   final bool isPassword;
   final Color? colorTitleText;
+  final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +68,7 @@ class TextFormFieldWidget extends StatelessWidget {
                   fontSize: 14,
                   color: ColorNeutral.neutral700,
                 ),
+                keyboardType: keyboardType,
                 decoration: InputDecoration(
                   suffixIcon: isPassword
                       ? IconButton(
