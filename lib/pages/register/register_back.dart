@@ -12,7 +12,7 @@ class RegisterBack extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (addSpace) const SizedBox(height: 40), // Adjust height as needed
+        if (addSpace) const SizedBox(height: 40), 
         Padding(
           padding: const EdgeInsets.only(left: 8),
           child: IconButton(
