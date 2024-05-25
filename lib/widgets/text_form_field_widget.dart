@@ -29,6 +29,7 @@ class TextFormFieldWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextFormFieldWidgetController textFormFieldWidgetController = Get.put(
       TextFormFieldWidgetController(),
+      tag: titleForm,
     );
 
     return Obx(() => Column(
@@ -38,7 +39,10 @@ class TextFormFieldWidget extends StatelessWidget {
               titleForm,
               style: TextStyleCollection.bodyBold.copyWith(
                   color: textFormFieldWidgetController.isFocused.value == true
-                      ? ColorPrimary.primary500
+                      ? (textFormFieldWidgetController
+                              .handleErrorForm(errorText)
+                          ? ColorDanger.danger500
+                          : ColorPrimary.primary500)
                       : textFormFieldWidgetController.handleErrorForm(errorText)
                           ? ColorDanger.danger500
                           : ColorNeutral.neutral700),
