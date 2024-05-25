@@ -7,8 +7,8 @@ import 'package:tourease/pages/login/login_page.dart';
 import 'package:tourease/pages/register/register_back.dart';
 import 'package:tourease/pages/register/register_verification_page.dart';
 import 'package:tourease/pages/register/terms_and_condition_page.dart';
-import 'package:tourease/pages/register/register_form.dart'; 
-import 'package:tourease/pages/register/register_button.dart'; 
+import 'package:tourease/pages/register/register_form.dart';
+import 'package:tourease/pages/register/register_button.dart';
 import 'package:tourease/constants/text_style_constant.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -91,18 +91,24 @@ class RegisterPage extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 5),
-                      Obx(
-                        () => RegisterButton(
-                          onPressed: registerController.isFormValid.value
-                              ? () {
-                                  Get.to(
-                                      () => const RegisterVerificationPage());
-                                }
-                              : () {},
-                          text: 'Daftar',
-                          isEnabled: registerController.isFormValid.value,
-                        ),
-                      ),
+                      Obx(() => RegisterButton(
+                            onPressed: registerController.isFormValid.value
+                                ? () {
+                                    if (registerController.isFormValid.value) {
+                                      Get.to(() =>
+                                          const RegisterVerificationPage());
+                                    } else {
+                                      Get.snackbar("Error",
+                                          "Harap periksa kembali semua field dan setujui syarat dan ketentuan",
+                                          backgroundColor:
+                                              ColorDanger.danger500,
+                                          colorText: ColorNeutral.neutral900);
+                                    }
+                                  }
+                                : () {},
+                            text: 'Daftar',
+                            isEnabled: registerController.isFormValid.value,
+                          )),
                       const SizedBox(height: 10),
                       Center(
                         child: Row(
