@@ -1,8 +1,9 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
-import 'package:tourease/pages/register/register_back.dart'; 
 import 'package:tourease/pages/register/terms_and_condition_widgets.dart';
 
 class TermsAndConditionsPage extends StatelessWidget {
@@ -11,41 +12,41 @@ class TermsAndConditionsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Set the system UI overlay style to ensure consistent status bar color
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarIconBrightness: Brightness.dark, // Status bar icon color
-      statusBarBrightness:
-          Brightness.dark
-    ));
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+          statusBarIconBrightness: Brightness.dark, // Status bar icon color
+          statusBarBrightness: Brightness.dark),
+    );
 
     return Scaffold(
       backgroundColor: ColorNeutral.neutral50,
+      appBar: AppBar(
+        backgroundColor: ColorNeutral.neutral50,
+        surfaceTintColor: ColorNeutral.neutral50,
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: ColorPrimary.primary500,
+          ),
+        ),
+        title: AutoSizeText(
+          'Syarat dan Ketentuan',
+          style: TextStyleCollection.bodyBold.copyWith(
+            color: ColorNeutral.neutral900,
+          ),
+          minFontSize: 18,
+          maxFontSize: 20,
+        ),
+        centerTitle: true,
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Stack(
-                children: [
-                  const Align(
-                    alignment: Alignment.centerLeft,
-                    child: RegisterBack(addSpace: false),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Center(
-                      child: Text(
-                        'Syarat dan Ketentuan',
-                        style: TextStyleCollection.bodyBold.copyWith(
-                          fontSize: 20,
-                          color: ColorNeutral.neutral900,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                  height: 32), 
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
@@ -69,6 +70,7 @@ class TermsAndConditionsPage extends StatelessWidget {
                         fontSize: 14,
                         color: ColorNeutral.neutral700,
                       ),
+                      textAlign: TextAlign.justify,
                     ),
                     const SizedBox(height: 16),
                     const SectionTitle(title: '1. Akun Pengguna'),
@@ -143,13 +145,17 @@ class TermsAndConditionsPage extends StatelessWidget {
                         text:
                             'Setiap perselisihan yang timbul dari atau terkait dengan Syarat dan Ketentuan ini akan diselesaikan oleh pengadilan yang kompeten di Indonesia.'),
                     const SizedBox(height: 16),
-                    Text(
-                      'Terima kasih telah menggunakan Tourease!',
-                      style: TextStyleCollection.bodyBold.copyWith(
-                        fontSize: 14,
-                        color: ColorNeutral.neutral900,
+                    Center(
+                      child: Text(
+                        'Terima kasih telah menggunakan Tourease!',
+                        style: TextStyleCollection.bodyBold.copyWith(
+                          fontSize: 14,
+                          color: ColorNeutral.neutral900,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
+                    const SizedBox(height: 16),
                   ],
                 ),
               ),
