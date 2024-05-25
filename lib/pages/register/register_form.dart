@@ -16,6 +16,7 @@ class RegisterForm extends StatelessWidget {
         Obx(() => TextFormFieldWidget(
               titleForm: "Nama Pengguna",
               hintText: "Masukkan nama pengguna anda",
+              keyboardType: TextInputType.text,
               isPassword: false,
               controller: registerController.namaPenggunaController,
               errorText: registerController.errorMessageNamaPengguna.value,
@@ -25,6 +26,7 @@ class RegisterForm extends StatelessWidget {
         Obx(() => TextFormFieldWidget(
               titleForm: "Nama Lengkap",
               hintText: "Masukkan nama lengkap anda",
+              keyboardType: TextInputType.text,
               isPassword: false,
               controller: registerController.namaLengkapController,
               errorText: registerController.errorMessageNamaLengkap.value,
@@ -34,6 +36,7 @@ class RegisterForm extends StatelessWidget {
         Obx(() => TextFormFieldWidget(
               titleForm: "Email",
               hintText: "Masukkan email anda",
+              keyboardType: TextInputType.emailAddress,
               isPassword: false,
               controller: registerController.emailController,
               errorText: registerController.errorMessageEmail.value,
@@ -43,6 +46,7 @@ class RegisterForm extends StatelessWidget {
         Obx(() => TextFormFieldWidget(
               titleForm: "Nomor Telepon",
               hintText: "Masukkan nomor telepon anda",
+              keyboardType: TextInputType.phone,
               isPassword: false,
               controller: registerController.nomorTeleponController,
               errorText: registerController.errorMessageNomorTelepon.value,
@@ -52,6 +56,7 @@ class RegisterForm extends StatelessWidget {
         Obx(() => TextFormFieldWidget(
               titleForm: "Password",
               hintText: "Masukkan password anda",
+              keyboardType: TextInputType.text,
               isPassword: true,
               controller: registerController.passwordController,
               errorText: registerController.errorMessagePassword.value,
