@@ -13,7 +13,7 @@ class ButtonWidget extends StatelessWidget {
     this.backgroundColor,
   });
 
-  final void Function() onPressed;
+  final void Function()? onPressed;
   final BorderSide? side;
   final String text;
   final Color textColor;
