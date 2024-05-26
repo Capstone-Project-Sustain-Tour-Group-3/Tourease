@@ -20,6 +20,7 @@ class LoginForm extends StatelessWidget {
             () => TextFormFieldWidget(
               titleForm: 'Email',
               hintText: 'Masukkan email anda',
+              keyboardType: TextInputType.emailAddress,
               controller: loginController.emailController,
               errorText: loginController.errorMessageEmail.value,
               isPassword: false,
@@ -33,6 +34,7 @@ class LoginForm extends StatelessWidget {
             () => TextFormFieldWidget(
               titleForm: 'Password',
               hintText: 'Masukkan password anda',
+              keyboardType: TextInputType.text,
               controller: loginController.passwordController,
               errorText: loginController.errorMessagePassword.value,
               isPassword: true,

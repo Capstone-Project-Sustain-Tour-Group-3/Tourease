@@ -15,6 +15,7 @@ class TextFormFieldWidget extends StatelessWidget {
     this.errorText,
     required this.isPassword,
     this.colorTitleText,
+    this.keyboardType,
   });
 
   final String titleForm;
@@ -24,11 +25,13 @@ class TextFormFieldWidget extends StatelessWidget {
   final String? errorText;
   final bool isPassword;
   final Color? colorTitleText;
+  final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context) {
     final TextFormFieldWidgetController textFormFieldWidgetController = Get.put(
       TextFormFieldWidgetController(),
+      tag: titleForm,
     );
 
     return Obx(() => Column(
@@ -38,7 +41,10 @@ class TextFormFieldWidget extends StatelessWidget {
               titleForm,
               style: TextStyleCollection.bodyBold.copyWith(
                   color: textFormFieldWidgetController.isFocused.value == true
-                      ? ColorPrimary.primary500
+                      ? (textFormFieldWidgetController
+                              .handleErrorForm(errorText)
+                          ? ColorDanger.danger500
+                          : ColorPrimary.primary500)
                       : textFormFieldWidgetController.handleErrorForm(errorText)
                           ? ColorDanger.danger500
                           : ColorNeutral.neutral700),
@@ -62,6 +68,7 @@ class TextFormFieldWidget extends StatelessWidget {
                   fontSize: 14,
                   color: ColorNeutral.neutral700,
                 ),
+                keyboardType: keyboardType,
                 decoration: InputDecoration(
                   suffixIcon: isPassword
                       ? IconButton(
