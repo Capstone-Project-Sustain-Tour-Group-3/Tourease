@@ -11,4 +11,9 @@ class AssetsCollection {
   static String chatbotIconSvg = 'assets/images/chatbot_icon.svg';
   static String arrowBack = 'assets/images/arrow_back.svg';
   static String sendIcon = 'assets/images/send.svg';
+  static String personalizedWelcome = 'assets/images/personalized_welcome.svg';
+  static String tourAlam = 'assets/images/tour_alam.png';
+  static String tourSeniBudaya = 'assets/images/tour_senibudaya.png';
+  static String tourSejarah = 'assets/images/tour_sejarah.png';
+  static String personalizedFinish = 'assets/images/personalized_success.svg';
 }
