@@ -13,4 +13,8 @@ class TextStyleCollection {
   static TextStyle caption = GoogleFonts.plusJakartaSans(
     fontWeight: FontWeight.w400,
   );
+
+  static TextStyle captionBold = GoogleFonts.plusJakartaSans(
+    fontWeight: FontWeight.w700,
+  );
 }

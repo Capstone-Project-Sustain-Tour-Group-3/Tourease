@@ -16,4 +16,5 @@ class AssetsCollection {
   static String tourSeniBudaya = 'assets/images/tour_senibudaya.png';
   static String tourSejarah = 'assets/images/tour_sejarah.png';
   static String personalizedFinish = 'assets/images/personalized_success.svg';
+  static String locationIcon = 'assets/images/location_icon.svg';
 }

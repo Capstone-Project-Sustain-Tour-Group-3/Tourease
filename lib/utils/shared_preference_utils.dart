@@ -27,4 +27,26 @@ class SharedPref {
     String? savedLocation = preferences.getString(_keyLocation);
     return savedLocation;
   }
+
+  static Future<String?> getSavedLatitude() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+
+    String? savedLatitude = preferences.getString(_keyLatitude);
+    return savedLatitude;
+  }
+
+  static Future<String?> getSavedLongitude() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+
+    String? savedLongitude = preferences.getString(_keyLongitude);
+    return savedLongitude;
+  }
+
+  static void removeSavedLocation() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+
+    preferences.remove(_keyLocation);
+    preferences.remove(_keyLatitude);
+    preferences.remove(_keyLongitude);
+  }
 }
