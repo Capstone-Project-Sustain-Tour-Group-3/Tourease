@@ -12,7 +12,7 @@ class RegisterController extends GetxController {
   final errorMessagePassword = Rxn<String>();
   final isTermsAccepted = false.obs;
   final isFormValid = false.obs;
-  final isLoading = false.obs; // Status loading
+  final isLoading = false.obs; 
 
   TextEditingController namaPenggunaController = TextEditingController();
   TextEditingController namaLengkapController = TextEditingController();
