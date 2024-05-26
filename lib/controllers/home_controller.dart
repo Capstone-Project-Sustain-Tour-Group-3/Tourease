@@ -13,7 +13,6 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     getLocation();
-    getSavedCity();
     super.onInit();
   }
 
@@ -26,9 +25,8 @@ class HomeController extends GetxController {
         currentLocation.value!.latitude,
         currentLocation.value!.longitude,
       );
-      String? place = placemark[0].subAdministrativeArea;
-      if (place != null) {
-        currentCity.value = place;
+      if (placemark.isNotEmpty) {
+        currentCity.value = placemark[0].subAdministrativeArea;
         SharedPref.saveLocation(location: currentCity.value!);
         SharedPref.saveLatitudeLongitude(
           latitude: currentLocation.value!.latitude.toString(),
