@@ -7,7 +7,9 @@ import 'package:tourease/pages/register/register_otp_page.dart';
 import 'package:tourease/pages/register/register_back.dart'; 
 
 class RegisterVerificationPage extends StatelessWidget {
-  const RegisterVerificationPage({super.key});
+  final String email;
+
+  const RegisterVerificationPage({super.key, required this.email});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class RegisterVerificationPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Kode verifikasi akan kami kirimkan ke alamat Email email@gmail.com. Pastikan Emailmu aktif agar kamu segera menerima kode verifikasinya.',
+                  'Kode verifikasi akan kami kirimkan ke alamat Email $email. Pastikan Emailmu aktif agar kamu segera menerima kode verifikasinya.',
                   style: TextStyleCollection.caption.copyWith(
                     color: ColorNeutral.neutral700,
                   ),
