@@ -5,7 +5,6 @@ import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/controllers/register_controller.dart';
 import 'package:tourease/pages/login/login_page.dart';
 import 'package:tourease/pages/register/register_back.dart';
-import 'package:tourease/pages/register/register_verification_page.dart';
 import 'package:tourease/pages/register/terms_and_condition_page.dart';
 import 'package:tourease/pages/register/register_form.dart';
 import 'package:tourease/pages/register/register_button.dart';
