@@ -1,7 +1,8 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tourease/model/user_model.dart';
+import 'package:tourease/pages/register/register_verification_page.dart';
+import 'package:tourease/service/auth_service.dart';
 
 class RegisterController extends GetxController {
   final errorMessageNamaPengguna = Rxn<String>();
@@ -11,6 +12,7 @@ class RegisterController extends GetxController {
   final errorMessagePassword = Rxn<String>();
   final isTermsAccepted = false.obs;
   final isFormValid = false.obs;
+  final isLoading = false.obs; 
 
   TextEditingController namaPenggunaController = TextEditingController();
   TextEditingController namaLengkapController = TextEditingController();
@@ -42,7 +44,8 @@ class RegisterController extends GetxController {
         namaLengkapController.text.isNotEmpty &&
         emailController.text.isNotEmpty &&
         nomorTeleponController.text.isNotEmpty &&
-        passwordController.text.isNotEmpty;
+        passwordController.text.isNotEmpty &&
+        isTermsAccepted.value;
   }
 
   void validatorNamaPengguna(String value) {
@@ -102,6 +105,51 @@ class RegisterController extends GetxController {
   void toggleTermsAccepted() {
     isTermsAccepted.value = !isTermsAccepted.value;
     _validateForm();
+  }
+
+  Future<void> register() async {
+    if (isFormValid.value && isTermsAccepted.value) {
+      final user = UserModel(
+        username: namaPenggunaController.text,
+        namaLengkap: namaLengkapController.text,
+        email: emailController.text,
+        noTelepon: nomorTeleponController.text,
+        password: passwordController.text,
+      );
+
+      isLoading.value = true; 
+
+      try {
+        bool registrationSuccess = await AuthService().register(user);
+        if (registrationSuccess) {
+          Get.to(() => RegisterVerificationPage(email: user.email!));
+        }
+      } catch (e) {
+        String errorMessage = e.toString().replaceFirst('Exception: ', '');
+        if (errorMessage.contains('username')) {
+          errorMessageNamaPengguna.value = errorMessage;
+        } else if (errorMessage.contains('email')) {
+          errorMessageEmail.value = errorMessage;
+        } else {
+          Get.snackbar(
+            'Error',
+            errorMessage,
+            backgroundColor: Colors.red,
+            colorText: Colors.white,
+          );
+        }
+        _validateForm();
+      } finally {
+        isLoading.value = false; 
+      }
+    } else {
+      Get.snackbar(
+        'Error',
+        'Harap periksa kembali semua field dan setujui syarat dan ketentuan',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }
   }
 
   @override
