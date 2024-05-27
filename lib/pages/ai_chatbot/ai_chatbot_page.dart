@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:tourease/constants/assets_constant.dart';
 import 'package:tourease/constants/color_constant.dart';
+import 'package:tourease/constants/status_bar_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
 import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:tourease/controllers/ai_chatbot_controller.dart';
@@ -17,6 +18,8 @@ class AiChatbotPage extends StatefulWidget {
 class _AiChatbotPageState extends State<AiChatbotPage> {
   @override
   Widget build(BuildContext context) {
+    StatusBarConstant.statusBar;
+
     final AiChatbotController aiChatbotController = Get.put(
       AiChatbotController(),
     );

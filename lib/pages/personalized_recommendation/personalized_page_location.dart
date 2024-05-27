@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tourease/constants/color_constant.dart';
+import 'package:tourease/constants/status_bar_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
 import 'package:tourease/controllers/personalized_recommendation_controller.dart';
 import 'package:tourease/pages/personalized_recommendation/personalized_widget_location_grid_view.dart';
@@ -12,11 +13,10 @@ class PersonalizedLocationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    StatusBarConstant.statusBar;
+
     final PersonalizedRecommendationController recommendationController =
         Get.find<PersonalizedRecommendationController>();
-
-    print(
-        "Is tour option selection valid: ${recommendationController.isTourOptionSelectionValid()}");
 
     return Scaffold(
       backgroundColor: ColorNeutral.neutral50,

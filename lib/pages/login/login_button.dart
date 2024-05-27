@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tourease/constants/color_constant.dart';
+import 'package:tourease/pages/home/home_page.dart';
 import 'package:tourease/widgets/button_widget.dart';
 
 class LoginButton extends StatelessWidget {
@@ -13,7 +15,9 @@ class LoginButton extends StatelessWidget {
         width: double.infinity,
         height: 48,
         child: ButtonWidget(
-          onPressed: () {},
+          onPressed: () {
+            Get.to(() => const HomePage());
+          },
           text: 'Masuk',
           textColor: ColorNeutral.neutral100,
         ),

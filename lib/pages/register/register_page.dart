@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:tourease/constants/color_constant.dart';
+import 'package:tourease/constants/status_bar_constant.dart';
 import 'package:tourease/controllers/register_controller.dart';
 import 'package:tourease/pages/login/login_page.dart';
 import 'package:tourease/pages/register/register_back.dart';
@@ -16,6 +17,8 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    StatusBarConstant.statusBar;
+
     final RegisterController registerController = Get.put(RegisterController());
 
     SystemChrome.setSystemUIOverlayStyle(

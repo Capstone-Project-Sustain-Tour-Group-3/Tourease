@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:tourease/constants/assets_constant.dart';
 import 'package:tourease/constants/color_constant.dart';
+import 'package:tourease/constants/status_bar_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
 import 'package:tourease/pages/ai_chatbot/ai_chatbot_page.dart';
 import 'package:tourease/widgets/button_widget.dart';
@@ -13,6 +14,8 @@ class AiChatbotOnboarding extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    StatusBarConstant.statusBar;
+
     return Scaffold(
         body: Stack(
       children: [

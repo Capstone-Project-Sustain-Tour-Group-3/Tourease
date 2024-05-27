@@ -1,8 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:tourease/constants/color_constant.dart';
+import 'package:tourease/constants/status_bar_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
 import 'package:tourease/pages/register/terms_and_condition_widgets.dart';
 
@@ -12,11 +12,7 @@ class TermsAndConditionsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Set the system UI overlay style to ensure consistent status bar color
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-          statusBarIconBrightness: Brightness.dark, // Status bar icon color
-          statusBarBrightness: Brightness.dark),
-    );
+    StatusBarConstant.statusBar;
 
     return Scaffold(
       backgroundColor: ColorNeutral.neutral50,
