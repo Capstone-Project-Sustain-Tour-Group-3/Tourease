@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tourease/constants/color_constant.dart';
-import 'package:tourease/pages/home/home_page.dart';
+import 'package:tourease/controllers/login_controller.dart';
 import 'package:tourease/widgets/button_widget.dart';
 
 class LoginButton extends StatelessWidget {
-  const LoginButton({super.key});
+  LoginButton({super.key});
+  final LoginController loginController = Get.put(
+    LoginController(),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +19,7 @@ class LoginButton extends StatelessWidget {
         height: 48,
         child: ButtonWidget(
           onPressed: () {
-            Get.to(() => const HomePage());
+            loginController.login();
           },
           text: 'Masuk',
           textColor: ColorNeutral.neutral100,

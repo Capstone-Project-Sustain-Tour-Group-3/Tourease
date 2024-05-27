@@ -120,7 +120,7 @@ class RegisterPage extends StatelessWidget {
                             const Text('Sudah punya akun? '),
                             InkWell(
                               onTap: () {
-                                Get.to(() => const LoginPage());
+                                Get.to(() =>  LoginPage());
                               },
                               child: Text(
                                 'Masuk',

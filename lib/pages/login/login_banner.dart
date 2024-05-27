@@ -13,9 +13,12 @@ class LoginBanner extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 44),
-          const Text(
+          Text(
             'Masuk Akun',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style: TextStyleCollection.bodyBold.copyWith(
+              fontSize: 16,
+              color: ColorNeutral.neutral900,
+            ),
           ),
           const SizedBox(height: 8),
           Text(
