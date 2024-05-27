@@ -63,4 +63,10 @@ class ColorDanger {
 
 class ColorCollection {
   static Color transparent = Colors.transparent;
+  static Color active = const Color(0xFF5BE981);
+  static Color gray = const Color(0xFF0A6847);
+  static Color gray1 = const Color(0xFF979C9E);
+  static Color gray2 = const Color(0xFFA6A6A6);
+  static Color lightGray = const Color(0xFFF6F6F6);
+  static Color black = const Color(0xFF000000);
 }

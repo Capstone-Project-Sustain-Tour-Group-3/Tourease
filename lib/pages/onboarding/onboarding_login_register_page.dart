@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:tourease/constants/assets_constant.dart';
 import 'package:tourease/constants/color_constant.dart';
+import 'package:tourease/constants/status_bar_constant.dart';
 import 'package:tourease/pages/login/login_page.dart';
 import 'package:tourease/pages/onboarding/onboarding_view_widget.dart';
 import 'package:tourease/pages/register/register_page.dart';
@@ -13,12 +13,7 @@ class OnboardingLoginRegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarColor: ColorCollection.transparent,
-        statusBarIconBrightness: Brightness.dark,
-      ),
-    );
+    StatusBarConstant.statusBar;
 
     return Scaffold(
       backgroundColor: ColorNeutral.neutral50,

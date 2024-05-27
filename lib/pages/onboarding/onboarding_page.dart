@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:tourease/constants/assets_constant.dart';
 import 'package:tourease/constants/color_constant.dart';
+import 'package:tourease/constants/status_bar_constant.dart';
 import 'package:tourease/controllers/onboarding_controller.dart';
 import 'package:tourease/pages/onboarding/onboarding_back.dart';
 import 'package:tourease/pages/onboarding/onboarding_button.dart';
@@ -15,12 +15,7 @@ class OnboardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarColor: ColorCollection.transparent,
-        statusBarIconBrightness: Brightness.dark,
-      ),
-    );
+    StatusBarConstant.statusBar;
 
     final OnboardingController onboardingController = Get.put(
       OnboardingController(),

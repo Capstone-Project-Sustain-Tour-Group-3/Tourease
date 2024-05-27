@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:tourease/constants/assets_constant.dart';
 import 'package:tourease/constants/color_constant.dart';
+import 'package:tourease/constants/status_bar_constant.dart';
 import 'package:tourease/controllers/personalized_recommendation_controller.dart';
 import 'package:tourease/pages/personalized_recommendation/personalized_widget_button.dart';
 import 'package:tourease/pages/personalized_recommendation/personalized_widget_view.dart';
@@ -12,12 +12,7 @@ class PersonalizedWelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarColor: ColorCollection.transparent,
-        statusBarIconBrightness: Brightness.dark,
-      ),
-    );
+    StatusBarConstant.statusBar;
 
     final PersonalizedRecommendationController recommendationController =
         Get.put(PersonalizedRecommendationController());

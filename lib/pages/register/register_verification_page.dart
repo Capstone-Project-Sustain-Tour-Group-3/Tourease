@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tourease/constants/color_constant.dart';
+import 'package:tourease/constants/status_bar_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
 import 'package:tourease/pages/register/register_button.dart';
 import 'package:tourease/pages/register/register_otp_page.dart';
-import 'package:tourease/pages/register/register_back.dart'; 
+import 'package:tourease/pages/register/register_back.dart';
 
 class RegisterVerificationPage extends StatelessWidget {
   final String email;
@@ -13,6 +14,8 @@ class RegisterVerificationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    StatusBarConstant.statusBar;
+
     return Scaffold(
       backgroundColor: ColorNeutral.neutral50,
       body: Stack(
@@ -39,7 +42,6 @@ class RegisterVerificationPage extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                
                 RegisterButton(
                   onPressed: () {
                     Get.to(() => const RegisterOtpPage());

@@ -22,7 +22,7 @@ class PersonalizedRecommendationButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void _handleNavigation() {
+    void handleNavigation() {
       if (navigationType == 'tourOption') {
         recommendationController.navigateToTourOptionPage();
       } else if (navigationType == 'location') {
@@ -39,7 +39,7 @@ class PersonalizedRecommendationButton extends StatelessWidget {
           width: double.infinity,
           height: 48,
           child: ButtonWidget(
-            onPressed: isEnabled ? _handleNavigation : null,
+            onPressed: isEnabled ? handleNavigation : null,
             text: title,
             textColor: ColorNeutral.neutral100,
             backgroundColor:
@@ -52,7 +52,7 @@ class PersonalizedRecommendationButton extends StatelessWidget {
     if (observeSelection) {
       return Obx(() {
         bool finalIsEnabled = navigationType == 'location'
-            ? recommendationController.isTourOptionSelectionValid() 
+            ? recommendationController.isTourOptionSelectionValid()
             : recommendationController.isProvinceSelectionValid();
         return buildButton(finalIsEnabled);
       });
