@@ -1,13 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:tourease/constants/assets_constant.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
 import 'package:tourease/controllers/home_controller.dart';
+import 'package:tourease/widgets/cached_network_image_widget.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({super.key});
@@ -32,22 +31,9 @@ class HomeHeader extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(35),
-                child: CachedNetworkImage(
+                child: const CachedNetworkImageWidget(
                   imageUrl:
                       'https://s3-alpha-sig.figma.com/img/964e/f072/9a6eefcbb85b20d81969a7235b4ac143?Expires=1717372800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=f5M4gc5qMeZZ3i9q9VfgQLyFLAEZJeuNEl-b~7zv3oDpvK7W~K5SQFfYkTqNd8laguwjkhk9ceCmCp0ZRYmh6bpMNmg5H-2V1WJy5PG2w26VZwYJatYbH6CJHJ8cU4--GDGU5wdY2lOfljysidH31p0drFgx4rZ1XWtu9LmmEBl8MY7TL7f9uBAa~4sRAhr0APTWAGvcISYqWyNRZDxMPB2DXfRZCkL83teh1HMJRZd54MmVcR0QEyo0u-hcNxv6Xftq~hqSWDn1m1cc32GISbUTdQrsR-osZ4yJtnNHS00vPt8gdb6flVmpVN7SyiNXDxSioIWaxAfhhx-UrsDKdg__',
-                  placeholder: (context, url) => Shimmer.fromColors(
-                    baseColor: ColorNeutral.neutral50,
-                    highlightColor: ColorNeutral.neutral300,
-                    child: Container(
-                      color: ColorNeutral.neutral300,
-                    ),
-                  ),
-                  errorWidget: (context, url, error) => Icon(
-                    Icons.error,
-                    color: ColorNeutral.neutral50,
-                    size: 40,
-                  ),
-                  fit: BoxFit.cover,
                 ),
               ),
             ),
