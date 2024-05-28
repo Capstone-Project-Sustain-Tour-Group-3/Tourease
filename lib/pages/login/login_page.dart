@@ -4,6 +4,7 @@ import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/status_bar_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
 import 'package:tourease/controllers/login_controller.dart';
+import 'package:tourease/pages/login/forget_password_for_email_page.dart';
 import 'package:tourease/pages/login/login_back.dart';
 import 'package:tourease/pages/login/login_banner.dart';
 import 'package:tourease/pages/login/login_button.dart';
@@ -50,7 +51,7 @@ class LoginPage extends StatelessWidget {
                                 ),
                               ),
                               onTap: () {
-                                // Get.to(() => const VerificationOtpPage());
+                                Get.to(() => const ForgetPasswordForEmailPage());
                               }),
                         )
                       ],
