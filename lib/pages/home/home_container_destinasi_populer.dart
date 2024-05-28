@@ -1,7 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
+import 'package:tourease/pages/video_content/video_content_page.dart';
 import 'package:tourease/widgets/cached_network_image_widget.dart';
 
 class HomeContainerDestinasiPopuler extends StatelessWidget {
@@ -30,7 +32,9 @@ class HomeContainerDestinasiPopuler extends StatelessWidget {
           children: [
             Center(
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.to(() => const VideoContentPage());
+                },
                 icon: Icon(
                   Icons.play_arrow,
                   color: ColorNeutral.neutral50,
