@@ -50,8 +50,39 @@ class VideoContentPage extends StatelessWidget {
                       onTap: () {
                         videoController.playPause();
                       },
-                      child: VideoPlayer(
-                        videoController.videoPlayerController,
+                      child: Container(
+                        width: double.infinity,
+                        height: double.infinity,
+                        margin: const EdgeInsets.all(4),
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: VideoPlayer(
+                                videoController.videoPlayerController,
+                              ),
+                            ),
+                            Positioned(
+                              bottom: 12,
+                              left: 12,
+                              right: 12,
+                              child: SizedBox(
+                                width: double.infinity,
+                                child: AutoSizeText(
+                                  'Membatik dan belajar sejarah keraton di museum Ullen Sentalu',
+                                  style:
+                                      TextStyleCollection.captionBold.copyWith(
+                                    color: ColorCollection.lightGray,
+                                  ),
+                                  minFontSize: 14,
+                                  maxFontSize: 16,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -96,24 +127,6 @@ class VideoContentPage extends StatelessWidget {
               }
             },
           ),
-          Positioned(
-            bottom: 40,
-            left: 12,
-            right: 12,
-            child: SizedBox(
-              width: double.infinity,
-              child: AutoSizeText(
-                'Membatik dan belajar sejarah keraton di museum Ullen Sentalu',
-                style: TextStyleCollection.captionBold.copyWith(
-                  color: ColorCollection.lightGray,
-                ),
-                minFontSize: 11,
-                maxFontSize: 12,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          )
         ],
       ),
     );
