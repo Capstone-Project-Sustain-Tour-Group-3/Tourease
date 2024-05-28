@@ -54,7 +54,7 @@ class OnboardingLoginRegisterPage extends StatelessWidget {
                     child: ButtonWidget(
                       onPressed: () {
                         Get.to(
-                          () => const LoginPage(),
+                          () =>  LoginPage(),
                         );
                       },
                       text: 'Masuk',

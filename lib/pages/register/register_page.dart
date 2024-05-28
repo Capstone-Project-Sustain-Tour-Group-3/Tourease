@@ -127,7 +127,45 @@ class RegisterPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                    ),
+                      const SizedBox(height: 5),
+                      Obx(() => RegisterButton(
+                            onPressed: registerController.isFormValid.value
+                                ? () {
+                                    if (registerController.isFormValid.value) {
+                                      Get.to(() =>
+                                          const RegisterVerificationPage());
+                                    } else {
+                                      Get.snackbar("Error",
+                                          "Harap periksa kembali semua field dan setujui syarat dan ketentuan",
+                                          backgroundColor:
+                                              ColorDanger.danger500,
+                                          colorText: ColorNeutral.neutral900);
+                                    }
+                                  }
+                                : () {},
+                            text: 'Daftar',
+                            isEnabled: registerController.isFormValid.value,
+                          )),
+                      const SizedBox(height: 10),
+                      Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text('Sudah punya akun? '),
+                            InkWell(
+                              onTap: () {
+                                Get.to(() =>  LoginPage());
+                              },
+                              child: Text(
+                                'Masuk',
+                                style:
+                                    TextStyle(color: ColorPrimary.primary500),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
