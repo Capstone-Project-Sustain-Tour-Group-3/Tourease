@@ -1,28 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tourease/constants/color_constant.dart';
-import 'package:tourease/controllers/login_controller.dart';
 import 'package:tourease/widgets/button_widget.dart';
 
-class ForgetPasswordForEmailButton extends StatelessWidget {
-   ForgetPasswordForEmailButton({super.key});
+import '../../controllers/login_controller.dart';
 
-final LoginController forgetPasswordController = Get.put(
+class VerificationOtpButtonSend extends StatelessWidget {
+   VerificationOtpButtonSend({super.key});
+
+ final LoginController verifyController = Get.put(
     LoginController(),
   );
 
- @override
+  @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 24),
       child: SizedBox(
         width: double.infinity,
         height: 48,
         child: ButtonWidget(
           onPressed: () {
-            forgetPasswordController.resendOtp();
+            verifyController.verifyOtp();
           },
-          text: 'Lanjut',
+          text: 'Kirim',
           textColor: ColorNeutral.neutral100,
         ),
       ),

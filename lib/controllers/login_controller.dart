@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tourease/model/login_response_model.dart';
 import 'package:tourease/pages/login/login_success_page.dart';
+import 'package:tourease/pages/login/verification_otp_page.dart';
 import 'package:tourease/services/auth_service.dart';
 import 'package:tourease/widgets/snackbar_widget.dart';
 
@@ -9,15 +10,23 @@ class LoginController extends GetxController {
   final errorMessageEmail = Rxn<String>();
   final errorMessagePassword = Rxn<String>();
   final errorMessageEmailForgetPassword = Rxn<String>();
-
+  final errorMessagenewPassword = Rxn<String>();
+  final errorMessagenewconfirmationNewPassword = Rxn<String>();
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController emailForgetPasswordController = TextEditingController();
-
+  TextEditingController otpController = TextEditingController();
+  TextEditingController newPasswordController = TextEditingController();
+  TextEditingController confirmationNewPasswordController =
+      TextEditingController();
 
   Rx<LoginResponseModel?> loginResponse = Rxn(LoginResponseModel());
   RxBool isLoadingLogin = false.obs;
+  RxBool isLoadingForgetPasswordForEmail = false.obs;
+  RxBool isLoadingVerify = false.obs;
+  RxString referenceId = ''.obs;
+  RxString otp = ''.obs;
 
   final RegExp emailRegExp = RegExp(
     r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
@@ -42,6 +51,31 @@ class LoginController extends GetxController {
     }
   }
 
+  void resendOtp() async {
+    isLoadingForgetPasswordForEmail.value = true;
+    try {
+      referenceId.value =
+          await AuthService().resendOtp(emailForgetPasswordController.text);
+      Get.to(() => VerificationOtpPage());
+    } catch (e) {
+      SnackbarWidget.showSnackbar(message: e.toString());
+    } finally {
+      isLoadingForgetPasswordForEmail.value = false;
+    }
+  }
+
+  void verifyOtp() async {
+    isLoadingVerify.value = true;
+    try {
+      await AuthService().verifyOtp(referenceId.value, otp.value);
+      Get.to(() => const LoginSuccessPage());
+    } catch (e) {
+      SnackbarWidget.showSnackbar(message: e.toString());
+    } finally {
+      isLoadingVerify.value = false;
+    }
+  }
+
   void validatorEmail(String value) {
     if (value.isEmpty) {
       errorMessageEmail.value = "Email tidak boleh kosong";
@@ -61,6 +95,7 @@ class LoginController extends GetxController {
       errorMessagePassword.value = null;
     }
   }
+
   void validatorEmailForgetPassword(String value) {
     if (value.isEmpty) {
       errorMessageEmailForgetPassword.value = "Email tidak boleh kosong";
@@ -68,6 +103,35 @@ class LoginController extends GetxController {
       errorMessageEmailForgetPassword.value = "Format email tidak valid";
     } else {
       errorMessageEmailForgetPassword.value = null;
+    }
+  }
+
+  void validateNewPassword(String value) {
+    if (value.isEmpty) {
+      errorMessagenewPassword.value = 'Password tidak boleh kosong';
+    } else if (value.length < 6) {
+      errorMessagenewPassword.value = "Password harus lebih dari 6 huruf";
+    } else if (confirmationNewPasswordController.text.isNotEmpty &&
+        value != confirmationNewPasswordController.text) {
+      errorMessagenewPassword.value =
+          'Password dan Konfirmasi Password harus sama';
+    } else {
+      errorMessagenewPassword.value = null;
+    }
+  }
+
+  void validateConfirmationPassword(String value) {
+    if (value.isEmpty) {
+      errorMessagenewconfirmationNewPassword.value =
+          'Konfirmasi Password tidak boleh kosong';
+    } else if (value.length < 6) {
+      errorMessagenewconfirmationNewPassword.value =
+          "Password harus lebih dari 6 huruf";
+    } else if (value != newPasswordController.text) {
+      errorMessagenewconfirmationNewPassword.value =
+          'Password dan Konfirmasi Password harus sama';
+    } else {
+      errorMessagenewconfirmationNewPassword.value = null;
     }
   }
 

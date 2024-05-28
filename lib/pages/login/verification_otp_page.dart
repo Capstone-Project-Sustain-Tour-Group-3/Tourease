@@ -2,22 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/status_bar_constant.dart';
-import 'package:tourease/controllers/login_controller.dart';
-import 'package:tourease/pages/login/forget_password_for_email_banner.dart';
-import 'package:tourease/pages/login/forget_password_for_email_button.dart';
-import 'package:tourease/pages/login/forget_password_for_email_form.dart';
-import 'package:tourease/pages/login/login_back.dart';
+import 'package:tourease/pages/login/verification_otp_back.dart';
+import 'package:tourease/pages/login/verification_otp_banner.dart';
+import 'package:tourease/pages/login/verification_otp_button_send.dart';
+import 'package:tourease/pages/login/verification_otp_form.dart';
+import 'package:tourease/pages/login/verification_otp_resend_code.dart';
 
-class ForgetPasswordForEmailPage extends StatelessWidget {
-  ForgetPasswordForEmailPage({super.key});
-  final LoginController forgetPasswordController = Get.put(
+import '../../controllers/login_controller.dart';
+
+class VerificationOtpPage extends StatelessWidget {
+  VerificationOtpPage({super.key});
+
+  final LoginController verifyController = Get.put(
     LoginController(),
   );
 
   @override
   Widget build(BuildContext context) {
     StatusBarConstant.statusBar;
-
     return Scaffold(
         backgroundColor: ColorNeutral.neutral50,
         body: Stack(
@@ -33,18 +35,16 @@ class ForgetPasswordForEmailPage extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const LoginBack(),
-                        const ForgetPasswordForEmailBanner(),
-                        ForgetPasswordForEmailForm(),
+                        const VerificationOtpBack(),
+                        const VerificationOtpBanner(),
+                        VerificationOtpForm(),
+                        VerificationOtpResendCode(),
                       ],
                     ),
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 24),
-                          child: ForgetPasswordForEmailButton(),
-                        )
+                        VerificationOtpButtonSend(),
                       ],
                     )
                   ],
@@ -52,8 +52,7 @@ class ForgetPasswordForEmailPage extends StatelessWidget {
               ),
             ),
             Obx(() {
-              if (forgetPasswordController
-                  .isLoadingForgetPasswordForEmail.value) {
+              if (verifyController.isLoadingVerify.value) {
                 return Container(
                   color: ColorNeutral.neutral900.withOpacity(0.5),
                   child: Center(

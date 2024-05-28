@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/pages/login/login_back.dart';
 import 'package:tourease/pages/login/login_success_banner.dart';
 import 'package:tourease/pages/login/login_success_button.dart';
@@ -9,6 +10,7 @@ class LoginSuccessPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorNeutral.neutral50,
       body: SingleChildScrollView(
         child: ConstrainedBox(
           constraints: BoxConstraints(

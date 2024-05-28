@@ -51,7 +51,7 @@ class LoginPage extends StatelessWidget {
                                 ),
                               ),
                               onTap: () {
-                                Get.to(() => const ForgetPasswordForEmailPage());
+                                Get.to(() =>  ForgetPasswordForEmailPage());
                               }),
                         )
                       ],
