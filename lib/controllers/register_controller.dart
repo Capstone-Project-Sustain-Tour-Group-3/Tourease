@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tourease/model/user_model.dart';
 import 'package:tourease/pages/register/register_verification_page.dart';
-import 'package:tourease/service/auth_service.dart';
+import 'package:tourease/services/auth_service.dart';
+import 'package:tourease/widgets/snackbar_widget.dart';
 
 class RegisterController extends GetxController {
   final errorMessageNamaPengguna = Rxn<String>();
@@ -12,7 +14,12 @@ class RegisterController extends GetxController {
   final errorMessagePassword = Rxn<String>();
   final isTermsAccepted = false.obs;
   final isFormValid = false.obs;
-  final isLoading = false.obs; 
+  RxBool isLoading = false.obs;
+  final isWaitingForOtp = false.obs;
+  final start = 60.obs;
+  Timer? _timer;
+  RxString otp = ''.obs;
+  RxString referenceId = ''.obs;
 
   TextEditingController namaPenggunaController = TextEditingController();
   TextEditingController namaLengkapController = TextEditingController();
@@ -53,6 +60,15 @@ class RegisterController extends GetxController {
       errorMessageNamaPengguna.value = "Nama Pengguna tidak boleh kosong";
     } else if (value.length < 2) {
       errorMessageNamaPengguna.value = "Nama Pengguna harus lebih dari 2 huruf";
+    } else if (value.contains(' ')) {
+      errorMessageNamaPengguna.value =
+          "Nama Pengguna tidak boleh mengandung spasi";
+    } else if (value.contains(RegExp(r'[!@#<>?":`~;[\]\\|=+)(*&^%-]'))) {
+      errorMessageNamaPengguna.value =
+          "Nama Pengguna tidak boleh mengandung karakter khusus";
+    } else if (value.contains(RegExp(r'[A-Z]'))) {
+      errorMessageNamaPengguna.value =
+          "Nama Pengguna tidak boleh mengandung huruf kapital";
     } else if (value.length > 16) {
       errorMessageNamaPengguna.value =
           "Nama Pengguna harus kurang dari 16 huruf";
@@ -85,6 +101,9 @@ class RegisterController extends GetxController {
   void validatorNomorTelepon(String value) {
     if (value.isEmpty) {
       errorMessageNomorTelepon.value = "Nomor Telepon tidak boleh kosong";
+    } else if (value.length < 11) {
+      errorMessageNomorTelepon.value =
+          "Nomor Telepon harus lebih dari 11 angka";
     } else {
       errorMessageNomorTelepon.value = null;
     }
@@ -117,13 +136,14 @@ class RegisterController extends GetxController {
         password: passwordController.text,
       );
 
-      isLoading.value = true; 
+      isLoading.value = true;
 
       try {
-        bool registrationSuccess = await AuthService().register(user);
-        if (registrationSuccess) {
-          Get.to(() => RegisterVerificationPage(email: user.email!));
-        }
+        referenceId.value = await AuthService().register(user);
+        Get.to(() => RegisterVerificationPage(
+              email: emailController.text,
+              referenceId: referenceId.value,
+            ));
       } catch (e) {
         String errorMessage = e.toString().replaceFirst('Exception: ', '');
         if (errorMessage.contains('username')) {
@@ -131,25 +151,41 @@ class RegisterController extends GetxController {
         } else if (errorMessage.contains('email')) {
           errorMessageEmail.value = errorMessage;
         } else {
-          Get.snackbar(
-            'Error',
-            errorMessage,
-            backgroundColor: Colors.red,
-            colorText: Colors.white,
-          );
+          SnackbarWidget.showSnackbar(message: errorMessage);
         }
         _validateForm();
       } finally {
-        isLoading.value = false; 
+        isLoading.value = false; // End loading
       }
     } else {
-      Get.snackbar(
-        'Error',
-        'Harap periksa kembali semua field dan setujui syarat dan ketentuan',
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-      );
+      SnackbarWidget.showSnackbar(
+          message:
+              'Harap periksa kembali semua field dan setujui syarat dan ketentuan');
     }
+  }
+
+  Future<void> resendOtp(String email) async {
+    try {
+      referenceId.value = await AuthService().resendOtp(email);
+      startTimer();
+    } catch (e) {}
+  }
+
+  void startTimer() {
+    isWaitingForOtp.value = true;
+    const oneSec = Duration(seconds: 1);
+    _timer = Timer.periodic(
+      oneSec,
+      (Timer timer) {
+        if (start.value == 0) {
+          timer.cancel();
+          isWaitingForOtp.value = false;
+          start.value = 60;
+        } else {
+          start.value--;
+        }
+      },
+    );
   }
 
   @override
@@ -159,6 +195,7 @@ class RegisterController extends GetxController {
     emailController.dispose();
     nomorTeleponController.dispose();
     passwordController.dispose();
+    _timer?.cancel();
     super.dispose();
   }
 }

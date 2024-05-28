@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:tourease/constants/assets_constant.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/status_bar_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
+import 'package:tourease/pages/login/login_page.dart';
 import 'package:tourease/pages/register/register_button.dart';
 import 'package:tourease/pages/register/register_back.dart';
 
@@ -51,7 +53,11 @@ class RegisterSuccessPage extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                     const Spacer(),
-                    RegisterButton(text: "Mulai", onPressed: () {})
+                    RegisterButton(
+                        text: "Mulai",
+                        onPressed: () {
+                          Get.to(() =>  LoginPage());
+                        })
                   ],
                 ),
               ),

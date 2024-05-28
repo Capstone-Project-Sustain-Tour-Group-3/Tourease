@@ -22,7 +22,6 @@ class UserModel {
       'email': email,
       'no_telepon': noTelepon,
       'password': password,
-      'reference_id': referenceId
     };
   }
 }

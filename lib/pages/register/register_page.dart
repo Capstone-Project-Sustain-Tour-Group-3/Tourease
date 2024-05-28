@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:tourease/constants/color_constant.dart';
-import 'package:tourease/constants/status_bar_constant.dart';
 import 'package:tourease/controllers/register_controller.dart';
 import 'package:tourease/pages/login/login_page.dart';
 import 'package:tourease/pages/register/register_back.dart';
@@ -16,8 +15,6 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    StatusBarConstant.statusBar;
-
     final RegisterController registerController = Get.put(RegisterController());
 
     SystemChrome.setSystemUIOverlayStyle(
@@ -30,10 +27,10 @@ class RegisterPage extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: ColorNeutral.neutral50,
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Column(
+      body: Stack(
+        children: [
+          SafeArea(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const RegisterBack(addSpace: false),
@@ -114,7 +111,7 @@ class RegisterPage extends StatelessWidget {
                                 const Text('Sudah punya akun? '),
                                 InkWell(
                                   onTap: () {
-                                    Get.to(() => const LoginPage());
+                                    Get.to(() => LoginPage());
                                   },
                                   child: Text(
                                     'Masuk',
@@ -127,63 +124,29 @@ class RegisterPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 5),
-                      Obx(() => RegisterButton(
-                            onPressed: registerController.isFormValid.value
-                                ? () {
-                                    if (registerController.isFormValid.value) {
-                                      Get.to(() =>
-                                          const RegisterVerificationPage());
-                                    } else {
-                                      Get.snackbar("Error",
-                                          "Harap periksa kembali semua field dan setujui syarat dan ketentuan",
-                                          backgroundColor:
-                                              ColorDanger.danger500,
-                                          colorText: ColorNeutral.neutral900);
-                                    }
-                                  }
-                                : () {},
-                            text: 'Daftar',
-                            isEnabled: registerController.isFormValid.value,
-                          )),
-                      const SizedBox(height: 10),
-                      Center(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text('Sudah punya akun? '),
-                            InkWell(
-                              onTap: () {
-                                Get.to(() =>  LoginPage());
-                              },
-                              child: Text(
-                                'Masuk',
-                                style:
-                                    TextStyle(color: ColorPrimary.primary500),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               ],
             ),
-            Obx(() {
-              if (registerController.isLoading.value) {
-                return Container(
-                  color: ColorNeutral.neutral900.withOpacity(0.5),
-                  child: Center(
-                    child: CircularProgressIndicator(),
+          ),
+          Obx(() {
+            if (registerController.isLoading.value) {
+              return Container(
+                color: ColorNeutral.neutral900.withOpacity(0.5),
+                child: Center(
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      ColorPrimary.primary500,
+                    ),
                   ),
-                );
-              } else {
-                return SizedBox.shrink();
-              }
-            }),
-          ],
-        ),
+                ),
+              );
+            } else {
+              return const SizedBox.shrink();
+            }
+          }),
+        ],
       ),
     );
   }
