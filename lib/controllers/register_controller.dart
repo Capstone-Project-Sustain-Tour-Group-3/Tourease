@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:tourease/model/user_model.dart';
 import 'package:tourease/pages/register/register_verification_page.dart';
 import 'package:tourease/services/auth_service.dart';
@@ -168,14 +166,14 @@ class RegisterController extends GetxController {
   }
 
   Future<void> resendOtp(String email) async {
-    isResendingOtp.value = true; 
+    isResendingOtp.value = true;
     try {
       referenceId.value = await AuthService().resendOtp(email);
       startTimer();
     } catch (e) {
       SnackbarWidget.showSnackbar(message: e.toString());
     } finally {
-      isResendingOtp.value = false; 
+      isResendingOtp.value = false;
     }
   }
 

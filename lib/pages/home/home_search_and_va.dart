@@ -5,7 +5,7 @@ import 'package:tourease/constants/assets_constant.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
 import 'package:tourease/pages/ai_chatbot/ai_chatbot_onboarding_page.dart';
-import 'package:tourease/pages/register/register_page.dart';
+import 'package:tourease/pages/destinasi/destinasi_search_page.dart';
 
 class HomeSearchVa extends StatelessWidget {
   const HomeSearchVa({super.key});
@@ -22,7 +22,7 @@ class HomeSearchVa extends StatelessWidget {
           Expanded(
             child: GestureDetector(
               onTap: () {
-                Get.to(() => const RegisterPage());
+                Get.to(() => const DestinasiSearchPage());
               },
               child: AbsorbPointer(
                 child: TextFormField(
@@ -41,7 +41,7 @@ class HomeSearchVa extends StatelessWidget {
                       Icons.search,
                       color: ColorNeutral.neutral500,
                     ),
-                    border: OutlineInputBorder(
+                    enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide(
                         color: ColorCollection.gray2,
