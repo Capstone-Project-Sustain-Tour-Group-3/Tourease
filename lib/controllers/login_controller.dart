@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tourease/constants/color_constant.dart';
-import 'package:tourease/constants/text_style_constant.dart';
 import 'package:tourease/model/login_response_model.dart';
 import 'package:tourease/pages/home/home_page.dart';
 import 'package:tourease/services/auth_service.dart';
+import 'package:tourease/widgets/snackbar_widget.dart';
 
 class LoginController extends GetxController {
   final errorMessageEmail = Rxn<String>();
@@ -27,29 +26,12 @@ class LoginController extends GetxController {
         Get.snackbar('Gagal Login', response.message.toString());
         return;
       }
-
       loginResponse.value = response;
       Get.to(() => const HomePage());
     } catch (e) {
-      Get.snackbar(
-        backgroundColor: ColorDanger.danger100,
-        'Gagal Login',
-        "Akun tidak ditemukan. Periksa kembali email dan password Anda",
-        titleText: Text(
-          'Gagal Login',
-          style: TextStyleCollection.bodyMedium.copyWith(
-            fontSize: 16,
-            color: ColorDanger.danger500,
-          ),
-        ),
-        messageText: Text(
-          'Akun tidak ditemukan. Periksa kembali email dan password Anda',
-          style: TextStyleCollection.caption.copyWith(
-            fontSize: 14,
-            color: ColorDanger.danger500,
-          ),
-        ),
-      );
+      SnackbarWidget.showSnackbar(
+          message:
+              'Akun tidak ditemukan. Periksa kembali email dan password Anda');
     } finally {
       isLoadingLogin.value = false;
     }
