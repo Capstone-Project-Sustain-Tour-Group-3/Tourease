@@ -4,11 +4,16 @@ import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
 
 class SnackbarWidget {
-  static void showSnackbar({required String message}) {
+  static void showSnackbar({
+    required String message,
+    Color? backgroundColor,
+    Color? textContainerColor,
+    Color? textColor,
+  }) {
     Get.snackbar(
       '',
       '',
-      backgroundColor: ColorDanger.danger100,
+      backgroundColor: backgroundColor ?? ColorDanger.danger100,
       titleText: Container(),
       borderRadius: 4,
       boxShadows: [
@@ -20,12 +25,12 @@ class SnackbarWidget {
       ],
       messageText: Center(
         child: Container(
-          color: ColorDanger.danger100,
+          color: textContainerColor ?? ColorDanger.danger100,
           child: Text(
             message,
             style: TextStyleCollection.caption.copyWith(
               fontSize: 14,
-              color: ColorDanger.danger500,
+              color: textColor ?? ColorDanger.danger500,
             ),
           ),
         ),
