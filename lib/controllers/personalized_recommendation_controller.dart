@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tourease/constants/color_constant.dart';
-import 'package:tourease/constants/text_style_constant.dart';
 import 'package:tourease/pages/personalized_recommendation/personalized_page_finish.dart';
 import 'package:tourease/pages/personalized_recommendation/personalized_page_location.dart';
 import 'package:tourease/pages/personalized_recommendation/personalized_page_tour_option.dart';
+import 'package:tourease/widgets/snackbar_widget.dart';
 
 class PersonalizedRecommendationController extends GetxController {
   var currentPage = 0.obs;
@@ -44,49 +43,18 @@ class PersonalizedRecommendationController extends GetxController {
   }
 
   void showFirstMaxChoiceDialog() {
-    Get.snackbar(
-      "Pilihan maksimal tercapai!",
-      "", // "Kamu telah memilih tiga pilihan provinsi"
-      snackPosition: SnackPosition.TOP,
+    SnackbarWidget.showSnackbar(
+      message: "Pilihan maksimal tercapai!",
       backgroundColor: ColorNeutral.neutral50,
-      colorText: ColorNeutral.neutral700,
-      boxShadows: [
-        BoxShadow(
-          color: ColorNeutral.neutral400,
-          offset: const Offset(0, 8),
-          blurRadius: 16,
-        ),
-      ],
-      titleText: Text(
-        "Pilihan maksimal tercapai!",
-        style: TextStyleCollection.caption.copyWith(
-          color: ColorNeutral.neutral700,
-        ),
-      ),
+      textContainerColor: ColorNeutral.neutral50,
+      textColor: ColorNeutral.neutral700,
     );
   }
 
   void showAlertMaxChoiceDialog() {
-    Get.snackbar(
-      "Pilihan sudah mencapai batas maksimal!",
-      "Hapus satu pilihan untuk menambahkan yang baru",
-      snackPosition: SnackPosition.TOP,
-      backgroundColor: ColorDanger.danger100,
-      colorText: ColorDanger.danger500,
-      boxShadows: [
-        BoxShadow(
-          color: ColorNeutral.neutral400,
-          offset: const Offset(0, 8),
-          blurRadius: 16,
-        ),
-      ],
-      titleText: Text(
-        "Pilihan sudah mencapai batas maksimal!",
-        style: TextStyleCollection.caption.copyWith(
-          color: ColorDanger.danger500,
-        ),
-      ),
-    );
+    SnackbarWidget.showSnackbar(
+        message:
+            "Pilihan sudah mencapai batas maksimal! \nHapus satu pilihan untuk menambahkan yang baru");
   }
 
   bool isTourOptionSelected(int index) {
