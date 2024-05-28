@@ -68,17 +68,21 @@ class LoginPage extends StatelessWidget {
               ),
             ),
             Obx(() {
-              if (loginController.isLoadingLogin.value) {
-               return Container(
-                  color: ColorNeutral.neutral900.withOpacity(0.5),
-                  child: const Center(
-                    child: CircularProgressIndicator(),
+            if (loginController.isLoadingLogin.value) {
+              return Container(
+                color: ColorNeutral.neutral900.withOpacity(0.5),
+                child: Center(
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      ColorPrimary.primary500,
+                    ),
                   ),
-                );
-              } else {
-              return  const SizedBox.shrink();
-              }
-            }),
+                ),
+              );
+            } else {
+              return const SizedBox.shrink();
+            }
+          }),
           ],
         ));
   }

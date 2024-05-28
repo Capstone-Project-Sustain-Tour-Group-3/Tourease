@@ -26,7 +26,7 @@ class LoginController extends GetxController {
   void login() async {
     isLoadingLogin.value = true;
     try {
-      final response = await AuthService.login(
+      final response = await AuthService().login(
         email: emailController.text,
         password: passwordController.text,
       );
