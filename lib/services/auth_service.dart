@@ -88,7 +88,7 @@ class AuthService {
     }
   }
 
-  // Login Method
+// Login Method
   Future<LoginResponseModel> login({
     required String email,
     required String password,

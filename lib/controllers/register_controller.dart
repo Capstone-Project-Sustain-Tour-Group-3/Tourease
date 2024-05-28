@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:tourease/model/user_model.dart';
 import 'package:tourease/pages/register/register_verification_page.dart';
 import 'package:tourease/services/auth_service.dart';
@@ -12,14 +14,15 @@ class RegisterController extends GetxController {
   final errorMessageEmail = Rxn<String>();
   final errorMessageNomorTelepon = Rxn<String>();
   final errorMessagePassword = Rxn<String>();
-  final isTermsAccepted = false.obs;
-  final isFormValid = false.obs;
+  RxBool isTermsAccepted = false.obs;
+  RxBool isFormValid = false.obs;
   RxBool isLoading = false.obs;
-  final isWaitingForOtp = false.obs;
+  RxBool isWaitingForOtp = false.obs;
   final start = 60.obs;
   Timer? _timer;
   RxString otp = ''.obs;
   RxString referenceId = ''.obs;
+  RxBool isResendingOtp = false.obs;
 
   TextEditingController namaPenggunaController = TextEditingController();
   TextEditingController namaLengkapController = TextEditingController();
@@ -165,10 +168,15 @@ class RegisterController extends GetxController {
   }
 
   Future<void> resendOtp(String email) async {
+    isResendingOtp.value = true; 
     try {
       referenceId.value = await AuthService().resendOtp(email);
       startTimer();
-    } catch (e) {}
+    } catch (e) {
+      SnackbarWidget.showSnackbar(message: e.toString());
+    } finally {
+      isResendingOtp.value = false; 
+    }
   }
 
   void startTimer() {
