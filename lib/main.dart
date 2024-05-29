@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/pages/home/home_page.dart';
 import 'package:tourease/pages/saved_route/saved_route_page_home.dart';
 
@@ -13,7 +14,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
+    return GetMaterialApp(
+      theme: ThemeData(
+        textSelectionTheme: TextSelectionThemeData(
+          selectionHandleColor: ColorPrimary.primary500,
+        ),
+      ),
       debugShowCheckedModeBanner: false,
       home: SavedRouteHomePage(),
     );

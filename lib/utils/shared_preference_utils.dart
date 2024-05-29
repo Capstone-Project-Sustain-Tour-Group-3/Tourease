@@ -54,8 +54,10 @@ class SharedPref {
   static void saveSearchHistory(String value) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     List<String> searchHistory = await getSearchHistory();
-    searchHistory.add(value);
-    await preferences.setStringList(_keySearchHistory, searchHistory);
+    if (!searchHistory.contains(value)) {
+      searchHistory.insert(0, value);
+      await preferences.setStringList(_keySearchHistory, searchHistory);
+    }
   }
 
   static Future<List<String>> getSearchHistory() async {
