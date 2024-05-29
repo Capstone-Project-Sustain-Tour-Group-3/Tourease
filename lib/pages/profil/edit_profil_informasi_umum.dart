@@ -1,9 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tourease/constants/assets_constant.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
 import 'package:tourease/pages/profil/edit_profil_container.dart';
+import 'package:tourease/pages/profil/ubah_sandi.dart';
 import 'package:tourease/widgets/text_form_field_widget.dart';
 
 class EditProfilInformasiUmum extends StatelessWidget {
@@ -59,7 +61,9 @@ class EditProfilInformasiUmum extends StatelessWidget {
           EditProfileContainer(
             asset: AssetsCollection.lock,
             text: 'Ubah Kata Sandi',
-            function: () {},
+            function: () {
+              Get.to(() => const UbahSandi());
+            },
           )
         ],
       ),
