@@ -25,4 +25,5 @@ class AssetsCollection {
   static String edit = 'assets/images/edit.svg';
   static String addLocation = 'assets/images/add_location.svg';
   static String campaign = 'assets/images/campaign.svg';
+  static String deleteRoute = 'assets/images/saved_route_delete.svg';
 }
