@@ -4,11 +4,16 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:tourease/constants/assets_constant.dart';
 import 'package:tourease/constants/color_constant.dart';
+import 'package:tourease/constants/status_bar_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
 import 'package:tourease/controllers/destinasi_controller.dart';
+import 'package:tourease/pages/destinasi/destinasi_page.dart';
+import 'package:tourease/widgets/search_text_form_field_widget.dart';
 
 class DestinasiSearchPage extends StatelessWidget {
-  const DestinasiSearchPage({super.key});
+  const DestinasiSearchPage({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +21,13 @@ class DestinasiSearchPage extends StatelessWidget {
       DestinasiController(),
     );
 
+    StatusBarConstant.statusBar;
+
     return Scaffold(
+      backgroundColor: ColorNeutral.neutral50,
       appBar: AppBar(
+        backgroundColor: ColorNeutral.neutral50,
+        surfaceTintColor: ColorNeutral.neutral50,
         leading: IconButton(
           onPressed: () {
             Get.back();
@@ -46,40 +56,27 @@ class DestinasiSearchPage extends StatelessWidget {
           Container(
             width: double.infinity,
             margin: const EdgeInsets.symmetric(horizontal: 16),
-            child: TextFormField(
+            child: SearchTextFormFieldWidget(
+              controller: destinasiController.searchDestinasiController,
               onFieldSubmitted: (value) {
                 if (value.isNotEmpty) {
                   destinasiController.saveSearchHistory(value);
+                  destinasiController.searchDestinasiController.clear();
+                  Get.off(
+                    () => DestinasiPage(
+                      searchText: value,
+                    ),
+                  );
                 }
               },
               autofocus: true,
-              style: TextStyleCollection.caption.copyWith(
-                color: ColorNeutral.neutral900,
-                fontSize: 14,
-              ),
               cursorColor: ColorNeutral.neutral900,
-              decoration: InputDecoration(
-                prefixIcon: Icon(
-                  Icons.search,
-                  color: ColorNeutral.neutral500,
-                ),
-                hintText: 'Cari destinasi...',
-                hintStyle: TextStyleCollection.caption.copyWith(
-                  color: ColorNeutral.neutral600,
-                  fontSize: 14,
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(
-                    color: ColorNeutral.neutral200,
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(
-                    color: ColorNeutral.neutral500,
-                  ),
-                ),
+              hintTextColor: ColorNeutral.neutral600,
+              enabledBorderColor: ColorNeutral.neutral200,
+              focusedBorderColor: ColorNeutral.neutral500,
+              prefixIcon: Icon(
+                Icons.search,
+                color: ColorNeutral.neutral500,
               ),
             ),
           ),
@@ -115,37 +112,48 @@ class DestinasiSearchPage extends StatelessWidget {
                                   itemCount:
                                       destinasiController.searchHistory.length,
                                   itemBuilder: (context, index) {
-                                    return Row(
-                                      children: [
-                                        Icon(
-                                          Icons.history,
-                                          color: ColorNeutral.neutral900,
-                                        ),
-                                        const SizedBox(
-                                          width: 12,
-                                        ),
-                                        AutoSizeText(
-                                          destinasiController
-                                              .searchHistory[index],
-                                          style: TextStyleCollection.bodyMedium
-                                              .copyWith(
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Get.off(
+                                          () => DestinasiPage(
+                                            searchText: destinasiController
+                                                .searchHistory[index],
+                                          ),
+                                        );
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.history,
                                             color: ColorNeutral.neutral900,
                                           ),
-                                          minFontSize: 16,
-                                          maxFontSize: 16,
-                                        ),
-                                        const Spacer(),
-                                        IconButton(
-                                          onPressed: () {
+                                          const SizedBox(
+                                            width: 12,
+                                          ),
+                                          AutoSizeText(
                                             destinasiController
-                                                .deleteSearchHistory(index);
-                                          },
-                                          icon: Icon(
-                                            Icons.close,
-                                            color: ColorNeutral.neutral900,
+                                                .searchHistory[index],
+                                            style: TextStyleCollection
+                                                .bodyMedium
+                                                .copyWith(
+                                              color: ColorNeutral.neutral900,
+                                            ),
+                                            minFontSize: 16,
+                                            maxFontSize: 16,
                                           ),
-                                        )
-                                      ],
+                                          const Spacer(),
+                                          IconButton(
+                                            onPressed: () {
+                                              destinasiController
+                                                  .deleteSearchHistory(index);
+                                            },
+                                            icon: Icon(
+                                              Icons.close,
+                                              color: ColorNeutral.neutral900,
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     );
                                   },
                                 ),
