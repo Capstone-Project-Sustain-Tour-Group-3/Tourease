@@ -3,9 +3,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:tourease/constants/assets_constant.dart';
 import 'package:tourease/constants/color_constant.dart';
-import 'package:tourease/constants/text_style_constant.dart';
 import 'package:tourease/pages/ai_chatbot/ai_chatbot_onboarding_page.dart';
 import 'package:tourease/pages/destinasi/destinasi_search_page.dart';
+import 'package:tourease/widgets/search_text_form_field_widget.dart';
 
 class HomeSearchVa extends StatelessWidget {
   const HomeSearchVa({super.key});
@@ -25,34 +25,15 @@ class HomeSearchVa extends StatelessWidget {
                 Get.to(() => const DestinasiSearchPage());
               },
               child: AbsorbPointer(
-                child: TextFormField(
+                child: SearchTextFormFieldWidget(
                   readOnly: true,
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 12,
-                    ),
-                    hintText: 'Cari destinasi...',
-                    hintStyle: TextStyleCollection.caption.copyWith(
-                      color: ColorCollection.gray2,
-                      fontSize: 14,
-                    ),
-                    suffixIcon: Icon(
-                      Icons.search,
-                      color: ColorNeutral.neutral500,
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(
-                        color: ColorCollection.gray2,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(
-                        color: ColorCollection.gray2,
-                      ),
-                    ),
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 12,
+                  ),
+                  suffixIcon: Icon(
+                    Icons.search,
+                    color: ColorNeutral.neutral500,
                   ),
                 ),
               ),
