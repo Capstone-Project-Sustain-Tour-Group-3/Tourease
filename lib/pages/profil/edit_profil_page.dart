@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tourease/constants/assets_constant.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
@@ -60,13 +61,14 @@ class EditProfilPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(
                     vertical: 24,
-                    horizontal: 16,
                   ),
                   child: SizedBox(
                     width: double.infinity,
                     height: 48,
                     child: ButtonWidget(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.back();
+                      },
                       text: 'Simpan',
                       textColor: ColorCollection.whitishGray,
                     ),

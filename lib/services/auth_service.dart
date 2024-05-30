@@ -5,7 +5,7 @@ import 'package:tourease/model/login_response_model.dart';
 
 class AuthService {
   final Dio _dio = Dio(BaseOptions(
-    baseUrl: 'https://api.tourease.my.id/v1',
+    baseUrl: 'https://api.tourease.my.id/v1/mobile',
     headers: {
       'accept': 'application/json',
       'Content-Type': 'application/json',
@@ -25,7 +25,6 @@ class AuthService {
       if (e.response != null && e.response?.statusCode == 409) {
         throw Exception(e.response?.data['message']);
       } else {
-        print('Error sending request: ${e.message}');
         throw Exception(
             'Terdapat kesalahan dalam mengirimkan permintaan, silahkan coba lagi');
       }
@@ -44,17 +43,13 @@ class AuthService {
       );
 
       if (response.statusCode == 200 && response.data['status'] == 'Success') {
-        print('OTP verification successful: ${response.data['message']}');
       } else {
-        print('Failed to verify OTP: ${response.data['message']}');
         throw Exception(response.data['message']);
       }
     } on DioException catch (e) {
       if (e.response != null) {
-        print('Error response: ${e.response?.data}');
         throw Exception(e.response?.data['message']);
       } else {
-        print('Error sending request: ${e.message}');
         throw Exception('Failed to send request');
       }
     }
@@ -71,18 +66,14 @@ class AuthService {
       );
 
       if (response.statusCode == 201 && response.data['status'] == 'Success') {
-        print('OTP resend successful: ${response.data['message']}');
         return response.data['data']['reference_id'];
       } else {
-        print('Failed to resend OTP: ${response.data['message']}');
         throw Exception(response.data['message']);
       }
     } on DioException catch (e) {
       if (e.response != null) {
-        print('Error response: ${e.response?.data}');
         throw Exception(e.response?.data['message']);
       } else {
-        print('Error sending request: ${e.message}');
         throw Exception('Failed to send request');
       }
     }
@@ -95,7 +86,7 @@ class AuthService {
   }) async {
     try {
       final response = await _dio.post(
-        'https://api.tourease.my.id/v1/auth/login',
+        '/auth/login',
         data: {
           'email': email,
           'password': password,
@@ -104,6 +95,32 @@ class AuthService {
       return LoginResponseModel.fromJson(response.data);
     } on DioException catch (e) {
       throw '$e';
+    }
+  }
+
+  Future<String> newPassword(
+      String refId, String password, String confirmPassword) async {
+    try {
+      final response = await _dio.put(
+        '/auth/forgot-password',
+        data: {
+          'ref_id': refId,
+          'password': password,
+          'konfirmasi_password': confirmPassword,
+        },
+      );
+
+      if (response.statusCode == 200 && response.data['status'] == 'Success') {
+        return response.data['message'];
+      } else {
+        throw Exception(response.data['message']);
+      }
+    } on DioException catch (e) {
+      if (e.response != null) {
+        throw Exception(e.response?.data['message']);
+      } else {
+        throw Exception('Failed to send request');
+      }
     }
   }
 }
