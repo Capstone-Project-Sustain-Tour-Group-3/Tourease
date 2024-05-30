@@ -10,8 +10,8 @@ import 'package:tourease/pages/saved_route/dummy_data.dart';
 import 'package:tourease/pages/saved_route/saved_route_page_detail.dart';
 import 'package:tourease/widgets/button_widget.dart';
 
-class SavedRouteWidgetListView extends StatelessWidget {
-  SavedRouteWidgetListView({super.key});
+class SavedRouteHomeListView extends StatelessWidget {
+  SavedRouteHomeListView({super.key});
 
   final List<Map<String, String>> plannedRoute =
       SavedRouteDummyData.plannedRoute;
@@ -22,7 +22,7 @@ class SavedRouteWidgetListView extends StatelessWidget {
       shrinkWrap: true,
       itemCount: plannedRoute.length,
       itemBuilder: (context, index) {
-        return SavedRouteListTile(
+        return SavedRouteHomeListTile(
           title: plannedRoute[index]['title']!,
           subtitle: plannedRoute[index]['subtitle']!,
         );
@@ -31,8 +31,8 @@ class SavedRouteWidgetListView extends StatelessWidget {
   }
 }
 
-class SavedRouteListTile extends StatelessWidget {
-  const SavedRouteListTile({
+class SavedRouteHomeListTile extends StatelessWidget {
+  const SavedRouteHomeListTile({
     super.key,
     required this.title,
     required this.subtitle,
@@ -50,9 +50,9 @@ class SavedRouteListTile extends StatelessWidget {
         savedRouteController.setSelectedRouteTitle(title);
         Get.to(()=> const SavedRouteDetailPage());
       },
-      child: Card(
-        color: ColorCollection.white,
-        surfaceTintColor: ColorCollection.white,
+      child: Card.outlined(
+        // color: ColorCollection.white,
+        // surfaceTintColor: ColorCollection.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(4),
           side: BorderSide(
@@ -121,7 +121,7 @@ Widget _buildDeleteConfirmationSheet(BuildContext context) {
           maxFontSize: 20,
         ),
         AutoSizeText(
-          'Rute yang sudah dihapus tidak bisa dikembalikan lagi.',
+          'Rute yang sudah dihapus tidak \nbisa dikembalikan lagi.',
           style: TextStyleCollection.captionMedium.copyWith(
             color: ColorNeutral.neutral800,
           ),
