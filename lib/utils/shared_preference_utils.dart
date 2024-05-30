@@ -4,6 +4,7 @@ String _keyLocation = 'location';
 String _keyLatitude = 'latitude';
 String _keyLongitude = 'longitude';
 String _keySearchHistory = 'history';
+String _keyToken = 'token';
 
 class SharedPref {
   static void saveLocation({required String location}) async {
@@ -71,5 +72,17 @@ class SharedPref {
     List<String> searchHistory = await getSearchHistory();
     searchHistory.removeAt(index);
     await preferences.setStringList(_keySearchHistory, searchHistory);
+  }
+
+  static void saveToken({required String token}) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+
+    await preferences.setString(_keyToken, token);
+  }
+
+  static Future<String?> getToken() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String? token = preferences.getString(_keyToken);
+    return token;
   }
 }

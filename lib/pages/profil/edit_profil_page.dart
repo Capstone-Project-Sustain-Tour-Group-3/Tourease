@@ -5,7 +5,6 @@ import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
 import 'package:tourease/pages/profil/edit_profil_informasi_tambahan.dart';
 import 'package:tourease/pages/profil/edit_profil_informasi_umum.dart';
-import 'package:tourease/pages/profil/profil_page.dart';
 import 'package:tourease/widgets/button_widget.dart';
 
 class EditProfilPage extends StatelessWidget {
