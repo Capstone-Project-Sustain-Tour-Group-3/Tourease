@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/status_bar_constant.dart';
+import 'package:tourease/controllers/login_controller.dart';
 import 'package:tourease/pages/login/login_back.dart';
 import 'package:tourease/pages/login/new_password_banner.dart';
 import 'package:tourease/pages/login/new_password_button.dart';
 import 'package:tourease/pages/login/new_password_form.dart';
 
 class NewPasswordPage extends StatelessWidget {
-  const NewPasswordPage({super.key});
-
+   NewPasswordPage({super.key});
+  final LoginController newPasswordController = Get.put(
+    LoginController(),
+  );
   @override
   Widget build(BuildContext context) {
     StatusBarConstant.statusBar;
@@ -42,22 +46,22 @@ class NewPasswordPage extends StatelessWidget {
                 ),
               ),
             ),
-            // Obx(() {
-            //   if (verifyController.isLoadingVerify.value) {
-            //     return Container(
-            //       color: ColorNeutral.neutral900.withOpacity(0.5),
-            //       child: Center(
-            //         child: CircularProgressIndicator(
-            //           valueColor: AlwaysStoppedAnimation<Color>(
-            //             ColorPrimary.primary500,
-            //           ),
-            //         ),
-            //       ),
-            //     );
-            //   } else {
-            //     return const SizedBox.shrink();
-            //   }
-            // }),
+            Obx(() {
+              if (newPasswordController.isLoadingNewPassword.value) {
+                return Container(
+                  color: ColorNeutral.neutral900.withOpacity(0.5),
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        ColorPrimary.primary500,
+                      ),
+                    ),
+                  ),
+                );
+              } else {
+                return const SizedBox.shrink();
+              }
+            }),
           ],
         ));
   }

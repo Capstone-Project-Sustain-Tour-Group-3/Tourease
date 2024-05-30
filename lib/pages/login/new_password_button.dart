@@ -8,7 +8,7 @@ import '../../controllers/login_controller.dart';
 class NewPasswordButton extends StatelessWidget {
    NewPasswordButton({super.key});
 
- final LoginController verifyController = Get.put(
+ final LoginController newPasswordController = Get.put(
     LoginController(),
   );
 
@@ -21,7 +21,7 @@ class NewPasswordButton extends StatelessWidget {
         height: 48,
         child: ButtonWidget(
           onPressed: () {
-            verifyController.verifyOtp();
+            newPasswordController.newPassword();
           },
           text: 'Lanjut',
           textColor: ColorNeutral.neutral100,

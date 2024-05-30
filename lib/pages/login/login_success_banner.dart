@@ -10,6 +10,7 @@ class LoginSuccessBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const SizedBox(height: 44),
         Center(

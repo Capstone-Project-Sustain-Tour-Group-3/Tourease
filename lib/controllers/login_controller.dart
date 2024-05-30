@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tourease/model/login_response_model.dart';
+import 'package:tourease/pages/login/login_page.dart';
 import 'package:tourease/pages/login/login_success_page.dart';
+import 'package:tourease/pages/login/new_password_page.dart';
 import 'package:tourease/pages/login/verification_otp_page.dart';
 import 'package:tourease/services/auth_service.dart';
+import 'package:tourease/utils/shared_preference_utils.dart';
 import 'package:tourease/widgets/snackbar_widget.dart';
 
 class LoginController extends GetxController {
@@ -25,6 +28,8 @@ class LoginController extends GetxController {
   RxBool isLoadingLogin = false.obs;
   RxBool isLoadingForgetPasswordForEmail = false.obs;
   RxBool isLoadingVerify = false.obs;
+  RxBool isLoadingNewPassword = false.obs;
+
   RxString referenceId = ''.obs;
   RxString otp = ''.obs;
 
@@ -39,8 +44,8 @@ class LoginController extends GetxController {
         email: emailController.text,
         password: passwordController.text,
       );
-
       loginResponse.value = response;
+      SharedPref.saveToken(token: response.data?.token ?? '');
       Get.to(() => const LoginSuccessPage());
     } catch (e) {
       SnackbarWidget.showSnackbar(
@@ -68,11 +73,25 @@ class LoginController extends GetxController {
     isLoadingVerify.value = true;
     try {
       await AuthService().verifyOtp(referenceId.value, otp.value);
-      Get.to(() => const LoginSuccessPage());
+      Get.to(() => NewPasswordPage());
     } catch (e) {
       SnackbarWidget.showSnackbar(message: e.toString());
     } finally {
       isLoadingVerify.value = false;
+    }
+  }
+
+  void newPassword() async {
+    isLoadingNewPassword.value = true;
+    try {
+      await AuthService().newPassword(referenceId.value,
+          newPasswordController.text, confirmationNewPasswordController.text);
+
+      Get.to(() => LoginPage());
+    } catch (e) {
+      SnackbarWidget.showSnackbar(message: e.toString());
+    } finally {
+      isLoadingNewPassword.value = false;
     }
   }
 

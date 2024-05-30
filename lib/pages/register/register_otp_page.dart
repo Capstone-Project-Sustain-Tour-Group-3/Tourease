@@ -16,10 +16,10 @@ class RegisterOtpPage extends StatelessWidget {
   final String email;
 
   const RegisterOtpPage({
-    Key? key,
+    super.key,
     required this.referenceId,
     required this.email,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

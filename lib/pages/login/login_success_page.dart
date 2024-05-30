@@ -1,44 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tourease/constants/color_constant.dart';
-import 'package:tourease/pages/login/login_back.dart';
 import 'package:tourease/pages/login/login_success_banner.dart';
-import 'package:tourease/pages/login/login_success_button.dart';
+
+import '../home/home_page.dart';
 
 class LoginSuccessPage extends StatelessWidget {
   const LoginSuccessPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Future.delayed(const Duration(seconds: 3), () {
+      Get.offAll(() => const HomePage());
+    });
     return Scaffold(
-      backgroundColor: ColorNeutral.neutral50,
-      body: SingleChildScrollView(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(
-            minHeight: MediaQuery.of(context).size.height,
-          ),
-          child: const Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  LoginBack(),
-                  LoginSuccessBanner(),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 24),
-                    child: LoginSuccessButton(),
-                  )
-                ],
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+        backgroundColor: ColorNeutral.neutral50,
+        body: const LoginSuccessBanner());
   }
 }

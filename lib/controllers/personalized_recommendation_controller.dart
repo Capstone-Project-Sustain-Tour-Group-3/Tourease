@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tourease/constants/color_constant.dart';
-import 'package:tourease/constants/text_style_constant.dart';
 import 'package:tourease/pages/personalized_recommendation/personalized_page_finish.dart';
 import 'package:tourease/pages/personalized_recommendation/personalized_page_location.dart';
 import 'package:tourease/pages/personalized_recommendation/personalized_page_tour_option.dart';
