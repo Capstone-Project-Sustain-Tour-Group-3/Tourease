@@ -18,6 +18,7 @@ class AssetsCollection {
   static String tourSejarah = 'assets/images/tour_sejarah.png';
   static String personalizedFinish = 'assets/images/personalized_success.svg';
   static String locationIcon = 'assets/images/location_icon.svg';
+  static String locationIcon2 = 'assets/images/location_icon2.svg';
   static String profilReview = 'assets/images/profil_user_review.png';
   static String fileUpload = 'assets/images/file_upload.png';
   static String lock = 'assets/images/lock.svg';
@@ -26,6 +27,9 @@ class AssetsCollection {
   static String addLocation = 'assets/images/add_location.svg';
   static String campaign = 'assets/images/campaign.svg';
   static String loginSuccess = 'assets/images/login_success.svg';
-
   static String deleteRoute = 'assets/images/saved_route_delete.svg';
+  static String parkingIcon = 'assets/images/parking_icon.svg';
+  static String dollarIcon = 'assets/images/dollar_icon.svg';
+  static String clockIcon = 'assets/images/clock_icon.svg';
+  static String bedIcon = 'assets/images/bed_icon.svg';
 }
