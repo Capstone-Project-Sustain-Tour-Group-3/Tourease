@@ -74,12 +74,12 @@ class FilterDestinasi extends StatelessWidget {
                                 .map(
                                   (kategori) => ChoiceChipWidget(
                                     isSelected: destinasiController
-                                        .kategoriPilihan
-                                        .contains(kategori),
-                                    labelText: kategori,
+                                            .kategoriPilihan.value ==
+                                        kategori.id,
+                                    labelText: kategori.kategori,
                                     onSelected: (selected) {
                                       destinasiController
-                                          .pilihKategori(kategori);
+                                          .pilihKategori(kategori.id);
                                     },
                                   ),
                                 )
@@ -127,7 +127,10 @@ class FilterDestinasi extends StatelessWidget {
                                 height: 48,
                                 child: ButtonWidget(
                                   onPressed: () {
-                                    destinasiController.aturUlang();
+                                    destinasiController.aturUlang(
+                                      searchText: destinasiController
+                                          .destinasiController.text,
+                                    );
                                     Get.back();
                                   },
                                   text: 'Atur Ulang',
@@ -147,6 +150,14 @@ class FilterDestinasi extends StatelessWidget {
                                 height: 48,
                                 child: ButtonWidget(
                                   onPressed: () {
+                                    String filter = destinasiController
+                                        .kategoriPilihan.value;
+                                    destinasiController.searchDestinasi(
+                                        search: destinasiController
+                                            .destinasiController.text,
+                                        filter: filter,
+                                        sort: destinasiController
+                                            .urutanPilihan.value);
                                     Get.back();
                                   },
                                   text: 'Terapkan',
@@ -174,7 +185,8 @@ class FilterDestinasi extends StatelessWidget {
           width: 47.5,
           height: 47.5,
           decoration: BoxDecoration(
-            color: destinasiController.kategoriPilihan.isNotEmpty
+            color: destinasiController.kategoriPilihan.isNotEmpty ||
+                    destinasiController.urutanPilihan.isNotEmpty
                 ? ColorPrimary.primary400
                 : ColorNeutral.neutral50,
             borderRadius: BorderRadius.circular(8),
@@ -182,7 +194,8 @@ class FilterDestinasi extends StatelessWidget {
           child: Center(
             child: Icon(
               Icons.filter_list,
-              color: destinasiController.kategoriPilihan.isNotEmpty
+              color: destinasiController.kategoriPilihan.isNotEmpty ||
+                      destinasiController.urutanPilihan.isNotEmpty
                   ? ColorNeutral.neutral50
                   : ColorPrimary.primary500,
             ),

@@ -21,7 +21,7 @@ class DetailDestinasiCarousel extends StatelessWidget {
             carouselController: controller.carouselController,
             itemCount: controller.imageUrls.length,
             itemBuilder: (context, index, realIndex) {
-              return Container(
+              return SizedBox(
                 width: double.infinity,
                 height: 200,
                 child: CachedNetworkImage(
@@ -30,7 +30,7 @@ class DetailDestinasiCarousel extends StatelessWidget {
                   placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator(),
                   ),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               );
             },

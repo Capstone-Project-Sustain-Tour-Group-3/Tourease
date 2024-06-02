@@ -12,6 +12,8 @@ class CardWidget extends StatelessWidget {
     required this.widthImage,
     required this.namaDestinasi,
     required this.lokasiDestinasi,
+    this.kategori,
+    this.view,
   });
 
   final String imageUrl;
@@ -19,6 +21,8 @@ class CardWidget extends StatelessWidget {
   final double widthImage;
   final String namaDestinasi;
   final String lokasiDestinasi;
+  final Widget? kategori;
+  final Widget? view;
 
   @override
   Widget build(BuildContext context) {
@@ -40,16 +44,25 @@ class CardWidget extends StatelessWidget {
                 topLeft: Radius.circular(12),
                 topRight: Radius.circular(12),
               ),
-              child: CachedNetworkImageWidget(
-                imageUrl: imageUrl,
-                height: heightImage,
-                width: widthImage,
-                fit: BoxFit.cover,
+              child: Stack(
+                children: [
+                  CachedNetworkImageWidget(
+                    imageUrl: imageUrl,
+                    height: heightImage,
+                    width: widthImage,
+                    fit: BoxFit.cover,
+                  ),
+                  view ?? const SizedBox.shrink(),
+                ],
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.only(
+              right: 12,
+              left: 12,
+              top: 12,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -77,6 +90,11 @@ class CardWidget extends StatelessWidget {
               ],
             ),
           ),
+          kategori != null
+              ? kategori!
+              : const SizedBox(
+                  height: 12,
+                ),
         ],
       ),
     );

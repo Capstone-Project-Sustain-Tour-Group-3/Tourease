@@ -12,6 +12,7 @@ class UbahSandi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorNeutral.neutral50,
       appBar: AppBar(
         toolbarHeight: 56,
       ),

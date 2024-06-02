@@ -6,8 +6,9 @@ import 'package:tourease/constants/assets_constant.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/status_bar_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
+import 'package:tourease/controllers/bottom_navbar_controller.dart';
 import 'package:tourease/controllers/destinasi_controller.dart';
-import 'package:tourease/pages/destinasi/destinasi_page.dart';
+import 'package:tourease/pages/bottom_navbar/bottom_navbar.dart';
 import 'package:tourease/widgets/search_text_form_field_widget.dart';
 
 class DestinasiSearchPage extends StatelessWidget {
@@ -21,6 +22,10 @@ class DestinasiSearchPage extends StatelessWidget {
       DestinasiController(),
     );
 
+    final BottomNavbarController bottomNavbarController = Get.put(
+      BottomNavbarController(),
+    );
+
     StatusBarConstant.statusBar;
 
     return Scaffold(
@@ -30,7 +35,14 @@ class DestinasiSearchPage extends StatelessWidget {
         surfaceTintColor: ColorNeutral.neutral50,
         leading: IconButton(
           onPressed: () {
-            Get.back();
+            if (destinasiController.destinasiController.text == '') {
+              bottomNavbarController.updateSearchText('');
+              Get.to(() => const BottomNavbar(initialIndex: 1));
+              destinasiController.destinasiController.clear();
+              destinasiController.searchDestinasiController.clear();
+            } else {
+              Get.back();
+            }
           },
           icon: Icon(
             Icons.arrow_back,
@@ -62,9 +74,10 @@ class DestinasiSearchPage extends StatelessWidget {
                 if (value.isNotEmpty) {
                   destinasiController.saveSearchHistory(value);
                   destinasiController.searchDestinasiController.clear();
+                  bottomNavbarController.updateSearchText(value);
                   Get.off(
-                    () => DestinasiPage(
-                      searchText: value,
+                    () => const BottomNavbar(
+                      initialIndex: 1,
                     ),
                   );
                 }
@@ -114,10 +127,13 @@ class DestinasiSearchPage extends StatelessWidget {
                                   itemBuilder: (context, index) {
                                     return GestureDetector(
                                       onTap: () {
+                                        bottomNavbarController.updateSearchText(
+                                          destinasiController
+                                              .searchHistory[index],
+                                        );
                                         Get.off(
-                                          () => DestinasiPage(
-                                            searchText: destinasiController
-                                                .searchHistory[index],
+                                          () => const BottomNavbar(
+                                            initialIndex: 1,
                                           ),
                                         );
                                       },

@@ -2,15 +2,18 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:tourease/model/user_model.dart';
 import 'package:tourease/model/login_response_model.dart';
+import 'package:tourease/utils/base_url.dart';
 
 class AuthService {
-  final Dio _dio = Dio(BaseOptions(
-    baseUrl: 'https://api.tourease.my.id/v1/mobile',
-    headers: {
-      'accept': 'application/json',
-      'Content-Type': 'application/json',
-    },
-  ));
+  final Dio _dio = Dio(
+    BaseOptions(
+      baseUrl: BaseUrl.urlAPI,
+      headers: {
+        'accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    ),
+  );
 
   // Register Method
   Future<String> register(UserModel user) async {

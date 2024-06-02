@@ -8,10 +8,10 @@ class FacilityCard extends StatelessWidget {
   final String label;
 
   const FacilityCard({
-    Key? key,
+    super.key,
     required this.iconAsset,
     required this.label,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

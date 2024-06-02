@@ -9,7 +9,7 @@ class DestinasiDetailDestinasiSerupa extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,7 +25,7 @@ class DestinasiDetailDestinasiSerupa extends StatelessWidget {
           const SizedBox(
             height: 16,
           ),
-          Container(
+          SizedBox(
             height: 228,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,

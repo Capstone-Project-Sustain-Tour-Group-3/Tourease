@@ -23,67 +23,70 @@ class LoginPage extends StatelessWidget {
     StatusBarConstant.statusBar;
 
     return Scaffold(
-        backgroundColor: ColorNeutral.neutral50,
-        body: Stack(
-          children: [
-            SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight: MediaQuery.of(context).size.height,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const LoginBack(),
-                        const LoginBanner(),
-                        LoginForm(),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 12, left: 16),
-                          child: GestureDetector(
-                              child: Text(
-                                'Lupa kata sandi?',
-                                style: TextStyleCollection.caption.copyWith(
-                                  color: ColorPrimary.primary500,
-                                  fontSize: 12,
-                                ),
+      backgroundColor: ColorNeutral.neutral50,
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: MediaQuery.of(context).size.height,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const LoginBack(),
+                      const LoginBanner(),
+                      LoginForm(),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 12, left: 16),
+                        child: GestureDetector(
+                            child: Text(
+                              'Lupa kata sandi?',
+                              style: TextStyleCollection.caption.copyWith(
+                                color: ColorPrimary.primary500,
+                                fontSize: 12,
                               ),
-                              onTap: () {
-                                Get.to(() =>  ForgetPasswordForEmailPage());
-                              }),
-                        )
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        LoginButton(),
-                        const LoginFooter(),
-                      ],
-                    ),
-                  ],
-                ),
+                            ),
+                            onTap: () {
+                              Get.to(() => ForgetPasswordForEmailPage());
+                            }),
+                      )
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      LoginButton(),
+                      const LoginFooter(),
+                    ],
+                  ),
+                ],
               ),
             ),
-            Obx(() {
-            if (loginController.isLoadingLogin.value) {
-              return Container(
-                color: ColorNeutral.neutral900.withOpacity(0.5),
-                child: Center(
-                  child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      ColorPrimary.primary500,
+          ),
+          Obx(
+            () {
+              if (loginController.isLoadingLogin.value) {
+                return Container(
+                  color: ColorNeutral.neutral900.withOpacity(0.5),
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        ColorPrimary.primary500,
+                      ),
                     ),
                   ),
-                ),
-              );
-            } else {
-              return const SizedBox.shrink();
-            }
-          }),
-          ],
-        ));
+                );
+              } else {
+                return const SizedBox.shrink();
+              }
+            },
+          ),
+        ],
+      ),
+    );
   }
 }
