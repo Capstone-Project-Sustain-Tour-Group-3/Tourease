@@ -33,3 +33,16 @@ class AssetsCollection {
   static String clockIcon = 'assets/images/clock_icon.svg';
   static String bedIcon = 'assets/images/bed_icon.svg';
 }
+
+class IconBottomNavbar {
+  static String homeBefore = 'assets/images/icon_home_outlined.svg';
+  static String homeAfter = 'assets/images/icon_home_filled.svg';
+  static String destinasiBefore =
+      'assets/images/icon_map_destination_outlined.svg';
+  static String destinasiAfter =
+      'assets/images/icon_map_destination_filled.svg';
+  static String ruteBefore = 'assets/images/icon_multiple_stop_outlined.svg';
+  static String ruteAfter = 'assets/images/icon_multiple_stop_filled.svg';
+  static String profilBefore = 'assets/images/icon_person_outlined.svg';
+  static String profilAfter = 'assets/images/icon_person_filled.svg';
+}

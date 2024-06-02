@@ -45,7 +45,10 @@ class LoginController extends GetxController {
         password: passwordController.text,
       );
       loginResponse.value = response;
-      SharedPref.saveToken(token: response.data?.token ?? '');
+      SharedPref.saveAccessToken(
+          token: loginResponse.value?.data?.accessToken ?? '-');
+      SharedPref.saveRefreshToken(
+          resfreshToken: loginResponse.value?.data?.refreshToken ?? '-');
       Get.to(() => const LoginSuccessPage());
     } catch (e) {
       SnackbarWidget.showSnackbar(

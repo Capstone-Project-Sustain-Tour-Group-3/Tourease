@@ -20,14 +20,6 @@ class DestinasiSearchAndFilter extends StatelessWidget {
       DestinasiController(),
     );
 
-    if (searchText != null && searchText!.isNotEmpty) {
-      WidgetsBinding.instance.addPostFrameCallback(
-        (_) {
-          destinasiController.destinasiController.text = searchText!;
-        },
-      );
-    }
-
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 16),
@@ -36,10 +28,14 @@ class DestinasiSearchAndFilter extends StatelessWidget {
           Expanded(
             child: GestureDetector(
               onTap: () {
-                Get.off(
+                Get.to(
                   () => const DestinasiSearchPage(),
                 );
-                destinasiController.destinasiController.clear();
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  destinasiController.destinasiController.clear();
+                  destinasiController.kategoriPilihan.value = '';
+                  destinasiController.urutanPilihan.value = '';
+                });
               },
               child: AbsorbPointer(
                 child: SearchTextFormFieldWidget(

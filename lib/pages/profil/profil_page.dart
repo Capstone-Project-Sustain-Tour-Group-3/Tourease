@@ -13,7 +13,9 @@ class ProfilPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorNeutral.neutral50,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text(
           'Profil',
           style: TextStyleCollection.subtitleBold.copyWith(fontSize: 18),

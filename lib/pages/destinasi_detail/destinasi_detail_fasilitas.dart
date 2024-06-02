@@ -26,12 +26,12 @@ class DestinasiDetailFasilitas extends StatelessWidget {
                 iconAsset: AssetsCollection.parkingIcon,
                 label: 'Area Parkir',
               ),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               FacilityCard(
                 iconAsset: AssetsCollection.bedIcon,
                 label: 'Penginapan',
               ),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               FacilityCard(
                 iconAsset: AssetsCollection.bedIcon,
                 label: 'Tempat Makan',

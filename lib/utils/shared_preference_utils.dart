@@ -4,7 +4,8 @@ String _keyLocation = 'location';
 String _keyLatitude = 'latitude';
 String _keyLongitude = 'longitude';
 String _keySearchHistory = 'history';
-String _keyToken = 'token';
+String _keyAccessToken = 'access_token';
+String _keyRefreshToken = 'refresh_token';
 
 class SharedPref {
   static void saveLocation({required String location}) async {
@@ -74,15 +75,39 @@ class SharedPref {
     await preferences.setStringList(_keySearchHistory, searchHistory);
   }
 
-  static void saveToken({required String token}) async {
+  static void saveAccessToken({required String token}) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
 
-    await preferences.setString(_keyToken, token);
+    await preferences.setString(_keyAccessToken, token);
   }
 
-  static Future<String?> getToken() async {
+  static Future<String?> getAccessToken() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    String? token = preferences.getString(_keyToken);
+    String? token = preferences.getString(_keyAccessToken);
     return token;
+  }
+
+  static void saveRefreshToken({required String resfreshToken}) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+
+    await preferences.setString(_keyRefreshToken, resfreshToken);
+  }
+
+  static Future<String?> getRefreshToken() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String? token = preferences.getString(_keyRefreshToken);
+    return token;
+  }
+
+  static void removeAccessToken() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+
+    preferences.remove(_keyAccessToken);
+  }
+
+  static void removeAll() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+
+    preferences.clear();
   }
 }

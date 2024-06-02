@@ -1,7 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
+import 'package:tourease/controllers/bottom_navbar_controller.dart';
+import 'package:tourease/pages/bottom_navbar/bottom_navbar.dart';
 import 'package:tourease/pages/home/home_card_destinasi.dart';
 
 class HomeListDestinasi extends StatelessWidget {
@@ -9,6 +12,10 @@ class HomeListDestinasi extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final BottomNavbarController bottomNavbarController = Get.put(
+      BottomNavbarController(),
+    );
+
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 16),
@@ -55,7 +62,15 @@ class HomeListDestinasi extends StatelessWidget {
                       ),
                     ),
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        bottomNavbarController.selectedIndex.value = 1;
+                        Get.to(
+                          () => BottomNavbar(
+                            initialIndex:
+                                bottomNavbarController.selectedIndex.value,
+                          ),
+                        );
+                      },
                       child: Card(
                         color: ColorCollection.transparent,
                         shadowColor: ColorCollection.transparent,

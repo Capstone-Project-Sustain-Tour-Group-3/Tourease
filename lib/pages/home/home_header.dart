@@ -5,7 +5,9 @@ import 'package:get/get.dart';
 import 'package:tourease/constants/assets_constant.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
+import 'package:tourease/controllers/bottom_navbar_controller.dart';
 import 'package:tourease/controllers/home_controller.dart';
+import 'package:tourease/pages/bottom_navbar/bottom_navbar.dart';
 import 'package:tourease/widgets/cached_network_image_widget.dart';
 
 class HomeHeader extends StatelessWidget {
@@ -15,6 +17,10 @@ class HomeHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final HomeController homeController = Get.put(HomeController());
 
+    final BottomNavbarController bottomNavbarController = Get.put(
+      BottomNavbarController(),
+    );
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: Container(
@@ -22,18 +28,28 @@ class HomeHeader extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 16),
         child: Row(
           children: [
-            Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                color: ColorPrimary.primary900,
-                borderRadius: BorderRadius.circular(35),
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(35),
-                child: const CachedNetworkImageWidget(
-                  imageUrl:
-                      'https://s3-alpha-sig.figma.com/img/964e/f072/9a6eefcbb85b20d81969a7235b4ac143?Expires=1717372800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=f5M4gc5qMeZZ3i9q9VfgQLyFLAEZJeuNEl-b~7zv3oDpvK7W~K5SQFfYkTqNd8laguwjkhk9ceCmCp0ZRYmh6bpMNmg5H-2V1WJy5PG2w26VZwYJatYbH6CJHJ8cU4--GDGU5wdY2lOfljysidH31p0drFgx4rZ1XWtu9LmmEBl8MY7TL7f9uBAa~4sRAhr0APTWAGvcISYqWyNRZDxMPB2DXfRZCkL83teh1HMJRZd54MmVcR0QEyo0u-hcNxv6Xftq~hqSWDn1m1cc32GISbUTdQrsR-osZ4yJtnNHS00vPt8gdb6flVmpVN7SyiNXDxSioIWaxAfhhx-UrsDKdg__',
+            GestureDetector(
+              onTap: () {
+                bottomNavbarController.selectedIndex.value = 2;
+                Get.off(
+                  () => BottomNavbar(
+                    initialIndex: bottomNavbarController.selectedIndex.value,
+                  ),
+                );
+              },
+              child: Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: ColorPrimary.primary900,
+                  borderRadius: BorderRadius.circular(35),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(35),
+                  child: const CachedNetworkImageWidget(
+                    imageUrl:
+                        'https://s3-alpha-sig.figma.com/img/964e/f072/9a6eefcbb85b20d81969a7235b4ac143?Expires=1717372800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=f5M4gc5qMeZZ3i9q9VfgQLyFLAEZJeuNEl-b~7zv3oDpvK7W~K5SQFfYkTqNd8laguwjkhk9ceCmCp0ZRYmh6bpMNmg5H-2V1WJy5PG2w26VZwYJatYbH6CJHJ8cU4--GDGU5wdY2lOfljysidH31p0drFgx4rZ1XWtu9LmmEBl8MY7TL7f9uBAa~4sRAhr0APTWAGvcISYqWyNRZDxMPB2DXfRZCkL83teh1HMJRZd54MmVcR0QEyo0u-hcNxv6Xftq~hqSWDn1m1cc32GISbUTdQrsR-osZ4yJtnNHS00vPt8gdb6flVmpVN7SyiNXDxSioIWaxAfhhx-UrsDKdg__',
+                  ),
                 ),
               ),
             ),

@@ -13,6 +13,7 @@ class EditProfilPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorNeutral.neutral50,
       appBar: AppBar(
         backgroundColor: ColorNeutral.neutral50,
         surfaceTintColor: ColorNeutral.neutral50,

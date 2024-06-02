@@ -11,7 +11,8 @@ class VideoController extends GetxController {
   @override
   void onInit() {
     videoPlayerController = VideoPlayerController.networkUrl(
-      Uri.parse('https://assets.mixkit.co/videos/1259/1259-720.mp4'),
+      Uri.parse(
+          'https://storage.googleapis.com/provinces_url/video_url/pantai_losari.mp4'),
     )..initialize().then(
         (_) {
           isInitialized.value = true;
