@@ -122,20 +122,20 @@ class DestinasiController extends GetxController {
             sort: sort,
             filter: filter,
           );
-        } else if ((e.response?.statusCode == 400 &&
-                e.response?.data['message'] == 'Token tidak boleh kosong') ||
-            (e.response?.statusCode == 401 &&
-                e.response?.data['message'] == 'Token tidak valid')) {
-          logoutController.endSession();
-          SnackbarWidget.showSnackbar(
-            message: 'Sesi anda telah berakhir, mohon untuk login ulang',
-          );
-          Get.offAll(() => const SplashPage());
-        } else {
-          SnackbarWidget.showSnackbar(
-            message: e.toString(),
-          );
         }
+      } else if ((e.response?.statusCode == 400 &&
+              e.response?.data['message'] == 'Token tidak boleh kosong') ||
+          (e.response?.statusCode == 401 &&
+              e.response?.data['message'] == 'Token tidak valid')) {
+        logoutController.endSession();
+        SnackbarWidget.showSnackbar(
+          message: 'Sesi anda telah berakhir, mohon untuk login ulang',
+        );
+        Get.offAll(() => const SplashPage());
+      } else {
+        SnackbarWidget.showSnackbar(
+          message: e.toString(),
+        );
       }
     } finally {
       isLoadingSearchDestinasi.value = false;
