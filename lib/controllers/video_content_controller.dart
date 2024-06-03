@@ -12,7 +12,7 @@ class VideoController extends GetxController {
   void onInit() {
     videoPlayerController = VideoPlayerController.networkUrl(
       Uri.parse(
-          'https://storage.googleapis.com/provinces_url/video_url/pantai_losari.mp4'),
+          'https://videos.pexels.com/video-files/20770858/20770858-hd_1080_1920_30fps.mp4'),
     )..initialize().then(
         (_) {
           isInitialized.value = true;

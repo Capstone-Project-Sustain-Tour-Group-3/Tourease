@@ -5,6 +5,7 @@ import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/status_bar_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
 import 'package:tourease/controllers/video_content_controller.dart';
+import 'package:tourease/pages/video_content/video_content_play_and_pause.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoContentPage extends StatelessWidget {
@@ -19,6 +20,8 @@ class VideoContentPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: ColorNeutral.neutral50,
       appBar: AppBar(
+        backgroundColor: ColorNeutral.neutral50,
+        surfaceTintColor: ColorNeutral.neutral50,
         leading: IconButton(
           onPressed: () {
             Get.back();
@@ -38,96 +41,80 @@ class VideoContentPage extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: Stack(
-        children: [
-          Obx(
-            () {
-              if (videoController.isInitialized.value) {
-                return Center(
-                  child: AspectRatio(
+      body: Obx(
+        () {
+          if (videoController.isInitialized.value) {
+            return SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AspectRatio(
                     aspectRatio: 9 / 16,
                     child: GestureDetector(
                       onTap: () {
                         videoController.playPause();
                       },
-                      child: Container(
+                      child: SizedBox(
                         width: double.infinity,
                         height: double.infinity,
-                        margin: const EdgeInsets.all(4),
                         child: Stack(
                           children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
-                              child: VideoPlayer(
-                                videoController.videoPlayerController,
-                              ),
+                            VideoPlayer(
+                              videoController.videoPlayerController,
                             ),
-                            Positioned(
-                              bottom: 12,
-                              left: 12,
-                              right: 12,
-                              child: SizedBox(
-                                width: double.infinity,
-                                child: AutoSizeText(
-                                  'Membatik dan belajar sejarah keraton di museum Ullen Sentalu',
-                                  style:
-                                      TextStyleCollection.captionBold.copyWith(
-                                    color: ColorCollection.lightGray,
-                                  ),
-                                  minFontSize: 14,
-                                  maxFontSize: 16,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            )
+                            VideoContentPlayAndPause(
+                              videoController: videoController,
+                            ),
                           ],
                         ),
                       ),
                     ),
                   ),
-                );
-              } else {
-                return Center(
-                  child: SizedBox(
-                    width: 50,
-                    height: 50,
-                    child: CircularProgressIndicator(
-                      color: ColorPrimary.primary500,
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                    ),
+                    child: Text(
+                      'Deskripsi',
+                      style: TextStyleCollection.captionBold.copyWith(
+                        color: ColorPrimary.primary500,
+                        fontSize: 14,
+                      ),
+                      textAlign: TextAlign.justify,
                     ),
                   ),
-                );
-              }
-            },
-          ),
-          Obx(
-            () {
-              if (videoController.isCompleted.value) {
-                WidgetsBinding.instance.addPostFrameCallback(
-                  (_) {
-                    videoController.replayVideo();
-                  },
-                );
-                return const SizedBox.shrink();
-              } else if (videoController.isPlaying.value == false) {
-                return Center(
-                  child: IconButton(
-                    onPressed: () {
-                      videoController.playPause();
-                    },
-                    icon: Icon(
-                      Icons.play_arrow,
-                      size: 48,
-                      color: ColorNeutral.neutral50,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 12,
                     ),
-                  ),
-                );
-              } else {
-                return const SizedBox.shrink();
-              }
-            },
-          ),
-        ],
+                    child: Text(
+                      'Menikmati Pemandangan Indah Setelah Menelusuri Goa Jomblang di Gunung Kidul menjadi puncak kepuasan setelah petualangan yang mendebarkan di dalam goa. Dengan tiupan angin yang segar dan panorama alam yang menakjubkan, momen ini benar-benar menyegarkan jiwa dan pikiran.',
+                      style: TextStyleCollection.captionMedium.copyWith(
+                        color: ColorNeutral.neutral900,
+                        fontSize: 14,
+                      ),
+                      textAlign: TextAlign.justify,
+                    ),
+                  )
+                ],
+              ),
+            );
+          } else {
+            return Center(
+              child: SizedBox(
+                width: 50,
+                height: 50,
+                child: CircularProgressIndicator(
+                  color: ColorPrimary.primary500,
+                ),
+              ),
+            );
+          }
+        },
       ),
     );
   }

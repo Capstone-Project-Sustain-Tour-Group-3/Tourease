@@ -9,13 +9,16 @@ class LoginSuccessPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 2), () {
-      Get.offAll(
-        () => const BottomNavbar(
-          initialIndex: 1,
-        ),
-      );
-    });
+    Future.delayed(
+      const Duration(seconds: 2),
+      () {
+        Get.offAll(
+          () => const BottomNavbar(
+            initialIndex: 0,
+          ),
+        );
+      },
+    );
     return Scaffold(
         backgroundColor: ColorNeutral.neutral50,
         body: const LoginSuccessBanner());
