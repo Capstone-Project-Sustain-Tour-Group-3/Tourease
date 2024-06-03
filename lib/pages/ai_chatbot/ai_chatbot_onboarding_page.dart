@@ -74,7 +74,7 @@ class AiChatbotOnboarding extends StatelessWidget {
             height: 48,
             child: ButtonWidget(
               onPressed: () {
-                Get.to(
+                Get.off(
                   () => const AiChatbotPage(),
                 );
               },

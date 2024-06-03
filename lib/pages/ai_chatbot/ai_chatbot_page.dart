@@ -23,15 +23,7 @@ class _AiChatbotPageState extends State<AiChatbotPage> {
     final AiChatbotController aiChatbotController = Get.put(
       AiChatbotController(),
     );
-    ChatUser currentUser = ChatUser(
-      id: '0',
-      firstName: 'Eqi',
-    );
-    ChatUser aiUser = ChatUser(
-      id: '1',
-      firstName: 'AI',
-      profileImage: AssetsCollection.chatbotIcon,
-    );
+
     return Scaffold(
       appBar: AppBar(
         scrolledUnderElevation: 0.0,
@@ -104,7 +96,9 @@ class _AiChatbotPageState extends State<AiChatbotPage> {
       ),
       body: Obx(
         () => DashChat(
-          currentUser: currentUser,
+          typingUsers: aiChatbotController.typingList,
+          currentUser: aiChatbotController.currentUser,
+          messages: aiChatbotController.messages.toList(),
           messageOptions: MessageOptions(
             messageTextBuilder: (message, previousMessage, nextMessage) {
               return Text(
@@ -159,9 +153,8 @@ class _AiChatbotPageState extends State<AiChatbotPage> {
                   hintStyle:
                       TextStyleCollection.caption.copyWith(fontSize: 14))),
           onSend: (ChatMessage m) {
-            aiChatbotController.sendMessage(m, aiUser);
+            aiChatbotController.sendMessage(m);
           },
-          messages: aiChatbotController.messages.toList(),
         ),
       ),
     );
