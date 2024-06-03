@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tourease/constants/assets_constant.dart';
 import 'package:tourease/constants/color_constant.dart';
+import 'package:tourease/pages/login/login_page.dart';
 import 'package:tourease/services/refresh_token_and_logout_service.dart';
 import 'package:tourease/utils/shared_preference_utils.dart';
 import 'package:tourease/widgets/snackbar_widget.dart';
@@ -104,7 +105,10 @@ class AiChatbotController extends GetxController {
           // If token refreshed successfully, reconnect WebSocket
           _reconnectWebSocket();
         } else {
-          errorMessage.value = 'Refresh token gagal, silahkan login kembali';
+          errorMessage.value =
+              'Sesi anda telah berakhir, silahkan login kembali';
+          SharedPref.removeAll();
+          Get.offAll(() => LoginPage());
         }
       },
     );
