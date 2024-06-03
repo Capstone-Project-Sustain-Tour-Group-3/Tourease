@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:tourease/controllers/logout_controller.dart';
 import 'package:tourease/model/kategori_destinasi_model.dart';
 import 'package:tourease/model/search_destinasi_response.dart';
-import 'package:tourease/pages/splash/splash_page.dart';
+import 'package:tourease/pages/login/login_page.dart';
 import 'package:tourease/services/destinasi_service.dart';
 import 'package:tourease/services/refresh_token_and_logout_service.dart';
 import 'package:tourease/utils/shared_preference_utils.dart';
@@ -123,25 +123,12 @@ class DestinasiController extends GetxController {
             filter: filter,
           );
         } else {
-          if ((e.response?.statusCode == 400 &&
-                  e.response?.data['message'] == 'Token tidak boleh kosong') ||
-              (e.response?.statusCode == 401 &&
-                  e.response?.data['message'] == 'Token tidak valid')) {
-            logoutController.endSession();
-            SnackbarWidget.showSnackbar(
-              message: 'Sesi anda telah berakhir, mohon untuk login ulang',
-            );
-            Get.offAll(() => const SplashPage());
-          } else {
-            SnackbarWidget.showSnackbar(
-              message: e.toString(),
-            );
-          }
+          SnackbarWidget.showSnackbar(
+            message: 'Sesi anda telah berakhir, silahkan login kembali',
+          );
+          SharedPref.removeAll();
+          Get.offAll(() => LoginPage());
         }
-      } else {
-        SnackbarWidget.showSnackbar(
-          message: e.toString(),
-        );
       }
     } finally {
       isLoadingSearchDestinasi.value = false;

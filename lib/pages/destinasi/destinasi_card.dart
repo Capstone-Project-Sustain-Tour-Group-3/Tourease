@@ -61,26 +61,27 @@ class DestinasiCard extends StatelessWidget {
           ),
           kategori: Padding(
             padding: const EdgeInsets.all(12),
-            child: Container(
-              height: 30,
-              width: 75,
-              decoration: BoxDecoration(
-                color: ColorNeutral.neutral100,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                  ),
-                  child: Text(
-                    kategori,
-                    style: TextStyleCollection.caption.copyWith(
-                      fontSize: 12,
-                      color: ColorNeutral.neutral600,
+            child: IntrinsicWidth(
+              child: Container(
+                height: 30,
+                decoration: BoxDecoration(
+                  color: ColorNeutral.neutral100,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
                     ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                    child: Text(
+                      kategori,
+                      style: TextStyleCollection.caption.copyWith(
+                        fontSize: 12,
+                        color: ColorNeutral.neutral600,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ),
               ),
