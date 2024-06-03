@@ -28,7 +28,16 @@ class HomeController extends GetxController {
         currentLocation.value!.longitude,
       );
       if (placemark.isNotEmpty) {
-        currentCity.value = placemark[0].subAdministrativeArea;
+        currentCity.value = placemark[0]
+            .subAdministrativeArea!
+            .replaceAll(
+              RegExp(
+                r'\b(?:kabupaten|kota|regency|city)\b',
+                caseSensitive: false,
+              ),
+              '',
+            )
+            .trim();
         SharedPref.saveLocation(location: currentCity.value!);
         SharedPref.saveLatitudeLongitude(
           latitude: currentLocation.value!.latitude.toString(),
