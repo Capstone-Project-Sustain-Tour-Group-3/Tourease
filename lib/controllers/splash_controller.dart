@@ -25,7 +25,7 @@ class SplashController extends GetxController {
         } else {
           Get.offAll(
             () => const BottomNavbar(
-              initialIndex: 1,
+              initialIndex: 0,
             ),
           );
         }

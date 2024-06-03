@@ -27,7 +27,11 @@ class DestinasiPage extends StatelessWidget {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       destinasiController.destinasiController.text = searchText ?? '';
-      destinasiController.searchDestinasi(search: searchText);
+      destinasiController.searchDestinasi(
+        search: searchText,
+        sort: destinasiController.urutanPilihan.value,
+        filter: destinasiController.kategoriPilihan.value,
+      );
     });
 
     return Scaffold(
