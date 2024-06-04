@@ -56,6 +56,16 @@ class EditProfilInformasiUmum extends StatelessWidget {
             colorTitleText: ColorNeutral.neutral900,
           ),
           const SizedBox(
+            height: 19,
+          ),
+          TextFormFieldWidget(
+            keyboardType: TextInputType.phone,
+            titleForm: 'Nomor Telepon',
+            hintText: 'Masukkan nomor telepon anda',
+            isPassword: false,
+            colorTitleText: ColorNeutral.neutral900,
+          ),
+          const SizedBox(
             height: 24,
           ),
           EditProfileContainer(
