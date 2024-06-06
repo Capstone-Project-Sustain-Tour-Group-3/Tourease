@@ -22,7 +22,11 @@ class HomeSearchVa extends StatelessWidget {
           Expanded(
             child: GestureDetector(
               onTap: () {
-                Get.to(() => const DestinasiSearchPage());
+                Get.to(
+                  () => const DestinasiSearchPage(
+                    isFromHomePage: true,
+                  ),
+                );
               },
               child: AbsorbPointer(
                 child: SearchTextFormFieldWidget(
