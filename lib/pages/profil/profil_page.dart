@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:tourease/constants/assets_constant.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
+import 'package:tourease/controllers/bottom_navbar_controller.dart';
+import 'package:tourease/pages/bottom_navbar/bottom_navbar.dart';
 import 'package:tourease/pages/profil/edit_profil_page.dart';
 import 'package:tourease/pages/profil/profil_container.dart';
 import 'package:tourease/pages/profil/profil_logout_container.dart';
@@ -12,68 +14,84 @@ class ProfilPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ColorNeutral.neutral50,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text(
-          'Profil',
-          style: TextStyleCollection.subtitleBold.copyWith(fontSize: 18),
+    final BottomNavbarController bottomNavbarController =
+        Get.put(BottomNavbarController());
+
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (backHome) {
+        if (bottomNavbarController.selectedIndex.value == 2) {
+          bottomNavbarController.selectedIndex.value = 0;
+          Get.to(
+            () => const BottomNavbar(
+              initialIndex: 0,
+            ),
+          );
+        }
+      },
+      child: Scaffold(
+        backgroundColor: ColorNeutral.neutral50,
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Text(
+            'Profil',
+            style: TextStyleCollection.subtitleBold.copyWith(fontSize: 18),
+          ),
+          centerTitle: true,
+          toolbarHeight: 60,
         ),
-        centerTitle: true,
-        toolbarHeight: 60,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 16),
-        child: Align(
-          alignment: Alignment.topCenter,
-          child: Column(
-            children: [
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 8),
-                width: 90,
-                height: 90,
-                child: CircleAvatar(
-                  backgroundImage: AssetImage(AssetsCollection.profilReview),
+        body: Padding(
+          padding: const EdgeInsets.only(top: 16),
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: Column(
+              children: [
+                Container(
+                  margin: const EdgeInsets.symmetric(vertical: 8),
+                  width: 90,
+                  height: 90,
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage(AssetsCollection.profilReview),
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Text(
-                'Al Akbar Baihaqi',
-                style: TextStyleCollection.bodyBold,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Masukan bio anda',
-                  style: TextStyleCollection.caption
-                      .copyWith(color: ColorNeutral.neutral500),
+                const SizedBox(
+                  height: 16,
                 ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              ProfilContainer(
-                asset: AssetsCollection.edit,
-                text: 'Edit Akun',
-                function: () {
-                  Get.to(() => const EditProfilPage());
-                },
-              ),
-              ProfilContainer(
-                asset: AssetsCollection.addLocation,
-                text: 'Rute Tersimpan',
-                function: () {},
-              ),
-              ProfilContainer(
-                asset: AssetsCollection.campaign,
-                text: 'Tentang Kami',
-                function: () {},
-              ),
-              const ProfilLogoutContainerWidget()
-            ],
+                Text(
+                  'Al Akbar Baihaqi',
+                  style: TextStyleCollection.bodyBold,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Masukan bio anda',
+                    style: TextStyleCollection.caption
+                        .copyWith(color: ColorNeutral.neutral500),
+                  ),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                ProfilContainer(
+                  asset: AssetsCollection.edit,
+                  text: 'Edit Akun',
+                  function: () {
+                    Get.to(() => const EditProfilPage());
+                  },
+                ),
+                ProfilContainer(
+                  asset: AssetsCollection.addLocation,
+                  text: 'Rute Tersimpan',
+                  function: () {},
+                ),
+                ProfilContainer(
+                  asset: AssetsCollection.campaign,
+                  text: 'Tentang Kami',
+                  function: () {},
+                ),
+                const ProfilLogoutContainerWidget()
+              ],
+            ),
           ),
         ),
       ),
