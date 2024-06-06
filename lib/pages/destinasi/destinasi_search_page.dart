@@ -14,7 +14,10 @@ import 'package:tourease/widgets/search_text_form_field_widget.dart';
 class DestinasiSearchPage extends StatelessWidget {
   const DestinasiSearchPage({
     super.key,
+    this.isFromHomePage,
   });
+
+  final bool? isFromHomePage;
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +38,13 @@ class DestinasiSearchPage extends StatelessWidget {
         surfaceTintColor: ColorNeutral.neutral50,
         leading: IconButton(
           onPressed: () {
-            if (destinasiController.destinasiController.text == '') {
+            if (isFromHomePage == true) {
+              Get.to(() => const BottomNavbar(initialIndex: 0));
+            } else {
               bottomNavbarController.updateSearchText('');
               Get.to(() => const BottomNavbar(initialIndex: 1));
               destinasiController.destinasiController.clear();
               destinasiController.searchDestinasiController.clear();
-            } else {
-              Get.back();
             }
           },
           icon: Icon(
