@@ -1,29 +1,34 @@
+// ai_chatbot_controller.dart
 import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tourease/constants/assets_constant.dart';
 import 'package:tourease/constants/color_constant.dart';
-import 'package:tourease/pages/login/login_page.dart';
-import 'package:tourease/services/refresh_token_and_logout_service.dart';
-import 'package:tourease/utils/shared_preference_utils.dart';
+import 'package:tourease/services/ai_chatbot_service.dart';
 import 'package:tourease/widgets/snackbar_widget.dart';
-import 'package:web_socket_channel/io.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
 
 class AiChatbotController extends GetxController {
-  late WebSocketChannel _channel;
-  final String _webSocketUrl = 'wss://api.tourease.my.id/v1/mobile/chatbot';
+  late AiChatbotService _aiChatbotService;
 
   final RxList<ChatMessage> messages = <ChatMessage>[].obs;
   final RxList<ChatUser> typingList = <ChatUser>[].obs;
 
-  final connected = Rxn<String>();
+  RxBool pageDibuka = true.obs;
+
   final errorMessage = Rxn<String>();
 
   @override
   void onInit() {
     super.onInit();
-    _connectWebSocket();
+    pageDibuka.value = true;
+
+    _aiChatbotService = AiChatbotService(
+      onMessageReceived: _onMessageReceived,
+      onError: _onError,
+      onConnectionClosed: _onConnectionClosed,
+    );
+
+    _aiChatbotService.connectWebSocket();
 
     ever(errorMessage, (String? message) {
       if (message != null && message.isNotEmpty) {
@@ -35,28 +40,16 @@ class AiChatbotController extends GetxController {
         );
       }
     });
-
-    ever(connected, (String? status) {
-      if (status != null && status.isNotEmpty) {
-        SnackbarWidget.showSnackbar(
-          message: status,
-          backgroundColor: ColorDanger.danger100,
-          textContainerColor: Colors.transparent,
-          textColor: ColorDanger.danger500,
-        );
-      }
-    });
   }
 
   @override
   void onClose() {
-    _channel.sink.close();
-
+    _aiChatbotService.close();
+    pageDibuka.value = false;
     super.onClose();
   }
 
   AiChatbotController() {
-    _connectWebSocket();
     messages.add(
       ChatMessage(
         text: 'Hai saya travel assistant mu!👋\nBagaimana saya dapat membantu?',
@@ -84,63 +77,9 @@ class AiChatbotController extends GetxController {
     return text.replaceAll('*', '');
   }
 
-  void _connectWebSocket() async {
-    String? token = await SharedPref.getAccessToken();
-    _channel = IOWebSocketChannel.connect(
-      Uri.parse(_webSocketUrl),
-      headers: {
-        'Authorization': 'Bearer $token',
-      },
-    );
-
-    _channel.stream.listen(
-      (data) {
-        _onMessageReceived(data);
-      },
-      onError: (error) async {
-        // Attempt to refresh token
-        bool tokenRefreshed =
-            await RefreshTokenLogoutService().postRefreshToken();
-        if (tokenRefreshed) {
-          // If token refreshed successfully, reconnect WebSocket
-          _reconnectWebSocket();
-        } else {
-          errorMessage.value =
-              'Sesi anda telah berakhir, silahkan login kembali';
-          SharedPref.removeAll();
-          Get.offAll(() => LoginPage());
-        }
-      },
-    );
-  }
-
-  void _reconnectWebSocket() async {
-    // Close existing connection
-    await _channel.sink.close();
-    // Reconnect with new token
-    String? newToken = await SharedPref.getRefreshToken();
-    _channel = IOWebSocketChannel.connect(
-      Uri.parse(_webSocketUrl),
-      headers: {
-        'Authorization': 'Bearer $newToken',
-      },
-    );
-
-    _channel.stream.listen(
-      (data) {
-        _onMessageReceived(data);
-      },
-      onError: (error) {
-        errorMessage.value = 'Sesi anda telah berakhir, silahkan login kembali';
-      },
-    );
-  }
-
   void _onMessageReceived(dynamic data) {
-    // Remove loading
     typingList.removeAt(0);
-
-    final messageText = removeAsterisks(data.toString()); // Clean the message
+    final messageText = removeAsterisks(data.toString());
     final message = ChatMessage(
       text: messageText,
       user: aiUser,
@@ -149,10 +88,21 @@ class AiChatbotController extends GetxController {
     messages.insert(0, message);
   }
 
+  void _onError(dynamic error) {
+    errorMessage.value = error.toString();
+  }
+
   void sendMessage(ChatMessage messageText) {
     messages.insert(0, messageText);
-    _channel.sink.add(messageText.text);
+    _aiChatbotService.sendMessage(messageText.text);
     typingList.add(aiUser);
-    // Add loading message
+  }
+
+  void _onConnectionClosed() {
+    if (pageDibuka.value) {
+      _aiChatbotService.reconnectWebSocket();
+    } else {
+      _aiChatbotService.close();
+    }
   }
 }
