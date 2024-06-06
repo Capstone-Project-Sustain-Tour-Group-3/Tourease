@@ -25,8 +25,6 @@ class DestinasiCard extends StatelessWidget {
       itemBuilder: (context, index) {
         final destinasi =
             destinasiController.destinasiResponse.value.data?[index];
-        String kategori =
-            destinasi?.kategori?.map((k) => k.nama).join('') ?? '-';
         return CardWidget(
           imageUrl: destinasi?.urlMedia ?? '-',
           heightImage: 120,
@@ -74,7 +72,7 @@ class DestinasiCard extends StatelessWidget {
                       horizontal: 12,
                     ),
                     child: Text(
-                      kategori,
+                      destinasi?.kategori?.nama ?? '-',
                       style: TextStyleCollection.caption.copyWith(
                         fontSize: 12,
                         color: ColorNeutral.neutral600,

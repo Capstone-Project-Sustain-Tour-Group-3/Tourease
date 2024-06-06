@@ -1,7 +1,7 @@
 class SearchDestinasiResponse {
   String? status;
   String? message;
-  List<Destinasi>? data;
+  List<Data>? data;
   Pagination? pagination;
   String? sort;
   String? filter;
@@ -21,8 +21,7 @@ class SearchDestinasiResponse {
         message: json["message"],
         data: json["data"] == null
             ? []
-            : List<Destinasi>.from(
-                json["data"]!.map((x) => Destinasi.fromJson(x))),
+            : List<Data>.from(json["data"]!.map((x) => Data.fromJson(x))),
         pagination: json["pagination"] == null
             ? null
             : Pagination.fromJson(json["pagination"]),
@@ -42,15 +41,15 @@ class SearchDestinasiResponse {
       };
 }
 
-class Destinasi {
+class Data {
   String? id;
   String? nama;
   String? urlMedia;
   String? provinsi;
   String? kota;
-  List<Kategori>? kategori;
+  Kategori? kategori;
 
-  Destinasi({
+  Data({
     this.id,
     this.nama,
     this.urlMedia,
@@ -59,16 +58,15 @@ class Destinasi {
     this.kategori,
   });
 
-  factory Destinasi.fromJson(Map<String, dynamic> json) => Destinasi(
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
         id: json["id"],
         nama: json["nama"],
         urlMedia: json["url_media"],
         provinsi: json["provinsi"],
         kota: json["kota"],
         kategori: json["kategori"] == null
-            ? []
-            : List<Kategori>.from(
-                json["kategori"]!.map((x) => Kategori.fromJson(x))),
+            ? null
+            : Kategori.fromJson(json["kategori"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -77,9 +75,7 @@ class Destinasi {
         "url_media": urlMedia,
         "provinsi": provinsi,
         "kota": kota,
-        "kategori": kategori == null
-            ? []
-            : List<dynamic>.from(kategori!.map((x) => x.toJson())),
+        "kategori": kategori?.toJson(),
       };
 }
 
