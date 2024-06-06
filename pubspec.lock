@@ -488,14 +488,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.1"
-  persistent_bottom_nav_bar_plus:
-    dependency: "direct main"
-    description:
-      name: persistent_bottom_nav_bar_plus
-      sha256: "0348bd7cdc374e161ade6f5b6b3fa152654d9b96510042631e97e07479999177"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.1.1"
   petitparser:
     dependency: transitive
     description:
