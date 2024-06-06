@@ -40,7 +40,7 @@ class AiChatbotService {
         },
       );
     } catch (e) {
-      if (onError != null) onError!(e);
+      if (onError != null) _handleError();
     }
   }
 
@@ -69,7 +69,7 @@ class AiChatbotService {
         },
       );
     } catch (e) {
-      if (onError != null) onError!(e);
+      if (onError != null) _handleError();
     }
   }
 
@@ -93,3 +93,4 @@ class AiChatbotService {
     _channel.sink.close();
   }
 }
+
