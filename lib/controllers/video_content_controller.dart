@@ -7,6 +7,7 @@ class VideoController extends GetxController {
   RxBool isInitialized = false.obs;
   RxBool isCompleted = false.obs;
   RxString errorMessage = ''.obs;
+  RxBool isDarkOverlayVisible = false.obs;
 
   @override
   void onInit() {
