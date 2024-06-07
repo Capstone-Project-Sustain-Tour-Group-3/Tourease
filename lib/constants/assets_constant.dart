@@ -32,6 +32,7 @@ class AssetsCollection {
   static String dollarIcon = 'assets/images/dollar_icon.svg';
   static String clockIcon = 'assets/images/clock_icon.svg';
   static String bedIcon = 'assets/images/bed_icon.svg';
+  static String logoPng = 'assets/images/logo_tourease.png';
 }
 
 class IconBottomNavbar {

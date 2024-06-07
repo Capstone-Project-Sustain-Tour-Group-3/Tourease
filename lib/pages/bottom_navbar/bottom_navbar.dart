@@ -118,6 +118,23 @@ class BottomNavbar extends StatelessWidget {
                   ),
                   NavigationDestination(
                     icon: SvgPicture.asset(
+                      IconBottomNavbar.ruteBefore,
+                      width: 30,
+                      height: 30,
+                    ),
+                    label: 'Rute',
+                    selectedIcon: SvgPicture.asset(
+                      IconBottomNavbar.ruteAfter,
+                      colorFilter: ColorFilter.mode(
+                        ColorNeutral.neutral50,
+                        BlendMode.srcIn,
+                      ),
+                      width: 25,
+                      height: 25,
+                    ),
+                  ),
+                  NavigationDestination(
+                    icon: SvgPicture.asset(
                       IconBottomNavbar.profilBefore,
                       width: 30,
                       height: 30,

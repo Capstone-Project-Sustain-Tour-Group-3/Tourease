@@ -20,7 +20,7 @@ class ProfilPage extends StatelessWidget {
     return PopScope(
       canPop: false,
       onPopInvoked: (backHome) {
-        if (bottomNavbarController.selectedIndex.value == 2) {
+        if (bottomNavbarController.selectedIndex.value == 3) {
           bottomNavbarController.selectedIndex.value = 0;
           Get.to(
             () => const BottomNavbar(
