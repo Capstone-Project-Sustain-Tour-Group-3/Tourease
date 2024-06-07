@@ -16,7 +16,6 @@ class BottomNavbarController extends GetxController {
         ),
         RouteHomePage(),
         const ProfilPage(),
-        
       ];
 
   void getInitialIndex({required int index}) {

@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:expandable_richtext/expandable_rich_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tourease/constants/color_constant.dart';
@@ -19,87 +20,101 @@ class VideoContentPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: ColorNeutral.neutral50,
-      appBar: AppBar(
-        backgroundColor: ColorNeutral.neutral50,
-        surfaceTintColor: ColorNeutral.neutral50,
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: Icon(
-            Icons.arrow_back,
-            color: ColorPrimary.primary500,
-          ),
-        ),
-        title: AutoSizeText(
-          'Video Konten',
-          style: TextStyleCollection.subtitleBold.copyWith(
-            color: ColorNeutral.neutral900,
-          ),
-          minFontSize: 16,
-          maxFontSize: 18,
-        ),
-        centerTitle: true,
-      ),
       body: Obx(
         () {
           if (videoController.isInitialized.value) {
-            return SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+            return GestureDetector(
+              onTap: () {
+                videoController.playPause();
+              },
+              child: Stack(
                 children: [
-                  AspectRatio(
-                    aspectRatio: 9 / 16,
-                    child: GestureDetector(
-                      onTap: () {
-                        videoController.playPause();
-                      },
-                      child: SizedBox(
-                        width: double.infinity,
-                        height: double.infinity,
-                        child: Stack(
-                          children: [
-                            VideoPlayer(
-                              videoController.videoPlayerController,
-                            ),
-                            VideoContentPlayAndPause(
-                              videoController: videoController,
-                            ),
+                  SizedBox(
+                    width: double.infinity,
+                    height: double.infinity,
+                    child: VideoPlayer(
+                      videoController.videoPlayerController,
+                    ),
+                  ),
+                  Obx(
+                    () => AnimatedOpacity(
+                      opacity: videoController.isDarkOverlayVisible.value
+                          ? 0.5
+                          : 0.0,
+                      duration: const Duration(milliseconds: 300),
+                      child: Container(
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            ColorCollection.black.withOpacity(0.9),
+                            ColorCollection.transparent,
                           ],
+                        ),
+                      ),
+                      child: AppBar(
+                        backgroundColor: ColorCollection.transparent,
+                        surfaceTintColor: ColorCollection.transparent,
+                        leading: IconButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          icon: Icon(
+                            Icons.arrow_back,
+                            color: ColorNeutral.neutral50,
+                          ),
+                        ),
+                        title: AutoSizeText(
+                          'Video Konten',
+                          style: TextStyleCollection.subtitleBold.copyWith(
+                            color: ColorNeutral.neutral50,
+                          ),
+                          minFontSize: 16,
+                          maxFontSize: 18,
+                        ),
+                        centerTitle: true,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 16,
+                    left: 16,
+                    right: 16,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ExpandableRichText(
+                        'Menikmati Pemandangan Indah Setelah Menelusuri Goa Jomblang di Gunung Kidul menjadi puncak kepuasan setelah petualangan yang mendebarkan di dalam goa. \n\nDengan tiupan angin yang segar dan panorama alam yang menakjubkan, momen ini benar-benar menyegarkan jiwa dan pikiran.\n',
+                        style: TextStyleCollection.captionMedium.copyWith(
+                          color: ColorNeutral.neutral50,
+                          fontSize: 14,
+                        ),
+                        maxLines: 1,
+                        expandText: '',
+                        collapseText: 'Sembunyikan',
+                        expanded: false,
+                        onExpandedChanged: (expanded) {
+                          videoController.isDarkOverlayVisible.value = expanded;
+                        },
+                        toggleTextStyle:
+                            TextStyleCollection.captionBold.copyWith(
+                          color: ColorNeutral.neutral500,
                         ),
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 12,
+                  VideoContentPlayAndPause(
+                    videoController: videoController,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                    ),
-                    child: Text(
-                      'Deskripsi',
-                      style: TextStyleCollection.captionBold.copyWith(
-                        color: ColorPrimary.primary500,
-                        fontSize: 14,
-                      ),
-                      textAlign: TextAlign.justify,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 12,
-                    ),
-                    child: Text(
-                      'Menikmati Pemandangan Indah Setelah Menelusuri Goa Jomblang di Gunung Kidul menjadi puncak kepuasan setelah petualangan yang mendebarkan di dalam goa. Dengan tiupan angin yang segar dan panorama alam yang menakjubkan, momen ini benar-benar menyegarkan jiwa dan pikiran.',
-                      style: TextStyleCollection.captionMedium.copyWith(
-                        color: ColorNeutral.neutral900,
-                        fontSize: 14,
-                      ),
-                      textAlign: TextAlign.justify,
-                    ),
-                  )
                 ],
               ),
             );

@@ -48,7 +48,6 @@ class SearchCityDestinationController extends GetxController {
       errorText.value = 'Silahkan isi kota tujuan terlebih dahulu';
     } else {
       errorText.value = '';
-      // TODO: Implement route recommendation logic
     }
   }
 
