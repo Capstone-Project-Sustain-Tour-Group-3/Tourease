@@ -1,0 +1,50 @@
+import 'package:tourease/constants/assets_constant.dart';
+
+class DummyData {
+  static final List<Map<String, String>> tourOptions = [
+    {'image': AssetsCollection.tourAlam, 'title': 'Alam'},
+    {'image': AssetsCollection.tourSeniBudaya, 'title': 'Seni dan Budaya'},
+    {'image': AssetsCollection.tourSejarah, 'title': 'Sejarah'},
+  ];
+
+  static final List<String> provinceNames = [
+    'Aceh',
+    'Sumatera Utara',
+    'Sumatera Selatan ',
+    'Sumatera Barat ',
+    'Bengkulu ',
+    'Riau ',
+    'Kepulauan Riau ',
+    'Jambi ',
+    'Lampung ',
+    'Bangka Belitung ',
+    'Kalimantan Barat ',
+    'Kalimantan Timur ',
+    'Kalimantan Selatan ',
+    'Kalimantan Tengah ',
+    'Kalimantan Utara ',
+    'Banten ',
+    'DKI Jakarta ',
+    'Jawa Barat ',
+    'Jawa Tengah ',
+    'D. I Yogyakarta ',
+    'Jawa Timur ',
+    'Bali ',
+    'Nusa Tenggara Timur ',
+    'Nusa Tenggara Barat ',
+    'Gorontalo ',
+    'Sulawesi Barat ',
+    'Sulawesi Tengah ',
+    'Sulawesi Utara ',
+    'Sulawesi Tenggara ',
+    'Sulawesi Selatan ',
+    'Maluku Utara ',
+    'Maluku ',
+    'Papua Barat ',
+    'Papua ',
+    'Papua Tengah ',
+    'Papua Pegunungan ',
+    'Papua Selatan ',
+    'Papua Barat Daya ',
+  ];
+}
