@@ -7,7 +7,9 @@ import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
 import 'package:tourease/controllers/bottom_navbar_controller.dart';
 import 'package:tourease/controllers/home_controller.dart';
+import 'package:tourease/controllers/profile_controller.dart';
 import 'package:tourease/pages/bottom_navbar/bottom_navbar.dart';
+import 'package:tourease/services/profile_service.dart';
 import 'package:tourease/widgets/cached_network_image_widget.dart';
 
 class HomeHeader extends StatelessWidget {
@@ -20,6 +22,14 @@ class HomeHeader extends StatelessWidget {
     final BottomNavbarController bottomNavbarController = Get.put(
       BottomNavbarController(),
     );
+
+    final profileController = Get.put(
+      ProfileController(
+        ProfileService(),
+      ),
+    );
+
+    profileController.getUserData();
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12),
@@ -39,8 +49,9 @@ class HomeHeader extends StatelessWidget {
               },
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(35),
-                child: const CachedNetworkImageWidget(
-                  imageUrl: '',
+                child: CachedNetworkImageWidget(
+                  imageUrl:
+                      profileController.userData.value?.data?.fotoProfil ?? '',
                   height: 50,
                   width: 50,
                 ),
@@ -55,7 +66,7 @@ class HomeHeader extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   AutoSizeText(
-                    'Hi, YazidSyafiq!',
+                    'Hi, ${profileController.userData.value?.data?.username ?? ''}',
                     style: TextStyleCollection.bodyBold.copyWith(
                       color: ColorCollection.black,
                     ),

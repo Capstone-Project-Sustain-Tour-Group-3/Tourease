@@ -57,6 +57,7 @@ dependencies:
   video_thumbnail: ^0.5.3
   image_picker: ^1.1.2
   image: ^4.2.0
+  flutter_svg_provider: ^1.0.7
 
 dev_dependencies:
   flutter_test:
