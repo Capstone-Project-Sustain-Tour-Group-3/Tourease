@@ -27,31 +27,34 @@ class HomeContainerRute extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Row(
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AutoSizeText(
-                  'Eksplorasi Baru Dimulai Di Sini!',
-                  style: TextStyleCollection.bodyBold.copyWith(
-                    color: ColorPrimary.primary600,
+            SizedBox(
+              width: 244,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AutoSizeText(
+                    'Mulai Langkah eksplorasimu!',
+                    style: TextStyleCollection.bodyBold.copyWith(
+                      color: ColorPrimary.primary600, 
+                    ),
+                    minFontSize: 16,
+                    maxFontSize: 18,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  minFontSize: 16,
-                  maxFontSize: 18,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                AutoSizeText(
-                  'buat rute baru untuk petualangan seru',
-                  style: TextStyleCollection.captionMedium.copyWith(
-                    color: ColorNeutral.neutral600,
-                  ),
-                  minFontSize: 14,
-                  maxFontSize: 16,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                )
-              ],
+                  AutoSizeText(
+                    'Rute Baru, Petualangan Seru!',
+                    style: TextStyleCollection.captionMedium.copyWith(
+                      color: ColorNeutral.neutral600,
+                    ),
+                    minFontSize: 14,
+                    maxFontSize: 16,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  )
+                ],
+              ),
             ),
             Expanded(
               child: Row(

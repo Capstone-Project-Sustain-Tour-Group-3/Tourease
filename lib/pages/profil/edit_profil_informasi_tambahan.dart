@@ -1,13 +1,18 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
+import 'package:tourease/controllers/profile_controller.dart';
 import 'package:tourease/pages/profil/edit_profil_radio_button.dart';
+import 'package:tourease/services/profile_service.dart';
 import 'package:tourease/widgets/text_form_field_widget.dart';
 
 class EditProfilInformasiTambahan extends StatelessWidget {
-  const EditProfilInformasiTambahan({super.key});
-
+   EditProfilInformasiTambahan({super.key});
+final ProfileController editController = Get.put(
+    ProfileController(ProfileService()),
+  );
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -32,7 +37,9 @@ class EditProfilInformasiTambahan extends StatelessWidget {
               titleForm: 'Bio',
               hintText: 'Masukkan bio anda',
               colorTitleText: ColorNeutral.neutral900,
-              isPassword: false),
+              isPassword: false,
+              controller: editController.bioController,
+              ),
           const Padding(
             padding: EdgeInsets.only(top: 16, bottom: 10),
             child: EditProfilRadioButton(),
@@ -42,7 +49,8 @@ class EditProfilInformasiTambahan extends StatelessWidget {
               titleForm: 'Kota',
               hintText: 'Masukkan kota anda',
               colorTitleText: ColorNeutral.neutral900,
-              isPassword: false),
+              isPassword: false,
+              controller: editController.kotaController),
           const SizedBox(
             height: 16,
           ),
@@ -51,7 +59,8 @@ class EditProfilInformasiTambahan extends StatelessWidget {
               titleForm: 'Provinsi',
               hintText: 'Masukkan provinsi anda',
               colorTitleText: ColorNeutral.neutral900,
-              isPassword: false),
+              isPassword: false,
+              controller: editController.provinsiController),
         ],
       ),
     );
