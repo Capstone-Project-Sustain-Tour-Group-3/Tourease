@@ -1,13 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:tourease/constants/assets_constant.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
 import 'package:tourease/controllers/bottom_navbar_controller.dart';
+import 'package:tourease/controllers/profile_controller.dart';
 import 'package:tourease/pages/bottom_navbar/bottom_navbar.dart';
 import 'package:tourease/pages/profil/edit_profil_page.dart';
 import 'package:tourease/pages/profil/profil_container.dart';
 import 'package:tourease/pages/profil/profil_logout_container.dart';
+import 'package:tourease/services/profile_service.dart';
 
 class ProfilPage extends StatelessWidget {
   const ProfilPage({super.key});
@@ -16,7 +20,8 @@ class ProfilPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final BottomNavbarController bottomNavbarController =
         Get.put(BottomNavbarController());
-
+    final profileController = Get.put(ProfileController(ProfileService()));
+    profileController.getUserData();
     return PopScope(
       canPop: false,
       onPopInvoked: (backHome) {
@@ -32,6 +37,7 @@ class ProfilPage extends StatelessWidget {
       child: Scaffold(
         backgroundColor: ColorNeutral.neutral50,
         appBar: AppBar(
+          backgroundColor: ColorNeutral.neutral50,
           automaticallyImplyLeading: false,
           title: Text(
             'Profil',
@@ -46,27 +52,52 @@ class ProfilPage extends StatelessWidget {
             alignment: Alignment.topCenter,
             child: Column(
               children: [
-                Container(
-                  margin: const EdgeInsets.symmetric(vertical: 8),
-                  width: 90,
-                  height: 90,
-                  child: CircleAvatar(
-                    backgroundImage: AssetImage(AssetsCollection.profilReview),
-                  ),
-                ),
+                Obx(() {
+                  String? fotoProfil =
+                      profileController.userData.value?.data?.fotoProfil;
+                  return Container(
+                    margin: const EdgeInsets.symmetric(vertical: 8),
+                    width: 90,
+                    height: 90,
+                    child: CircleAvatar(
+                      backgroundImage: profileController.isLoadingGetUser.value
+                          ? null
+                          : fotoProfil != null && fotoProfil.isNotEmpty
+                              ? CachedNetworkImageProvider(fotoProfil)
+                              : AssetImage(AssetsCollection.profilReview),
+                      child: profileController.isLoadingGetUser.value
+                          ? Shimmer.fromColors(
+                              baseColor: ColorNeutral.neutral50,
+                              highlightColor: ColorNeutral.neutral300,
+                              child: ClipOval(
+                                child: Container(
+                                  color: ColorNeutral.neutral300,
+                                ),
+                              ),
+                            )
+                          : null,
+                    ),
+                  );
+                }),
                 const SizedBox(
                   height: 16,
                 ),
-                Text(
-                  'Al Akbar Baihaqi',
-                  style: TextStyleCollection.bodyBold,
+                Obx(
+                  () => Text(
+                    profileController.userData.value?.data?.namaLengkap ??
+                        "Nama Lengkap",
+                    style: TextStyleCollection.bodyBold,
+                  ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'Masukan bio anda',
-                    style: TextStyleCollection.caption
-                        .copyWith(color: ColorNeutral.neutral500),
+                Obx(
+                  () => Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      profileController.userData.value?.data?.bio ??
+                          'Masukan bio anda',
+                      style: TextStyleCollection.caption
+                          .copyWith(color: ColorNeutral.neutral500),
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -76,7 +107,7 @@ class ProfilPage extends StatelessWidget {
                   asset: AssetsCollection.edit,
                   text: 'Edit Akun',
                   function: () {
-                    Get.to(() => const EditProfilPage());
+                    Get.to(() => EditProfilPage());
                   },
                 ),
                 ProfilContainer(

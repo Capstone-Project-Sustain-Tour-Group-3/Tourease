@@ -41,7 +41,7 @@ class HomeContainerRute extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   AutoSizeText(
-                    'Eksplorasi Baru Dimulai Di Sini!',
+                    'Mulai Langkah eksplorasimu!',
                     style: TextStyleCollection.bodyBold.copyWith(
                       color: ColorPrimary.primary600,
                     ),
@@ -51,7 +51,7 @@ class HomeContainerRute extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   AutoSizeText(
-                    'buat rute, mulai petualangan seru',
+                    'Rute Baru, Petualangan Seru!',
                     style: TextStyleCollection.captionMedium.copyWith(
                       color: ColorNeutral.neutral600,
                     ),

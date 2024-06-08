@@ -4,13 +4,17 @@ import 'package:get/get.dart';
 import 'package:tourease/constants/assets_constant.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
+import 'package:tourease/controllers/profile_controller.dart';
 import 'package:tourease/pages/profil/edit_profil_container.dart';
 import 'package:tourease/pages/profil/ubah_sandi.dart';
+import 'package:tourease/services/profile_service.dart';
 import 'package:tourease/widgets/text_form_field_widget.dart';
 
 class EditProfilInformasiUmum extends StatelessWidget {
-  const EditProfilInformasiUmum({super.key});
-
+  EditProfilInformasiUmum({super.key});
+  final ProfileController editController = Get.put(
+    ProfileController(ProfileService()),
+  );
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -30,11 +34,13 @@ class EditProfilInformasiUmum extends StatelessWidget {
             height: 20,
           ),
           TextFormFieldWidget(
-              keyboardType: TextInputType.name,
-              titleForm: 'Nama Pengguna',
-              hintText: 'Masukkan nama anda',
-              colorTitleText: ColorNeutral.neutral900,
-              isPassword: false),
+            keyboardType: TextInputType.name,
+            titleForm: 'Nama Pengguna',
+            hintText: 'Masukkan nama anda',
+            colorTitleText: ColorNeutral.neutral900,
+            isPassword: false,
+            controller: editController.usernameController,
+          ),
           const SizedBox(
             height: 19,
           ),
@@ -44,6 +50,7 @@ class EditProfilInformasiUmum extends StatelessWidget {
             hintText: 'Masukkan nama lengkap anda',
             isPassword: false,
             colorTitleText: ColorNeutral.neutral900,
+            controller: editController.namaLengkapController,
           ),
           const SizedBox(
             height: 19,
@@ -54,6 +61,7 @@ class EditProfilInformasiUmum extends StatelessWidget {
             hintText: 'Masukkan email anda',
             isPassword: false,
             colorTitleText: ColorNeutral.neutral900,
+            controller: editController.emailController,
           ),
           const SizedBox(
             height: 19,
@@ -64,6 +72,7 @@ class EditProfilInformasiUmum extends StatelessWidget {
             hintText: 'Masukkan nomor telepon anda',
             isPassword: false,
             colorTitleText: ColorNeutral.neutral900,
+            controller: editController.nomorTeleponController,
           ),
           const SizedBox(
             height: 24,
