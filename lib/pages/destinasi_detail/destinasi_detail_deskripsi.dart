@@ -7,11 +7,11 @@ class DestinasiDetailDeskripsi extends StatelessWidget {
   final String title;
   final String description;
 
-  const DestinasiDetailDeskripsi(
-      {super.key,
-      this.title = 'Deskripsi',
-      this.description =
-          'Gua Jomblang merupakan gua vertikal dengan hutan purba yang rapat di dasarnya. \n\nSebuah lorong sepanjang 300 m yang dihiasi dengan ornamen gua yang indah akan membawa Anda menuju Gua Grubug, tempat di mana bisa menyaksikan cahaya surga.'});
+  const DestinasiDetailDeskripsi({
+    super.key,
+    this.title = 'Deskripsi',
+    required this.description,
+  });
 
   @override
   Widget build(BuildContext context) {

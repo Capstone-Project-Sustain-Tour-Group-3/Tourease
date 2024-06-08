@@ -33,6 +33,7 @@ class AssetsCollection {
   static String clockIcon = 'assets/images/clock_icon.svg';
   static String bedIcon = 'assets/images/bed_icon.svg';
   static String logoPng = 'assets/images/logo_tourease.png';
+  static String defaultProfile = 'assets/images/default_profile.svg';
 }
 
 class IconBottomNavbar {

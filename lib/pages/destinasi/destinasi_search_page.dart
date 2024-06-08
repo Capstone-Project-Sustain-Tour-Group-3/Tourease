@@ -43,6 +43,7 @@ class DestinasiSearchPage extends StatelessWidget {
             } else {
               bottomNavbarController.updateSearchText('');
               Get.to(() => const BottomNavbar(initialIndex: 1));
+              destinasiController.searchDestinasi();
               destinasiController.destinasiController.clear();
               destinasiController.searchDestinasiController.clear();
             }

@@ -1,16 +1,28 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
-import 'package:tourease/pages/bottom_navbar/bottom_navbar.dart';
+import 'package:tourease/controllers/destinasi_controller.dart';
 import 'package:tourease/pages/home/home_card_destinasi.dart';
+import 'package:tourease/pages/home/home_card_destinasi_lainnya.dart';
 
 class HomeListDestinasi extends StatelessWidget {
   const HomeListDestinasi({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final DestinasiController destinasiController = Get.put(
+      DestinasiController(),
+    );
+
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        destinasiController.searchDestinasi();
+      },
+    );
+
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 16),
@@ -38,55 +50,43 @@ class HomeListDestinasi extends StatelessWidget {
               itemCount: 5,
               itemBuilder: (context, index) {
                 if (index < 4) {
-                  return const HomeCardDestinasi();
-                } else {
-                  return Container(
-                    width: 135,
-                    margin: const EdgeInsets.symmetric(vertical: 4),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      gradient: LinearGradient(
-                        stops: const [0.3, 0.5, 0.7, 0.9, 1],
-                        colors: [
-                          ColorNeutral.neutral50,
-                          ColorNeutral.neutral100,
-                          ColorPrimary.primary100,
-                          ColorPrimary.primary200,
-                          ColorPrimary.primary300,
-                        ],
-                      ),
-                    ),
-                    child: GestureDetector(
-                      onTap: () {
-                        Get.to(
-                          () => const BottomNavbar(
-                            initialIndex: 1,
-                          ),
-                        );
-                      },
-                      child: Card(
-                        color: ColorCollection.transparent,
-                        shadowColor: ColorCollection.transparent,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Center(
-                          child: AutoSizeText(
-                            'Lihat Lainnya',
-                            style: TextStyleCollection.captionBold.copyWith(
-                              color: ColorNeutral.neutral700,
+                  return Obx(
+                    () => destinasiController.isLoadingSearchDestinasi.value
+                        ? SizedBox(
+                            width: 220,
+                            child: Card(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: Shimmer.fromColors(
+                                  baseColor: ColorNeutral.neutral50,
+                                  highlightColor: ColorNeutral.neutral300,
+                                  child: Container(
+                                    color: ColorNeutral.neutral300,
+                                  ),
+                                ),
+                              ),
                             ),
-                            minFontSize: 14,
-                            maxFontSize: 16,
+                          )
+                        : HomeCardDestinasi(
+                            id: destinasiController
+                                    .destinasiResponse.value.data?[index].id ??
+                                '',
+                            url: destinasiController.destinasiResponse.value
+                                    .data?[index].urlMedia ??
+                                '',
+                            namaDestinasi: destinasiController.destinasiResponse
+                                    .value.data?[index].nama ??
+                                '',
+                            lokasiDestinasi:
+                                '${destinasiController.destinasiResponse.value.data?[index].kota}, ${destinasiController.destinasiResponse.value.data?[index].provinsi}',
                           ),
-                        ),
-                      ),
-                    ),
                   );
+                } else {
+                  return const HomeCardDestinasiLainnya();
                 }
               },
             ),
-          )
+          ),
         ],
       ),
     );
