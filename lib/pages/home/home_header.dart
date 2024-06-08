@@ -30,26 +30,19 @@ class HomeHeader extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                bottomNavbarController.selectedIndex.value = 2;
+                bottomNavbarController.selectedIndex.value = 3;
                 Get.off(
                   () => BottomNavbar(
                     initialIndex: bottomNavbarController.selectedIndex.value,
                   ),
                 );
               },
-              child: Container(
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: ColorPrimary.primary900,
-                  borderRadius: BorderRadius.circular(35),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(35),
-                  child: const CachedNetworkImageWidget(
-                    imageUrl:
-                        'https://s3-alpha-sig.figma.com/img/964e/f072/9a6eefcbb85b20d81969a7235b4ac143?Expires=1717372800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=f5M4gc5qMeZZ3i9q9VfgQLyFLAEZJeuNEl-b~7zv3oDpvK7W~K5SQFfYkTqNd8laguwjkhk9ceCmCp0ZRYmh6bpMNmg5H-2V1WJy5PG2w26VZwYJatYbH6CJHJ8cU4--GDGU5wdY2lOfljysidH31p0drFgx4rZ1XWtu9LmmEBl8MY7TL7f9uBAa~4sRAhr0APTWAGvcISYqWyNRZDxMPB2DXfRZCkL83teh1HMJRZd54MmVcR0QEyo0u-hcNxv6Xftq~hqSWDn1m1cc32GISbUTdQrsR-osZ4yJtnNHS00vPt8gdb6flVmpVN7SyiNXDxSioIWaxAfhhx-UrsDKdg__',
-                  ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(35),
+                child: const CachedNetworkImageWidget(
+                  imageUrl: '',
+                  height: 50,
+                  width: 50,
                 ),
               ),
             ),
@@ -66,7 +59,7 @@ class HomeHeader extends StatelessWidget {
                     style: TextStyleCollection.bodyBold.copyWith(
                       color: ColorCollection.black,
                     ),
-                    minFontSize: 16,
+                    minFontSize: 14,
                     maxFontSize: 18,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -76,7 +69,7 @@ class HomeHeader extends StatelessWidget {
                     style: TextStyleCollection.caption.copyWith(
                       color: ColorCollection.black,
                     ),
-                    minFontSize: 14,
+                    minFontSize: 12,
                     maxFontSize: 16,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,

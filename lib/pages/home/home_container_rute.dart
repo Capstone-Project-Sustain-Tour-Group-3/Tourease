@@ -1,13 +1,20 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
+import 'package:tourease/controllers/bottom_navbar_controller.dart';
+import 'package:tourease/pages/bottom_navbar/bottom_navbar.dart';
 
 class HomeContainerRute extends StatelessWidget {
   const HomeContainerRute({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final BottomNavbarController bottomNavbarController = Get.put(
+      BottomNavbarController(),
+    );
+
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 16),
@@ -27,42 +34,50 @@ class HomeContainerRute extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Row(
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AutoSizeText(
-                  'Eksplorasi Baru Dimulai Di Sini!',
-                  style: TextStyleCollection.bodyBold.copyWith(
-                    color: ColorPrimary.primary600,
+            SizedBox(
+              width: 244,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AutoSizeText(
+                    'Eksplorasi Baru Dimulai Di Sini!',
+                    style: TextStyleCollection.bodyBold.copyWith(
+                      color: ColorPrimary.primary600,
+                    ),
+                    minFontSize: 16,
+                    maxFontSize: 18,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  minFontSize: 16,
-                  maxFontSize: 18,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                AutoSizeText(
-                  'buat rute baru untuk petualangan seru',
-                  style: TextStyleCollection.captionMedium.copyWith(
-                    color: ColorNeutral.neutral600,
-                  ),
-                  minFontSize: 14,
-                  maxFontSize: 16,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                )
-              ],
+                  AutoSizeText(
+                    'buat rute, mulai petualangan seru',
+                    style: TextStyleCollection.captionMedium.copyWith(
+                      color: ColorNeutral.neutral600,
+                    ),
+                    minFontSize: 14,
+                    maxFontSize: 16,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  )
+                ],
+              ),
             ),
             Expanded(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  const SizedBox(
-                    width: 8,
-                  ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      bottomNavbarController.selectedIndex.value = 2;
+                      Get.off(
+                        () => BottomNavbar(
+                          initialIndex:
+                              bottomNavbarController.selectedIndex.value,
+                        ),
+                      );
+                    },
                     child: Container(
                       width: 44,
                       height: 44,

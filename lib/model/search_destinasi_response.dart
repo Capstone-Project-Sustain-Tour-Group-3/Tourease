@@ -47,6 +47,7 @@ class Data {
   String? urlMedia;
   String? provinsi;
   String? kota;
+  int? visitCount;
   Kategori? kategori;
 
   Data({
@@ -55,6 +56,7 @@ class Data {
     this.urlMedia,
     this.provinsi,
     this.kota,
+    this.visitCount,
     this.kategori,
   });
 
@@ -64,6 +66,7 @@ class Data {
         urlMedia: json["url_media"],
         provinsi: json["provinsi"],
         kota: json["kota"],
+        visitCount: json["visit_count"],
         kategori: json["kategori"] == null
             ? null
             : Kategori.fromJson(json["kategori"]),
@@ -75,6 +78,7 @@ class Data {
         "url_media": urlMedia,
         "provinsi": provinsi,
         "kota": kota,
+        "visit_count": visitCount,
         "kategori": kategori?.toJson(),
       };
 }

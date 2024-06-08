@@ -46,7 +46,7 @@ class HomePage extends StatelessWidget {
               ),
               HomeListDestinasiPopuler(),
               SizedBox(
-                height: 36,
+                height: 24,
               ),
             ],
           ),

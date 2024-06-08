@@ -14,6 +14,7 @@ class CardWidget extends StatelessWidget {
     required this.lokasiDestinasi,
     this.kategori,
     this.view,
+    this.gradient,
   });
 
   final String imageUrl;
@@ -23,6 +24,7 @@ class CardWidget extends StatelessWidget {
   final String lokasiDestinasi;
   final Widget? kategori;
   final Widget? view;
+  final Gradient? gradient;
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +53,7 @@ class CardWidget extends StatelessWidget {
                     height: heightImage,
                     width: widthImage,
                     fit: BoxFit.cover,
+                    gradient: gradient,
                   ),
                   view ?? const SizedBox.shrink(),
                 ],
