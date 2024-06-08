@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:tourease/constants/assets_constant.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
+import 'package:tourease/pages/profil/profil_logout_alert_dialog.dart';
 
 class ProfilLogoutContainerWidget extends StatelessWidget {
   const ProfilLogoutContainerWidget({
@@ -13,7 +14,11 @@ class ProfilLogoutContainerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        showDialog(
+            context: context,
+            builder: (context) => const ProfilLogoutAlertDialog());
+      },
       child: Container(
         width: double.infinity,
         height: 48,
