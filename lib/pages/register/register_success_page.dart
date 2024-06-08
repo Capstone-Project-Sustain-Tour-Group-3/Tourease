@@ -5,7 +5,9 @@ import 'package:tourease/constants/assets_constant.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/status_bar_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
-import 'package:tourease/pages/login/login_page.dart';
+import 'package:tourease/controllers/login_controller.dart';
+import 'package:tourease/controllers/register_controller.dart';
+import 'package:tourease/pages/personalized_recommendation/personalized_page_welcome.dart';
 import 'package:tourease/pages/register/register_button.dart';
 import 'package:tourease/pages/register/register_back.dart';
 
@@ -14,6 +16,8 @@ class RegisterSuccessPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    LoginController loginController = Get.put(LoginController());
+    RegisterController registerController = Get.put(RegisterController());
     StatusBarConstant.statusBar;
 
     return Scaffold(
@@ -56,7 +60,12 @@ class RegisterSuccessPage extends StatelessWidget {
                     RegisterButton(
                         text: "Mulai",
                         onPressed: () {
-                          Get.to(() =>  LoginPage());
+                          loginController.emailController =
+                              registerController.emailController;
+                          loginController.passwordController =
+                              registerController.passwordController;
+                          loginController.login();
+                          Get.to(() => const PersonalizedWelcomePage());
                         })
                   ],
                 ),
