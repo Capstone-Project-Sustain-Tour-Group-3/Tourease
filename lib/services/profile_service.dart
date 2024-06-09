@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:tourease/model/change_password_response_model.dart';
 import 'package:tourease/model/edit_profile_request_model.dart';
 import 'package:tourease/model/edit_profile_response_model.dart';
 import 'package:tourease/model/profile_response_model.dart';
@@ -86,6 +87,43 @@ class ProfileService {
       throw Exception('Failed to edit profile: ${e.message}');
     } catch (e) {
       throw Exception('Failed to edit profile: $e');
+    }
+  }
+
+  Future<ChangePasswordResponseModel> changePassword(String token,
+      String oldPassword, String newPassword, String confirmPassword) async {
+    try {
+      final response = await _dio.put(
+        '/profile/change-password',
+        data: {
+          'password_lama': oldPassword,
+          'password_baru': newPassword,
+          'konfirmasi_password': confirmPassword,
+        },
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            'Content-Type': 'application/json',
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        return ChangePasswordResponseModel.fromJson(response.data);
+      } else {
+        return ChangePasswordResponseModel.fromJson(response.data);
+      }
+    } on DioException catch (e) {
+      if (e.response != null && e.response!.data != null) {
+        print('Failed to change password: ${e.response!.data}');
+        return ChangePasswordResponseModel.fromJson(e.response!.data);
+      } else {
+        print('Failed to change password: ${e.message}');
+        return ChangePasswordResponseModel(
+          status: 'Failed',
+          message: 'Failed to change password: ${e.message}',
+        );
+      }
     }
   }
 }

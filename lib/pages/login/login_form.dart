@@ -32,8 +32,8 @@ class LoginForm extends StatelessWidget {
           const SizedBox(height: 24),
           Obx(
             () => TextFormFieldWidget(
-              titleForm: 'Password',
-              hintText: 'Masukkan password anda',
+              titleForm: 'Kata sandi',
+              hintText: 'Masukkan kata sandi anda',
               keyboardType: TextInputType.text,
               controller: loginController.passwordController,
               errorText: loginController.errorMessagePassword.value,

@@ -18,8 +18,8 @@ class NewPasswordForm extends StatelessWidget {
         children: [
           Obx(
             () => TextFormFieldWidget(
-              titleForm: 'Password',
-              hintText: 'Masukkan password anda',
+              titleForm: 'Kata sandi',
+              hintText: 'Masukkan kata sandi anda',
               keyboardType: TextInputType.text,
               controller: newPasswordController.newPasswordController,
               errorText: newPasswordController.errorMessagenewPassword.value,
@@ -32,8 +32,8 @@ class NewPasswordForm extends StatelessWidget {
           const SizedBox(height: 24),
           Obx(
             () => TextFormFieldWidget(
-              titleForm: 'Konfirmasi Password',
-              hintText: 'Masukkan password anda',
+              titleForm: 'Konfirmasi kata sandi',
+              hintText: 'Masukkan kata sandi anda',
               keyboardType: TextInputType.text,
               controller: newPasswordController.confirmationNewPasswordController,
               errorText: newPasswordController.errorMessagenewconfirmationNewPassword.value,
