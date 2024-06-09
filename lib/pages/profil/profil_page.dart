@@ -12,6 +12,7 @@ import 'package:tourease/pages/bottom_navbar/bottom_navbar.dart';
 import 'package:tourease/pages/profil/edit_profil_page.dart';
 import 'package:tourease/pages/profil/profil_container.dart';
 import 'package:tourease/pages/profil/profil_logout_container.dart';
+import 'package:tourease/pages/profil/profil_tentang_kami.dart';
 import 'package:tourease/services/profile_service.dart';
 
 class ProfilPage extends StatelessWidget {
@@ -130,7 +131,9 @@ class ProfilPage extends StatelessWidget {
                 ProfilContainer(
                   asset: AssetsCollection.campaign,
                   text: 'Tentang Kami',
-                  function: () {},
+                  function: () {
+                    Get.to(() => const ProfilTentangKami());
+                  },
                 ),
                 const ProfilLogoutContainerWidget()
               ],
