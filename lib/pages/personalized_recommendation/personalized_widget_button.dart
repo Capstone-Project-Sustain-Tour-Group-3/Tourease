@@ -29,12 +29,14 @@ class PersonalizedRecommendationButton extends StatelessWidget {
         recommendationController.navigateToLocationPage();
       } else if (navigationType == 'finishPage') {
         recommendationController.navigateToFinishPage();
+      } else if (navigationType == 'homePage') {
+        recommendationController.navigateToHomePage();
       }
     }
 
     Widget buildButton(bool isEnabled) {
       return Padding(
-        padding: const EdgeInsets.only(left: 19.5, right: 19.5, bottom: 24.0),
+        padding: const EdgeInsets.only(left: 16, right: 16, bottom: 24.0),
         child: SizedBox(
           width: double.infinity,
           height: 48,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/controllers/login_controller.dart';
+import 'package:tourease/pages/login/login_success_page.dart';
 import 'package:tourease/widgets/button_widget.dart';
 
 class LoginButton extends StatelessWidget {
@@ -20,6 +21,7 @@ class LoginButton extends StatelessWidget {
         child: ButtonWidget(
           onPressed: () {
             loginController.login();
+            Get.to(() => const LoginSuccessPage());
           },
           text: 'Masuk',
           textColor: ColorNeutral.neutral100,

@@ -4,6 +4,7 @@ import 'package:tourease/constants/assets_constant.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/status_bar_constant.dart';
 import 'package:tourease/controllers/personalized_recommendation_controller.dart';
+import 'package:tourease/controllers/register_controller.dart';
 import 'package:tourease/pages/personalized_recommendation/personalized_widget_button.dart';
 import 'package:tourease/pages/personalized_recommendation/personalized_widget_view.dart';
 
@@ -14,6 +15,7 @@ class PersonalizedWelcomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     StatusBarConstant.statusBar;
 
+    final RegisterController registerController = Get.put(RegisterController());
     final PersonalizedRecommendationController recommendationController =
         Get.put(PersonalizedRecommendationController());
 
@@ -28,7 +30,7 @@ class PersonalizedWelcomePage extends StatelessWidget {
             Center(
               child: PersonalizedRecommendationViewWidget(
                 assets: AssetsCollection.personalizedWelcome,
-                title: 'Hi, Agus!',
+                title: 'Hi, ${registerController.namaPenggunaController.text}!',
                 subtitle: 'Siap untuk memulai perjalanan mu?',
               ),
             ),

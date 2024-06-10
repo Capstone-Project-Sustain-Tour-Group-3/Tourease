@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tourease/model/login_response_model.dart';
 import 'package:tourease/pages/login/login_page.dart';
-import 'package:tourease/pages/login/login_success_page.dart';
 import 'package:tourease/pages/login/new_password_page.dart';
 import 'package:tourease/pages/login/verification_otp_page.dart';
 import 'package:tourease/services/auth_service.dart';
@@ -49,7 +48,6 @@ class LoginController extends GetxController {
           token: loginResponse.value?.data?.accessToken ?? '-');
       SharedPref.saveRefreshToken(
           resfreshToken: loginResponse.value?.data?.refreshToken ?? '-');
-      Get.to(() => const LoginSuccessPage());
     } catch (e) {
       SnackbarWidget.showSnackbar(
           message:

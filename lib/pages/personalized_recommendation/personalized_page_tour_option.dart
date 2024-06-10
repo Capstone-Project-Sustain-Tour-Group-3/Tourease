@@ -16,7 +16,7 @@ class PersonalizedTourOptionPage extends StatelessWidget {
     StatusBarConstant.statusBar;
 
     final PersonalizedRecommendationController recommendationController =
-        Get.find<PersonalizedRecommendationController>();
+        Get.put(PersonalizedRecommendationController());
 
     return Scaffold(
       backgroundColor: ColorNeutral.neutral50,
@@ -39,21 +39,23 @@ class PersonalizedTourOptionPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              children: [
-                AutoSizeText(
-                  'Pilih jenis tempat yang Anda inginkan dan kami akan memberikan rekomendasi terbaik!',
-                  style: TextStyleCollection.bodyMedium.copyWith(
-                    color: ColorPrimary.primary900,
+            Expanded(
+              child: Column(
+                children: [
+                  AutoSizeText(
+                    'Pilih jenis tempat yang Anda inginkan dan kami akan memberikan rekomendasi terbaik!',
+                    style: TextStyleCollection.bodyMedium.copyWith(
+                      color: ColorPrimary.primary900,
+                    ),
+                    minFontSize: 14,
+                    maxFontSize: 16,
                   ),
-                  minFontSize: 14,
-                  maxFontSize: 16,
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                TourOptionListView(),
-              ],
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  TourOptionListView(),
+                ],
+              ),
             ),
             Obx(
               () {
