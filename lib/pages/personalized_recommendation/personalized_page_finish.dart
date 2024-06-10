@@ -40,7 +40,7 @@ class PersonalizedFinishPage extends StatelessWidget {
                       recommendationController.isProvinceSelectionValid();
 
               return PersonalizedRecommendationButton(
-                navigationType: 'finishPage',
+                navigationType: 'homePage',
                 title: 'Mulai Telusuri',
                 recommendationController: recommendationController,
                 isEnabled: isButtonEnabled,

@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: const SplashPage(),
+      home:  const SplashPage(),
     );
   }
 }

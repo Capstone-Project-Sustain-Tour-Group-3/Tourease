@@ -60,10 +60,10 @@ class RegisterSuccessPage extends StatelessWidget {
                     RegisterButton(
                         text: "Mulai",
                         onPressed: () {
-                          loginController.emailController =
-                              registerController.emailController;
-                          loginController.passwordController =
-                              registerController.passwordController;
+                          loginController.emailController.text =
+                              registerController.emailController.text;
+                          loginController.passwordController.text =
+                              registerController.passwordController.text;
                           loginController.login();
                           Get.to(() => const PersonalizedWelcomePage());
                         })
