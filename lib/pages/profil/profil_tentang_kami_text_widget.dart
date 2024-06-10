@@ -26,6 +26,7 @@ class ProfilTentangKamiTextWidget extends StatelessWidget {
           height: 8,
         ),
         AutoSizeText(
+          textAlign: TextAlign.justify,
           description,
           style: TextStyleCollection.caption
               .copyWith(color: ColorNeutral.neutral700),
