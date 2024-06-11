@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:tourease/constants/assets_constant.dart';
 import 'package:tourease/constants/color_constant.dart';
 
 class CachedNetworkImageWidget extends StatelessWidget {
@@ -13,6 +15,7 @@ class CachedNetworkImageWidget extends StatelessWidget {
     this.placeholder,
     this.errorWidget,
     this.fit,
+    this.gradient,
   });
 
   final String imageUrl;
@@ -22,29 +25,53 @@ class CachedNetworkImageWidget extends StatelessWidget {
   final Widget Function(BuildContext, String)? placeholder;
   final Widget Function(BuildContext, String, Object)? errorWidget;
   final BoxFit? fit;
+  final Gradient? gradient;
 
   @override
   Widget build(BuildContext context) {
-    return CachedNetworkImage(
-      imageUrl: imageUrl,
-      imageBuilder: imageBuilder,
-      placeholder: placeholder ??
-          (context, url) => Shimmer.fromColors(
-                baseColor: ColorNeutral.neutral50,
-                highlightColor: ColorNeutral.neutral300,
-                child: Container(
-                  color: ColorNeutral.neutral300,
+    return imageUrl == '' || imageUrl.isEmpty
+        ? SvgPicture.asset(
+            AssetsCollection.defaultProfile,
+            height: height,
+            width: width,
+          )
+        : Stack(
+            children: [
+              CachedNetworkImage(
+                imageUrl: imageUrl,
+                imageBuilder: imageBuilder,
+                placeholder: placeholder ??
+                    (context, url) => Shimmer.fromColors(
+                          baseColor: ColorNeutral.neutral50,
+                          highlightColor: ColorNeutral.neutral300,
+                          child: Container(
+                            color: ColorNeutral.neutral300,
+                          ),
+                        ),
+                errorWidget: errorWidget ??
+                    (context, url, error) => Icon(
+                          Icons.error,
+                          color: ColorNeutral.neutral50,
+                          size: 40,
+                        ),
+                fit: fit ?? BoxFit.cover,
+                height: height,
+                width: width,
+              ),
+              Container(
+                height: height,
+                width: width,
+                decoration: BoxDecoration(
+                  gradient: gradient ??
+                      LinearGradient(
+                        colors: [
+                          ColorCollection.transparent,
+                          ColorCollection.transparent,
+                        ],
+                      ),
                 ),
-              ),
-      errorWidget: errorWidget ??
-          (context, url, error) => Icon(
-                Icons.error,
-                color: ColorNeutral.neutral50,
-                size: 40,
-              ),
-      fit: fit ?? BoxFit.cover,
-      height: height,
-      width: width,
-    );
+              )
+            ],
+          );
   }
 }

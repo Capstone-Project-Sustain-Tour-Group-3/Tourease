@@ -14,12 +14,11 @@ class TitleSectionWidget extends StatelessWidget {
 
   const TitleSectionWidget({
     super.key,
-    this.title = 'Gua Jomblang',
-    this.location =
-        'Jetis, Pacarejo, Kec. Semanu, Kabupaten Gunung Kidul, Daerah Istimewa Yogyakarta 55893',
-    this.time = '08:00 - 14:00',
-    this.price = 'Harga Mulai Rp450.000',
-    this.category = 'Alam',
+    required this.title,
+    required this.location,
+    required this.time,
+    required this.price,
+    required this.category,
   });
 
   @override

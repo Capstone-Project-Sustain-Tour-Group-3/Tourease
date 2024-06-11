@@ -35,14 +35,15 @@ class HomeListDestinasiPopuler extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemCount: 5,
               itemBuilder: (context, index) {
-                if (index < 4) {
-                  return const Padding(
-                    padding: EdgeInsets.only(right: 8),
-                    child: HomeContainerDestinasiPopuler(),
-                  );
-                } else {
-                  return const HomeContainerDestinasiPopuler();
-                }
+                return const Padding(
+                  padding: EdgeInsets.only(right: 8),
+                  child: HomeContainerDestinasiPopuler(
+                    url:
+                        'https://videos.pexels.com/video-files/20770858/20770858-hd_1080_1920_30fps.mp4',
+                    deskripsiVideo:
+                        'Membatik dan belajar sejarah keraton di museum Ullen Sentalu',
+                  ),
+                );
               },
             ),
           )

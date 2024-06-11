@@ -113,9 +113,9 @@ class RegisterController extends GetxController {
 
   void validatorPassword(String value) {
     if (value.isEmpty) {
-      errorMessagePassword.value = "Password tidak boleh kosong";
-    } else if (value.length < 6) {
-      errorMessagePassword.value = "Password harus lebih dari 6 huruf";
+      errorMessagePassword.value = "Kata sandi tidak boleh kosong";
+    } else if (value.length < 8) {
+      errorMessagePassword.value = "Kata sandi harus lebih dari 8 huruf";
     } else {
       errorMessagePassword.value = null;
     }
@@ -156,7 +156,7 @@ class RegisterController extends GetxController {
         }
         _validateForm();
       } finally {
-        isLoading.value = false; // End loading
+        isLoading.value = false; 
       }
     } else {
       SnackbarWidget.showSnackbar(

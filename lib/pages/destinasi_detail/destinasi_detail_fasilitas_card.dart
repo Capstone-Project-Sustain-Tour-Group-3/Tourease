@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
+import 'package:tourease/widgets/cached_network_image_widget.dart';
 
 class FacilityCard extends StatelessWidget {
-  final String iconAsset;
+  final String url;
   final String label;
 
   const FacilityCard({
     super.key,
-    required this.iconAsset,
+    required this.url,
     required this.label,
   });
 
@@ -22,7 +22,7 @@ class FacilityCard extends StatelessWidget {
       elevation: 4,
       shadowColor: Colors.black.withOpacity(0.3),
       child: Container(
-        width: 120,
+        width: 150,
         height: 75,
         decoration: BoxDecoration(
           color: Colors.white,
@@ -33,10 +33,10 @@ class FacilityCard extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgPicture.asset(
-                iconAsset,
-                width: 26,
+              CachedNetworkImageWidget(
+                imageUrl: url,
                 height: 26,
+                width: 26,
               ),
               const SizedBox(height: 8),
               Text(
@@ -45,6 +45,7 @@ class FacilityCard extends StatelessWidget {
                   color: ColorNeutral.neutral800,
                   fontSize: 12,
                 ),
+                textAlign: TextAlign.center,
               ),
             ],
           ),

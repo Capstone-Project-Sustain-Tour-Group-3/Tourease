@@ -53,7 +53,7 @@ class LoginController extends GetxController {
     } catch (e) {
       SnackbarWidget.showSnackbar(
           message:
-              'Akun tidak ditemukan. Periksa kembali email dan password Anda');
+              'Akun tidak ditemukan. Periksa kembali email dan kata sandi Anda');
     } finally {
       isLoadingLogin.value = false;
     }
@@ -110,9 +110,9 @@ class LoginController extends GetxController {
 
   void validatorPassword(String value) {
     if (value.isEmpty) {
-      errorMessagePassword.value = "Password tidak boleh kosong";
+      errorMessagePassword.value = "Kata sandi tidak boleh kosong";
     } else if (value.length < 6) {
-      errorMessagePassword.value = "Password harus lebih dari 6 huruf";
+      errorMessagePassword.value = "Kata sandi harus lebih dari 6 huruf";
     } else {
       errorMessagePassword.value = null;
     }
@@ -130,13 +130,13 @@ class LoginController extends GetxController {
 
   void validateNewPassword(String value) {
     if (value.isEmpty) {
-      errorMessagenewPassword.value = 'Password tidak boleh kosong';
+      errorMessagenewPassword.value = 'Kata sandi tidak boleh kosong';
     } else if (value.length < 6) {
-      errorMessagenewPassword.value = "Password harus lebih dari 6 huruf";
+      errorMessagenewPassword.value = "Kata sandi harus lebih dari 6 huruf";
     } else if (confirmationNewPasswordController.text.isNotEmpty &&
         value != confirmationNewPasswordController.text) {
       errorMessagenewPassword.value =
-          'Password dan Konfirmasi Password harus sama';
+          'Kata sandi dan Konfirmasi Kata sandi harus sama';
     } else {
       errorMessagenewPassword.value = null;
     }
@@ -145,13 +145,13 @@ class LoginController extends GetxController {
   void validateConfirmationPassword(String value) {
     if (value.isEmpty) {
       errorMessagenewconfirmationNewPassword.value =
-          'Konfirmasi Password tidak boleh kosong';
+          'Konfirmasi Kata sandi tidak boleh kosong';
     } else if (value.length < 6) {
       errorMessagenewconfirmationNewPassword.value =
-          "Password harus lebih dari 6 huruf";
+          "Kata sandi harus lebih dari 6 huruf";
     } else if (value != newPasswordController.text) {
       errorMessagenewconfirmationNewPassword.value =
-          'Password dan Konfirmasi Password harus sama';
+          'Kata sandi dan Konfirmasi Kata sandi harus sama';
     } else {
       errorMessagenewconfirmationNewPassword.value = null;
     }

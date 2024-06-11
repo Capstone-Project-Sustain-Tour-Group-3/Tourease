@@ -105,7 +105,7 @@ class EditProfilInformasiUmum extends StatelessWidget {
             asset: AssetsCollection.lock,
             text: 'Ubah Kata Sandi',
             function: () {
-              Get.to(() => const UbahSandi());
+              Get.to(() => UbahSandi());
             },
           )
         ],

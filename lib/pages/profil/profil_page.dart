@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:tourease/constants/assets_constant.dart';
@@ -11,6 +12,7 @@ import 'package:tourease/pages/bottom_navbar/bottom_navbar.dart';
 import 'package:tourease/pages/profil/edit_profil_page.dart';
 import 'package:tourease/pages/profil/profil_container.dart';
 import 'package:tourease/pages/profil/profil_logout_container.dart';
+import 'package:tourease/pages/profil/profil_tentang_kami.dart';
 import 'package:tourease/services/profile_service.dart';
 
 class ProfilPage extends StatelessWidget {
@@ -20,8 +22,15 @@ class ProfilPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final BottomNavbarController bottomNavbarController =
         Get.put(BottomNavbarController());
-    final profileController = Get.put(ProfileController(ProfileService()));
+
+    final profileController = Get.put(
+      ProfileController(
+        ProfileService(),
+      ),
+    );
+
     profileController.getUserData();
+
     return PopScope(
       canPop: false,
       onPopInvoked: (backHome) {
@@ -52,33 +61,37 @@ class ProfilPage extends StatelessWidget {
             alignment: Alignment.topCenter,
             child: Column(
               children: [
-                Obx(() {
-                  String? fotoProfil =
-                      profileController.userData.value?.data?.fotoProfil;
-                  return Container(
-                    margin: const EdgeInsets.symmetric(vertical: 8),
-                    width: 90,
-                    height: 90,
-                    child: CircleAvatar(
-                      backgroundImage: profileController.isLoadingGetUser.value
-                          ? null
-                          : fotoProfil != null && fotoProfil.isNotEmpty
-                              ? CachedNetworkImageProvider(fotoProfil)
-                              : AssetImage(AssetsCollection.profilReview),
-                      child: profileController.isLoadingGetUser.value
-                          ? Shimmer.fromColors(
-                              baseColor: ColorNeutral.neutral50,
-                              highlightColor: ColorNeutral.neutral300,
-                              child: ClipOval(
-                                child: Container(
-                                  color: ColorNeutral.neutral300,
+                Obx(
+                  () {
+                    String? fotoProfil =
+                        profileController.userData.value?.data?.fotoProfil;
+                    return Container(
+                      margin: const EdgeInsets.symmetric(vertical: 8),
+                      width: 90,
+                      height: 90,
+                      child: CircleAvatar(
+                        backgroundColor: ColorCollection.transparent,
+                        backgroundImage:
+                            profileController.isLoadingGetUser.value
+                                ? null
+                                : fotoProfil != null && fotoProfil.isNotEmpty
+                                    ? CachedNetworkImageProvider(fotoProfil)
+                                    : Svg(AssetsCollection.defaultProfile),
+                        child: profileController.isLoadingGetUser.value
+                            ? Shimmer.fromColors(
+                                baseColor: ColorNeutral.neutral50,
+                                highlightColor: ColorNeutral.neutral300,
+                                child: ClipOval(
+                                  child: Container(
+                                    color: ColorNeutral.neutral300,
+                                  ),
                                 ),
-                              ),
-                            )
-                          : null,
-                    ),
-                  );
-                }),
+                              )
+                            : null,
+                      ),
+                    );
+                  },
+                ),
                 const SizedBox(
                   height: 16,
                 ),
@@ -118,7 +131,9 @@ class ProfilPage extends StatelessWidget {
                 ProfilContainer(
                   asset: AssetsCollection.campaign,
                   text: 'Tentang Kami',
-                  function: () {},
+                  function: () {
+                    Get.to(() => const ProfilTentangKami());
+                  },
                 ),
                 const ProfilLogoutContainerWidget()
               ],

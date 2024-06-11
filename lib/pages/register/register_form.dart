@@ -54,8 +54,8 @@ class RegisterForm extends StatelessWidget {
             )),
         const SizedBox(height: 16),
         Obx(() => TextFormFieldWidget(
-              titleForm: "Password",
-              hintText: "Masukkan password anda",
+              titleForm: "Kata Sandi",
+              hintText: "Masukkan kata sandi anda",
               keyboardType: TextInputType.text,
               isPassword: true,
               controller: registerController.passwordController,
