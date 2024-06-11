@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
-import 'package:tourease/controllers/edit_profil_controller.dart';
+import 'package:tourease/controllers/profile_controller.dart';
+import 'package:tourease/services/profile_service.dart';
 
 class EditProfilRadioButton extends StatelessWidget {
   const EditProfilRadioButton({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final editProfilController = Get.put(EditProfilController());
+    final editProfilController = Get.put(ProfileController(ProfileService()));
     return Obx(
       () => Row(
         mainAxisAlignment: MainAxisAlignment.start,

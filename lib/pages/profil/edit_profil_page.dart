@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -46,7 +45,150 @@ class EditProfilPage extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        editController.onGalleryView();
+                        Get.bottomSheet(
+                          isDismissible: false,
+                          Container(
+                            height: 205,
+                            decoration: BoxDecoration(
+                              color: ColorCollection.white,
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(12),
+                                topRight: Radius.circular(12),
+                              ),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 16, top: 16, right: 16, bottom: 24),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Foto Profil",
+                                        style: TextStyleCollection.bodyBold
+                                            .copyWith(
+                                                color: ColorNeutral.neutral900,
+                                                fontSize: 16),
+                                      ),
+                                      IconButton(
+                                          onPressed: () {
+                                            Get.back();
+                                          },
+                                          icon: Icon(
+                                            Icons.close,
+                                            size: 24,
+                                            color: ColorNeutral.neutral900,
+                                          ))
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 12,
+                                  ),
+                                  Container(
+                                    height: 105,
+                                    decoration: BoxDecoration(
+                                      color: ColorNeutral.neutral50,
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(12),
+                                        topRight: Radius.circular(12),
+                                      ),
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        InkWell(
+                                          onTap: () async {
+                                            Get.back();
+                                            editController.onCameraView();
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 16,
+                                                top: 13,
+                                                right: 30,
+                                                bottom: 17),
+                                            child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  "Ambil Foto",
+                                                  style: TextStyleCollection
+                                                      .caption
+                                                      .copyWith(
+                                                          color: ColorNeutral
+                                                              .neutral900,
+                                                          fontSize: 14),
+                                                ),
+                                                Icon(
+                                                  Icons.camera_alt_outlined,
+                                                  size: 24,
+                                                  color:
+                                                      ColorNeutral.neutral900,
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                            left: 16,
+                                            right: 16,
+                                          ),
+                                          child: Divider(
+                                            height: 1,
+                                            color: ColorNeutral.neutral100,
+                                          ),
+                                        ),
+                                        InkWell(
+                                          onTap: () {
+                                            Get.back();
+                                            editController.onGalleryView();
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 13,
+                                                bottom: 13,
+                                                left: 16,
+                                                right: 30),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  "Pilih Foto",
+                                                  style: TextStyleCollection
+                                                      .caption
+                                                      .copyWith(
+                                                          color: ColorNeutral
+                                                              .neutral900,
+                                                          fontSize: 14),
+                                                ),
+                                                Icon(
+                                                  Icons.photo_outlined,
+                                                  size: 24,
+                                                  color:
+                                                      ColorNeutral.neutral900,
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
                       },
                       child: Container(
                         margin: const EdgeInsets.symmetric(vertical: 8),
@@ -106,7 +248,7 @@ class EditProfilPage extends StatelessWidget {
                         width: double.infinity,
                         height: 48,
                         child: ButtonWidget(
-                          onPressed: () {
+                          onPressed: () async {
                             editController.editProfile();
                           },
                           text: 'Simpan',
