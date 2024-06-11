@@ -135,10 +135,8 @@ class ProfileService {
       }
     } on DioException catch (e) {
       if (e.response != null && e.response!.data != null) {
-        print('Failed to change password: ${e.response!.data}');
         return ChangePasswordResponseModel.fromJson(e.response!.data);
       } else {
-        print('Failed to change password: ${e.message}');
         return ChangePasswordResponseModel(
           status: 'Failed',
           message: 'Failed to change password: ${e.message}',
