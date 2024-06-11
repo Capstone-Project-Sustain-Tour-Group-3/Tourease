@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:tourease/model/edit_profile_request_model.dart';
 import 'package:tourease/model/edit_profile_response_model.dart';
 import 'package:tourease/model/profile_response_model.dart';
+import 'package:tourease/services/refresh_token_and_logout_service.dart';
 import 'package:tourease/utils/base_url.dart';
 
 class ProfileService {
@@ -32,7 +33,26 @@ class ProfileService {
         throw Exception('Failed to load profile');
       }
     } on DioException catch (e) {
-      throw Exception('Failed to load profile: ${e.message}');
+      if (e.response?.statusCode == 500 &&
+          e.response?.data['message'] == 'Token sudah kadaluwarsa') {
+        final refreshTokenResponse =
+            await RefreshTokenLogoutService().postRefreshToken();
+        if (refreshTokenResponse == true) {
+          return getProfile(token);
+        } else {
+          throw DioException(
+            requestOptions: e.requestOptions,
+            response: e.response,
+            error: 'Failed to refresh token',
+          );
+        }
+      } else {
+        throw DioException(
+          requestOptions: e.requestOptions,
+          response: e.response,
+          error: 'Failed to load profile: ${e.message}',
+        );
+      }
     }
   }
 

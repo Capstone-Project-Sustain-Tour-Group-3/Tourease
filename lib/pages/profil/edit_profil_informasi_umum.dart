@@ -33,46 +33,70 @@ class EditProfilInformasiUmum extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          TextFormFieldWidget(
-            keyboardType: TextInputType.name,
-            titleForm: 'Nama Pengguna',
-            hintText: 'Masukkan nama anda',
-            colorTitleText: ColorNeutral.neutral900,
-            isPassword: false,
-            controller: editController.usernameController,
+          Obx(
+            () => TextFormFieldWidget(
+              keyboardType: TextInputType.name,
+              titleForm: 'Nama Pengguna',
+              hintText: 'Masukkan nama anda',
+              colorTitleText: ColorNeutral.neutral900,
+              isPassword: false,
+              controller: editController.usernameController,
+              errorText: editController.errorMessageNamaPengguna.value,
+              onChanged: (value) {
+                editController.validatorNamaPengguna(value);
+              },
+            ),
           ),
           const SizedBox(
             height: 19,
           ),
-          TextFormFieldWidget(
-            keyboardType: TextInputType.name,
-            titleForm: 'Nama Lengkap',
-            hintText: 'Masukkan nama lengkap anda',
-            isPassword: false,
-            colorTitleText: ColorNeutral.neutral900,
-            controller: editController.namaLengkapController,
+          Obx(
+            () => TextFormFieldWidget(
+              keyboardType: TextInputType.name,
+              titleForm: 'Nama Lengkap',
+              hintText: 'Masukkan nama lengkap anda',
+              isPassword: false,
+              colorTitleText: ColorNeutral.neutral900,
+              controller: editController.namaLengkapController,
+              errorText: editController.errorMessageNamaLengkap.value,
+              onChanged: (value) {
+                editController.validatorNamaLengkap(value);
+              },
+            ),
           ),
           const SizedBox(
             height: 19,
           ),
-          TextFormFieldWidget(
-            keyboardType: TextInputType.emailAddress,
-            titleForm: 'Email',
-            hintText: 'Masukkan email anda',
-            isPassword: false,
-            colorTitleText: ColorNeutral.neutral900,
-            controller: editController.emailController,
+          Obx(
+            () => TextFormFieldWidget(
+              keyboardType: TextInputType.emailAddress,
+              titleForm: 'Email',
+              hintText: 'Masukkan email anda',
+              isPassword: false,
+              colorTitleText: ColorNeutral.neutral900,
+              controller: editController.emailController,
+              errorText: editController.errorMessageEmail.value,
+              onChanged: (value) {
+                editController.validatorEmail(value);
+              },
+            ),
           ),
           const SizedBox(
             height: 19,
           ),
-          TextFormFieldWidget(
-            keyboardType: TextInputType.phone,
-            titleForm: 'Nomor Telepon',
-            hintText: 'Masukkan nomor telepon anda',
-            isPassword: false,
-            colorTitleText: ColorNeutral.neutral900,
-            controller: editController.nomorTeleponController,
+          Obx(
+            () => TextFormFieldWidget(
+              keyboardType: TextInputType.phone,
+              titleForm: 'Nomor Telepon',
+              hintText: 'Masukkan nomor telepon anda',
+              isPassword: false,
+              colorTitleText: ColorNeutral.neutral900,
+              controller: editController.nomorTeleponController,
+              errorText: editController.errorMessageNomorTelepon.value,
+              onChanged: (value) {
+                editController.validatorNomorTelepon(value);
+              },
+            ),
           ),
           const SizedBox(
             height: 24,
