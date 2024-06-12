@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tourease/constants/color_constant.dart';
-import 'package:tourease/pages/route_recommendation/search_route/search_route_page.dart';
 import 'package:tourease/pages/splash/splash_page.dart';
 
 void main() {
@@ -21,7 +20,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: SearchRoutePage(),
+      home: const SplashPage(),
     );
   }
 }
