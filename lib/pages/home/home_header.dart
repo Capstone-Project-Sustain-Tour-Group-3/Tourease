@@ -29,7 +29,11 @@ class HomeHeader extends StatelessWidget {
       ),
     );
 
-    profileController.getUserData();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        profileController.getUserData();
+      },
+    );
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12),
@@ -47,13 +51,16 @@ class HomeHeader extends StatelessWidget {
                   ),
                 );
               },
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(35),
-                child: CachedNetworkImageWidget(
-                  imageUrl:
-                      profileController.userData.value?.data?.fotoProfil ?? '',
-                  height: 50,
-                  width: 50,
+              child: Obx(
+                () => ClipRRect(
+                  borderRadius: BorderRadius.circular(35),
+                  child: CachedNetworkImageWidget(
+                    imageUrl:
+                        profileController.userData.value?.data?.fotoProfil ??
+                            '',
+                    height: 50,
+                    width: 50,
+                  ),
                 ),
               ),
             ),
@@ -65,15 +72,17 @@ class HomeHeader extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  AutoSizeText(
-                    'Hi, ${profileController.userData.value?.data?.username ?? ''}',
-                    style: TextStyleCollection.bodyBold.copyWith(
-                      color: ColorCollection.black,
+                  Obx(
+                    () => AutoSizeText(
+                      'Hi, ${profileController.userData.value?.data?.username ?? ''}',
+                      style: TextStyleCollection.bodyBold.copyWith(
+                        color: ColorCollection.black,
+                      ),
+                      minFontSize: 14,
+                      maxFontSize: 18,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    minFontSize: 14,
-                    maxFontSize: 18,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
                   ),
                   AutoSizeText(
                     'Mau kemana hari ini?',
