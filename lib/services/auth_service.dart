@@ -18,7 +18,10 @@ class AuthService {
   // Register Method
   Future<String> register(UserModel user) async {
     try {
-      final response = await _dio.post('/auth/register', data: user.toJson());
+      final response = await _dio.post(
+        '/auth/register',
+        data: user.toJson(),
+      );
       if (response.statusCode == 201 && response.data['status'] == 'Success') {
         return response.data['data']['reference_id'];
       } else {
