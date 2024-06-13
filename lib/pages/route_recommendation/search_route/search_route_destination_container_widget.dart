@@ -17,6 +17,9 @@ class RouteDestinationContainerWidget extends StatelessWidget {
     final HomeController homeController = Get.put(HomeController());
 
     return Card(
+      elevation: 4,
+      shadowColor: ColorCollection.black.withOpacity(0.80),
+      color: ColorCollection.white,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12),
         child: Padding(
@@ -38,8 +41,8 @@ class RouteDestinationContainerWidget extends StatelessWidget {
                         .copyWith(color: ColorNeutral.neutral900),
                     minFontSize: 14,
                     maxFontSize: 16,
-                    overflow: TextOverflow.ellipsis,
                     maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ],
               ),
@@ -83,15 +86,16 @@ class RouteDestinationContainerWidget extends StatelessWidget {
                                 color: ColorPrimary.primary500,
                                 size: 24,
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
+                              const SizedBox(width: 10),
+                              Flexible(
                                 child: AutoSizeText(
                                   destination.name,
                                   style: TextStyleCollection.caption
                                       .copyWith(color: ColorNeutral.neutral900),
                                   minFontSize: 14,
                                   maxFontSize: 16,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                               const Spacer(),

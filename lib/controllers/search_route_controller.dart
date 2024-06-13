@@ -56,10 +56,12 @@ class SearchRouteController extends GetxController {
 
     if (!exists && destinations.length < 3) {
       destinations.add(destination);
+      availableDestinations.remove(destination);
     }
   }
 
   void removeDestination(SearchRouteModel destination) {
     destinations.remove(destination);
+    availableDestinations.add(destination);
   }
 }
