@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
+import 'package:tourease/controllers/home_controller.dart';
 import 'package:tourease/controllers/search_route_controller.dart';
 
 class RouteDestinationContainerWidget extends StatelessWidget {
@@ -12,6 +13,8 @@ class RouteDestinationContainerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final SearchRouteController searchRouteController =
         Get.put(SearchRouteController());
+
+    final HomeController homeController = Get.put(HomeController());
 
     return Card(
       child: Padding(
@@ -29,7 +32,7 @@ class RouteDestinationContainerWidget extends StatelessWidget {
                   ),
                   const SizedBox(width: 10),
                   AutoSizeText(
-                    searchRouteController.currentLocation.value,
+                    homeController.savedCity.value ?? 'Location unknwon',
                     style: TextStyleCollection.caption
                         .copyWith(color: ColorNeutral.neutral900),
                     minFontSize: 14,

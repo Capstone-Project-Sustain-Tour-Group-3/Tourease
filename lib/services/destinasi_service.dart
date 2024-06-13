@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:tourease/model/detail_destinasi_response_model.dart';
+import 'package:tourease/model/kota_destinasi_response_model.dart';
 import 'package:tourease/model/search_destinasi_response.dart';
 import 'package:tourease/utils/base_url.dart';
 import 'package:tourease/utils/shared_preference_utils.dart';
@@ -40,5 +41,17 @@ class DestinasiService {
       ),
     );
     return DetailDestinasiResponseModel.fromJson(response.data);
+  }
+
+  Future<KotaDestinasiResponseModel> getDestinationByCity(
+      {required String id}) async {
+    final token = await SharedPref.getAccessToken();
+    final response = await dio.get('${BaseUrl.urlAPI}/destinations/cities/$id',
+        options: Options(headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        }));
+
+    return KotaDestinasiResponseModel.fromJson(response.data);
   }
 }
