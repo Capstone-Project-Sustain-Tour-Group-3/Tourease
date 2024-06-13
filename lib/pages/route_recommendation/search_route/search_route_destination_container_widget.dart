@@ -34,15 +34,17 @@ class RouteDestinationContainerWidget extends StatelessWidget {
                     size: 24,
                   ),
                   const SizedBox(width: 10),
-                  AutoSizeText(
-                    homeController.savedCompletedCity.value ??
-                        'Location unknwon',
-                    style: TextStyleCollection.caption
-                        .copyWith(color: ColorNeutral.neutral900),
-                    minFontSize: 14,
-                    maxFontSize: 16,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                  Flexible(
+                    child: AutoSizeText(
+                      homeController.savedCompletedCity.value ??
+                          'Location unknwon',
+                      style: TextStyleCollection.caption
+                          .copyWith(color: ColorNeutral.neutral900),
+                      minFontSize: 14,
+                      maxFontSize: 16,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ],
               ),
@@ -87,7 +89,7 @@ class RouteDestinationContainerWidget extends StatelessWidget {
                                 size: 24,
                               ),
                               const SizedBox(width: 10),
-                              Flexible(
+                              Expanded(
                                 child: AutoSizeText(
                                   destination.name,
                                   style: TextStyleCollection.caption
@@ -98,7 +100,6 @@ class RouteDestinationContainerWidget extends StatelessWidget {
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
-                              const Spacer(),
                               IconButton(
                                 icon: Icon(
                                   Icons.remove_circle_outline_rounded,
