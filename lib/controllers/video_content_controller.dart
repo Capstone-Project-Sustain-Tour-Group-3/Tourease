@@ -8,12 +8,14 @@ class VideoController extends GetxController {
   RxBool isCompleted = false.obs;
   RxString errorMessage = ''.obs;
   RxBool isDarkOverlayVisible = false.obs;
+  final String url;
+
+  VideoController({required this.url});
 
   @override
   void onInit() {
     videoPlayerController = VideoPlayerController.networkUrl(
-      Uri.parse(
-          'https://videos.pexels.com/video-files/20770858/20770858-hd_1080_1920_30fps.mp4'),
+      Uri.parse(url),
     )..initialize().then(
         (_) {
           isInitialized.value = true;

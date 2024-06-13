@@ -41,7 +41,7 @@ class HomeContainerRute extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   AutoSizeText(
-                    'Mulai Langkah eksplorasimu!',
+                    'Mulai Langkah Eksplorasimu!',
                     style: TextStyleCollection.bodyBold.copyWith(
                       color: ColorPrimary.primary600,
                     ),

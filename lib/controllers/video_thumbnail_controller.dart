@@ -3,11 +3,14 @@ import 'package:video_thumbnail/video_thumbnail.dart';
 import 'package:path_provider/path_provider.dart';
 
 class VideoThumbnailController extends GetxController {
-  RxString thumbnailPath = ''.obs;
-  RxBool isLoadingThumbnail = false.obs;
+  var thumbnailPaths = <String, String>{}.obs;
+  var loadingThumbnails = <String, bool>{}.obs;
 
   Future<void> getThumbnail(String urlVideo) async {
-    isLoadingThumbnail.value = true;
+    if (thumbnailPaths.containsKey(urlVideo) ||
+        loadingThumbnails[urlVideo] == true) return;
+
+    loadingThumbnails[urlVideo] = true;
     try {
       final thumbnail = await VideoThumbnail.thumbnailFile(
         video: urlVideo,
@@ -16,11 +19,11 @@ class VideoThumbnailController extends GetxController {
         maxHeight: 230,
         quality: 100,
       );
-      thumbnailPath.value = thumbnail!;
+      thumbnailPaths[urlVideo] = thumbnail!;
     } catch (e) {
       e.toString();
     } finally {
-      isLoadingThumbnail.value = false;
+      loadingThumbnails[urlVideo] = false;
     }
   }
 }

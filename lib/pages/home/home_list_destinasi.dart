@@ -19,7 +19,7 @@ class HomeListDestinasi extends StatelessWidget {
 
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        destinasiController.searchDestinasi();
+        destinasiController.searchDestinasi(limit: 5);
       },
     );
 

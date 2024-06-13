@@ -79,7 +79,8 @@ class DestinasiController extends GetxController {
   void aturUlang({String? searchText}) {
     urutanPilihan.value = '';
     kategoriPilihan.value = '';
-    searchDestinasi(search: searchText);
+    destinasiController.text = '';
+    searchDestinasi();
   }
 
   @override
@@ -93,21 +94,16 @@ class DestinasiController extends GetxController {
   RxBool isLoadingSearchDestinasi = false.obs;
 
   void searchDestinasi({
-    String? search,
-    String? limit,
-    String? page,
-    String? sort,
-    String? filter,
+    int? limit,
   }) async {
     isLoadingSearchDestinasi.value = true;
     destinasiResponse.value = SearchDestinasiResponse();
     try {
       final response = await DestinasiService().searchDestinasi(
-        search: search,
-        limit: limit,
-        page: page,
-        sort: sort,
-        filter: filter,
+        search: destinasiController.text,
+        limit: limit ?? 1000,
+        sort: urutanPilihan.value.toLowerCase(),
+        filter: kategoriPilihan.value,
       );
       destinasiResponse.value = response;
     } on DioException catch (e) {
@@ -116,11 +112,7 @@ class DestinasiController extends GetxController {
         final response = await RefreshTokenLogoutService().postRefreshToken();
         if (response == true) {
           searchDestinasi(
-            search: search,
             limit: limit,
-            page: page,
-            sort: sort,
-            filter: filter,
           );
         } else {
           SnackbarWidget.showSnackbar(

@@ -5,8 +5,8 @@ import 'package:tourease/constants/assets_constant.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
 
-class DestinaiZeroResult extends StatelessWidget {
-  const DestinaiZeroResult({super.key});
+class DestinasiZeroResult extends StatelessWidget {
+  const DestinasiZeroResult({super.key});
 
   @override
   Widget build(BuildContext context) {

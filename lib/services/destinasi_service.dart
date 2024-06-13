@@ -10,7 +10,7 @@ class DestinasiService {
 
   Future<SearchDestinasiResponse> searchDestinasi({
     String? search,
-    String? limit,
+    int? limit,
     String? page,
     String? sort,
     String? filter,
