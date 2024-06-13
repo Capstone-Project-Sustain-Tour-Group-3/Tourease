@@ -6,13 +6,15 @@ import 'package:tourease/constants/text_style_constant.dart';
 import 'package:tourease/controllers/search_city_destination_controller.dart';
 
 class SearchPage extends StatelessWidget {
-  final SearchCityDestinationController destinasiController = Get.find();
-
-  SearchPage({super.key});
+  const SearchPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final SearchCityDestinationController destinasiController =
+        Get.put(SearchCityDestinationController());
+
     destinasiController.resetSearchResults();
+
     return Scaffold(
       backgroundColor: ColorNeutral.neutral50,
       appBar: AppBar(
@@ -90,35 +92,39 @@ class SearchPage extends StatelessWidget {
           const SizedBox(height: 20),
           Expanded(
             child: Obx(() {
-              final searchResults = destinasiController.searchResults;
-              return ListView.builder(
-                itemCount: searchResults.length,
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      ListTile(
-                        title: Text(
-                          searchResults[index].nama,
-                          style: TextStyleCollection.caption.copyWith(
-                            color: ColorNeutral.neutral900,
+              if (destinasiController.isLoading.value) {
+                return const Center(child: CircularProgressIndicator());
+              } else {
+                final searchResults = destinasiController.searchResults;
+                return ListView.builder(
+                  itemCount: searchResults.length,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        ListTile(
+                          title: Text(
+                            searchResults[index].nama,
+                            style: TextStyleCollection.caption.copyWith(
+                              color: ColorNeutral.neutral900,
+                            ),
+                          ),
+                          onTap: () {
+                            Get.back(result: searchResults[index]);
+                          },
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Divider(
+                            color: ColorNeutral.neutral200,
+                            height: 1,
+                            thickness: 1,
                           ),
                         ),
-                        onTap: () {
-                          Get.back(result: searchResults[index]);
-                        },
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Divider(
-                          color: ColorNeutral.neutral200,
-                          height: 1,
-                          thickness: 1,
-                        ),
-                      ),
-                    ],
-                  );
-                },
-              );
+                      ],
+                    );
+                  },
+                );
+              }
             }),
           ),
         ],
