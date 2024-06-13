@@ -13,7 +13,6 @@ class SearchRouteController extends GetxController {
   var availableDestinations = <SearchRouteModel>[].obs;
   Rx<KotaDestinasiResponseModel> kotaDestinasiResponse =
       KotaDestinasiResponseModel().obs;
- 
 
   void getDestinationCities({required String id}) async {
     try {
@@ -63,6 +62,4 @@ class SearchRouteController extends GetxController {
   void removeDestination(SearchRouteModel destination) {
     destinations.remove(destination);
   }
-
-  
 }
