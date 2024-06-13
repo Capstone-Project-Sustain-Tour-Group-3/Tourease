@@ -23,6 +23,7 @@ class SearchRoutePage extends StatelessWidget {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       searchRouteController.getDestinationCities(id: id);
     });
+
     return Scaffold(
       backgroundColor: ColorNeutral.neutral50,
       appBar: AppBar(
@@ -31,6 +32,7 @@ class SearchRoutePage extends StatelessWidget {
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
+            searchRouteController.destinations.clear();
             Get.back();
           },
           icon: const Icon(Icons.arrow_back),
