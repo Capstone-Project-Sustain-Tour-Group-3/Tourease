@@ -12,21 +12,25 @@ class DestinasiDetailVideo extends StatelessWidget {
     super.key,
     required this.url,
     required this.deskripsiVideo,
+    required this.namaDestinasi,
   });
 
   final String url;
   final String deskripsiVideo;
+  final String namaDestinasi;
 
   @override
   Widget build(BuildContext context) {
     final VideoThumbnailController controller =
         Get.put(VideoThumbnailController());
 
-    controller.getThumbnail(url);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.getThumbnail(url);
+    });
 
     return Obx(
       () {
-        if (controller.isLoadingThumbnail.value) {
+        if (controller.loadingThumbnails[url] == true) {
           return SizedBox(
             width: 142,
             height: 230,
@@ -41,55 +45,74 @@ class DestinasiDetailVideo extends StatelessWidget {
             ),
           );
         } else {
-          return Container(
-            width: 142,
-            height: 230,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              image: DecorationImage(
-                image: FileImage(File(controller.thumbnailPath.value)),
-                fit: BoxFit.cover,
-                colorFilter: ColorFilter.mode(
-                  ColorCollection.black.withOpacity(0.3),
-                  BlendMode.colorBurn,
+          final thumbnailPath = controller.thumbnailPaths[url];
+          if (thumbnailPath == null || thumbnailPath.isEmpty) {
+            return SizedBox(
+              width: 142,
+              height: 230,
+              child: Center(
+                child: Icon(
+                  Icons.error,
+                  color: ColorDanger.danger500,
+                  size: 50,
                 ),
               ),
-            ),
-            child: Stack(
-              children: [
-                Center(
-                  child: IconButton(
-                    onPressed: () {
-                      Get.to(() => const VideoContentPage());
-                    },
-                    icon: Icon(
-                      Icons.play_arrow,
-                      color: ColorNeutral.neutral50,
-                      size: 50,
-                    ),
+            );
+          } else {
+            return Container(
+              width: 142,
+              height: 230,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                  image: FileImage(File(thumbnailPath)),
+                  fit: BoxFit.cover,
+                  colorFilter: ColorFilter.mode(
+                    ColorCollection.black.withOpacity(0.3),
+                    BlendMode.colorBurn,
                   ),
                 ),
-                Positioned(
-                  bottom: 10,
-                  left: 10,
-                  right: 10,
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: AutoSizeText(
-                      deskripsiVideo,
-                      style: TextStyleCollection.captionBold.copyWith(
-                        color: ColorCollection.lightGray,
+              ),
+              child: Stack(
+                children: [
+                  Center(
+                    child: IconButton(
+                      onPressed: () {
+                        Get.to(() => VideoContentPage(
+                              url: url,
+                              namaDestinasi: namaDestinasi,
+                              deskripsiVideo: deskripsiVideo,
+                            ));
+                      },
+                      icon: Icon(
+                        Icons.play_arrow,
+                        color: ColorNeutral.neutral50,
+                        size: 50,
                       ),
-                      minFontSize: 11,
-                      maxFontSize: 12,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                )
-              ],
-            ),
-          );
+                  Positioned(
+                    bottom: 10,
+                    left: 10,
+                    right: 10,
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: AutoSizeText(
+                        deskripsiVideo,
+                        style: TextStyleCollection.captionBold.copyWith(
+                          color: ColorCollection.lightGray,
+                        ),
+                        minFontSize: 11,
+                        maxFontSize: 12,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            );
+          }
         }
       },
     );

@@ -11,6 +11,7 @@ class HomeController extends GetxController {
   Rx<Position?> currentLocation = Rx<Position?>(null);
   Rx<String?> currentCity = Rx<String?>(null);
   Rx<String?> savedCity = Rx<String?>(null);
+  Rx<String?> savedCompletedCity = Rx<String?>(null);
 
   @override
   void onInit() {
@@ -43,6 +44,10 @@ class HomeController extends GetxController {
           latitude: currentLocation.value!.latitude.toString(),
           longitude: currentLocation.value!.longitude.toString(),
         );
+        SharedPref.saveCompletedLocation(
+          completedLocation:
+              '${placemark[0].name}, ${placemark[0].locality}, ${placemark[0].administrativeArea}, ${placemark[0].country}',
+        );
         getSavedCity();
       }
     } catch (e) {
@@ -54,6 +59,7 @@ class HomeController extends GetxController {
 
   void getSavedCity() async {
     savedCity.value = await SharedPref.getSavedLocation();
+    savedCompletedCity.value = await SharedPref.getSavedCompletedLocation();
   }
 
   RxInt activeIndex = 0.obs;
