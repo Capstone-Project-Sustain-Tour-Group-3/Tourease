@@ -61,8 +61,8 @@ class SearchRoutePage extends StatelessWidget {
                   _searchCityDestinationController.city.value,
                   style: TextStyleCollection.bodyBold
                       .copyWith(color: ColorNeutral.neutral900),
-                  minFontSize: 20,
-                  maxFontSize: 22,
+                  minFontSize: 18,
+                  maxFontSize: 20,
                 )),
           ),
           const Padding(
