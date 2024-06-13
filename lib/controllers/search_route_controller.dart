@@ -57,6 +57,10 @@ class SearchRouteController extends GetxController {
     if (!exists && destinations.length < 3) {
       destinations.add(destination);
       availableDestinations.remove(destination);
+    } else if (destinations.length >= 3) {
+      SnackbarWidget.showSnackbar(
+        message:
+            "Maaf, rute tujuan anda telah mencapai maksimal");
     }
   }
 
