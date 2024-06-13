@@ -7,6 +7,7 @@ import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
 import 'package:tourease/controllers/bottom_navbar_controller.dart';
 import 'package:tourease/controllers/search_city_destination_controller.dart';
+import 'package:tourease/model/route_recommendation_cities.dart';
 import 'package:tourease/pages/bottom_navbar/bottom_navbar.dart';
 import 'package:tourease/pages/route_recommendation/home_page/instruction_use.dart';
 import 'package:tourease/pages/route_recommendation/home_page/search_city_page.dart';
@@ -72,7 +73,11 @@ class RouteHomePage extends StatelessWidget {
                 onTap: () async {
                   final result = await Get.to(() => SearchPage());
                   if (result != null) {
-                    _searchCityDestinationController.updateCity(result);
+                    if (result is City) {
+                      _searchCityDestinationController.updateCity(result);
+                    } else if (result is String) {
+                      _searchCityDestinationController.cities;
+                    }
                   }
                 },
                 child: AbsorbPointer(
@@ -140,7 +145,7 @@ class RouteHomePage extends StatelessWidget {
                       text: 'Klik disini',
                       style: TextStyle(
                         color: ColorPrimary
-                            .primary500, // Green color for "Klik disini"
+                            .primary500, 
                       ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {

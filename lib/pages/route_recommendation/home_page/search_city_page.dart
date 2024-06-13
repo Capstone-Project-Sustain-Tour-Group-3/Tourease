@@ -12,6 +12,7 @@ class SearchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    destinasiController.resetSearchResults();
     return Scaffold(
       backgroundColor: ColorNeutral.neutral50,
       appBar: AppBar(
@@ -97,7 +98,7 @@ class SearchPage extends StatelessWidget {
                     children: [
                       ListTile(
                         title: Text(
-                          searchResults[index],
+                          searchResults[index].nama,
                           style: TextStyleCollection.caption.copyWith(
                             color: ColorNeutral.neutral900,
                           ),

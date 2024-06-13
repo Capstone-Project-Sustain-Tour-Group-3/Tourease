@@ -1,31 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tourease/model/route_recommendation_cities.dart';
+import 'package:tourease/services/route_recommendation_service.dart';
 
 class SearchCityDestinationController extends GetxController {
   var city = ''.obs;
   var searchText = ''.obs;
   var errorText = ''.obs;
   final TextEditingController destinasiController = TextEditingController();
-  final TextEditingController searchDestinasiController =
-      TextEditingController();
-  var searchResults = <String>[].obs;
+  final TextEditingController searchDestinasiController = TextEditingController();
+  var searchResults = <City>[].obs;
+  var cities = <City>[].obs;
 
-  final List<String> cities = [
-    'Bali',
-    'Bandung',
-    'Banjarmasin',
-    'Banjarbaru',
-    'Banyumas',
-    'Banyuwangi',
-    'Batam',
-    'Jakarta',
-    'Surabaya',
-    'Malang',
-  ];
+  final RouteRecommendationService _apiService = RouteRecommendationService();
 
-  void updateCity(String newCity) {
-    city.value = newCity;
-    errorText.value = ''; // Reset error text when city is updated
+  Future<String?> _getAccessToken() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    return preferences.getString('access_token');
+  }
+
+  void updateCity(City newCity) {
+    city.value = newCity.nama;
+    errorText.value = '';
+    searchText.value = newCity.nama;
+    updateSearchResults(newCity.nama);
   }
 
   void clearControllers() {
@@ -33,12 +32,16 @@ class SearchCityDestinationController extends GetxController {
     searchDestinasiController.clear();
   }
 
+  void resetSearchResults() {
+    searchResults.value = cities;
+  }
+
   void updateSearchResults(String query) {
     if (query.isEmpty) {
       searchResults.value = cities;
     } else {
       searchResults.value = cities
-          .where((city) => city.toLowerCase().contains(query.toLowerCase()))
+          .where((city) => city.nama.toLowerCase().contains(query.toLowerCase()))
           .toList();
     }
   }
@@ -51,9 +54,25 @@ class SearchCityDestinationController extends GetxController {
     }
   }
 
+  Future<void> fetchCities() async {
+    try {
+      String? token = await _getAccessToken();
+      if (token != null) {
+        CityResponse response = await _apiService.getCities(token);
+        cities.value = response.data;
+        resetSearchResults(); 
+      } else {
+        errorText.value = 'Token tidak ditemukan. Silakan login ulang.';
+      }
+    } catch (e) {
+      errorText.value = 'Gagal mengambil data kota. Silakan coba lagi.';
+      
+    }
+  }
+
   @override
   void onInit() {
     super.onInit();
-    searchResults.value = cities;
+    fetchCities();
   }
 }
