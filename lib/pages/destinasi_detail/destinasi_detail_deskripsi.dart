@@ -32,6 +32,7 @@ class DestinasiDetailDeskripsi extends StatelessWidget {
             color: ColorNeutral.neutral900,
             fontSize: 14,
           ),
+          textAlign: TextAlign.justify,
         ),
       ],
     );

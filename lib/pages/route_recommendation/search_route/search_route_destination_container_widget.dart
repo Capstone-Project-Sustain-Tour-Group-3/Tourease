@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
+import 'package:tourease/controllers/home_controller.dart';
 import 'package:tourease/controllers/search_route_controller.dart';
 
 class RouteDestinationContainerWidget extends StatelessWidget {
@@ -13,7 +14,12 @@ class RouteDestinationContainerWidget extends StatelessWidget {
     final SearchRouteController searchRouteController =
         Get.put(SearchRouteController());
 
+    final HomeController homeController = Get.put(HomeController());
+
     return Card(
+      elevation: 4,
+      shadowColor: ColorCollection.black.withOpacity(0.80),
+      color: ColorCollection.white,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12),
         child: Padding(
@@ -29,11 +35,14 @@ class RouteDestinationContainerWidget extends StatelessWidget {
                   ),
                   const SizedBox(width: 10),
                   AutoSizeText(
-                    searchRouteController.currentLocation.value,
+                    homeController.savedCompletedCity.value ??
+                        'Location unknwon',
                     style: TextStyleCollection.caption
                         .copyWith(color: ColorNeutral.neutral900),
                     minFontSize: 14,
                     maxFontSize: 16,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ],
               ),
@@ -77,15 +86,16 @@ class RouteDestinationContainerWidget extends StatelessWidget {
                                 color: ColorPrimary.primary500,
                                 size: 24,
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
+                              const SizedBox(width: 10),
+                              Flexible(
                                 child: AutoSizeText(
                                   destination.name,
                                   style: TextStyleCollection.caption
                                       .copyWith(color: ColorNeutral.neutral900),
                                   minFontSize: 14,
                                   maxFontSize: 16,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                               const Spacer(),

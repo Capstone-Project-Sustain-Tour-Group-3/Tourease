@@ -4,12 +4,11 @@ import 'package:get/get.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
 import 'package:tourease/controllers/search_route_controller.dart';
-import 'package:tourease/pages/route_recommendation/search_route/dummy_model.dart';
+import 'package:tourease/pages/route_recommendation/search_route/search_route_model.dart';
 
 class RouteListTile extends StatelessWidget {
+  final SearchRouteModel destination;
   RouteListTile({super.key, required this.destination});
-
-  final SearchRouteDummyModel destination;
 
   final SearchRouteController searchRouteController =
       Get.put(SearchRouteController());
@@ -28,23 +27,27 @@ class RouteListTile extends StatelessWidget {
           size: 24,
         ),
       ),
-      title: AutoSizeText(
-        destination.name,
-        style: TextStyleCollection.bodyBold
-            .copyWith(color: ColorNeutral.neutral900),
-        minFontSize: 16,
-        maxFontSize: 16,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
+      title: Flexible(
+        child: AutoSizeText(
+          destination.name,
+          style: TextStyleCollection.bodyBold
+              .copyWith(color: ColorNeutral.neutral900),
+          minFontSize: 16,
+          maxFontSize: 16,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
       ),
-      subtitle: AutoSizeText(
-        destination.subtitle,
-        style: TextStyleCollection.caption
-            .copyWith(color: ColorNeutral.neutral900),
-        minFontSize: 12,
-        maxFontSize: 12,
-        maxLines: 2,
-        overflow: TextOverflow.ellipsis,
+      subtitle: Flexible(
+        child: AutoSizeText(
+          destination.subtitle,
+          style: TextStyleCollection.caption
+              .copyWith(color: ColorNeutral.neutral900),
+          minFontSize: 12,
+          maxFontSize: 12,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        ),
       ),
       trailing: IconButton(
         icon: Icon(

@@ -7,6 +7,7 @@ import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
 import 'package:tourease/controllers/bottom_navbar_controller.dart';
 import 'package:tourease/controllers/search_city_destination_controller.dart';
+import 'package:tourease/model/route_recommendation_cities_response.dart';
 import 'package:tourease/pages/bottom_navbar/bottom_navbar.dart';
 import 'package:tourease/pages/route_recommendation/home_page/instruction_use.dart';
 import 'package:tourease/pages/route_recommendation/home_page/search_city_page.dart';
@@ -72,7 +73,11 @@ class RouteHomePage extends StatelessWidget {
                 onTap: () async {
                   final result = await Get.to(() => SearchPage());
                   if (result != null) {
-                    _searchCityDestinationController.updateCity(result);
+                    if (result is City) {
+                      _searchCityDestinationController.updateCity(result);
+                    } else if (result is String) {
+                      _searchCityDestinationController.cities;
+                    }
                   }
                 },
                 child: AbsorbPointer(
@@ -82,23 +87,20 @@ class RouteHomePage extends StatelessWidget {
                         _searchCityDestinationController.destinasiController
                           ..text = _searchCityDestinationController.city.value,
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(
-                          color: ColorNeutral.neutral50,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(
+                            color: ColorNeutral.neutral50,
+                          ),
                         ),
-                      ),
-                      hintText: 'Pilih Kota Tujuan',
-                      hintStyle: TextStyleCollection.caption.copyWith(
-                        color: ColorNeutral.neutral600,
-                        fontSize: 14,
-                      ),
-                      prefixIcon: const Icon(Icons.search),
-                      errorText: _searchCityDestinationController
-                              .errorText.value.isEmpty
-                          ? null
-                          : _searchCityDestinationController.errorText.value,
-                    ),
+                        hintText: 'Pilih Kota Tujuan',
+                        hintStyle: TextStyleCollection.caption.copyWith(
+                          color: ColorNeutral.neutral600,
+                          fontSize: 14,
+                        ),
+                        prefixIcon: const Icon(Icons.search),
+                        errorText:
+                            _searchCityDestinationController.errorText.value),
                   ),
                 )),
               ),
@@ -107,7 +109,8 @@ class RouteHomePage extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    _searchCityDestinationController.validateCity();
+                    _searchCityDestinationController.validateCity(
+                        id: _searchCityDestinationController.id.value);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: ColorPrimary.primary500,
@@ -139,8 +142,7 @@ class RouteHomePage extends StatelessWidget {
                     TextSpan(
                       text: 'Klik disini',
                       style: TextStyle(
-                        color: ColorPrimary
-                            .primary500, // Green color for "Klik disini"
+                        color: ColorPrimary.primary500,
                       ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {

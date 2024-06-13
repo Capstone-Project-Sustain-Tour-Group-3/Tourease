@@ -150,14 +150,7 @@ class FilterDestinasi extends StatelessWidget {
                                 height: 48,
                                 child: ButtonWidget(
                                   onPressed: () {
-                                    String filter = destinasiController
-                                        .kategoriPilihan.value;
-                                    destinasiController.searchDestinasi(
-                                        search: destinasiController
-                                            .destinasiController.text,
-                                        filter: filter,
-                                        sort: destinasiController
-                                            .urutanPilihan.value);
+                                    destinasiController.searchDestinasi();
                                     Get.back();
                                   },
                                   text: 'Terapkan',

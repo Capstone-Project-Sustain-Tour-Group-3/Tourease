@@ -1,31 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tourease/model/route_recommendation_cities_response.dart';
+import 'package:tourease/pages/route_recommendation/search_route/search_route_page.dart';
+import 'package:tourease/services/route_recommendation_service.dart';
 
 class SearchCityDestinationController extends GetxController {
   var city = ''.obs;
   var searchText = ''.obs;
-  var errorText = ''.obs;
+  var id = ''.obs;
+  var errorText = Rxn<String>();
   final TextEditingController destinasiController = TextEditingController();
   final TextEditingController searchDestinasiController =
       TextEditingController();
-  var searchResults = <String>[].obs;
+  var searchResults = <City>[].obs;
+  var cities = <City>[].obs;
 
-  final List<String> cities = [
-    'Bali',
-    'Bandung',
-    'Banjarmasin',
-    'Banjarbaru',
-    'Banyumas',
-    'Banyuwangi',
-    'Batam',
-    'Jakarta',
-    'Surabaya',
-    'Malang',
-  ];
+  @override
+  void dispose() {
+    destinasiController.dispose();
+    searchDestinasiController.dispose();
+    super.dispose();
+  }
 
-  void updateCity(String newCity) {
-    city.value = newCity;
-    errorText.value = ''; // Reset error text when city is updated
+  final RouteRecommendationService _apiService = RouteRecommendationService();
+
+  Future<String?> _getAccessToken() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    return preferences.getString('access_token');
+  }
+
+  void updateCity(City newCity) {
+    id.value = newCity.id;
+    city.value = newCity.nama;
+    errorText.value = '';
+    searchText.value = newCity.nama;
+    updateSearchResults(newCity.nama);
   }
 
   void clearControllers() {
@@ -33,27 +43,48 @@ class SearchCityDestinationController extends GetxController {
     searchDestinasiController.clear();
   }
 
+  void resetSearchResults() {
+    searchResults.value = cities;
+  }
+
   void updateSearchResults(String query) {
     if (query.isEmpty) {
       searchResults.value = cities;
     } else {
       searchResults.value = cities
-          .where((city) => city.toLowerCase().contains(query.toLowerCase()))
+          .where(
+              (city) => city.nama.toLowerCase().contains(query.toLowerCase()))
           .toList();
     }
   }
 
-  void validateCity() {
+  void validateCity({required String id}) {
     if (city.value.isEmpty) {
       errorText.value = 'Silahkan isi kota tujuan terlebih dahulu';
     } else {
-      errorText.value = '';
+      errorText.value = null;
+      Get.to(SearchRoutePage(id: id));
+    }
+  }
+
+  Future<void> fetchCities() async {
+    try {
+      String? token = await _getAccessToken();
+      if (token != null) {
+        CityResponse response = await _apiService.getCities(token);
+        cities.value = response.data;
+        resetSearchResults();
+      } else {
+        errorText.value = 'Token tidak ditemukan. Silakan login ulang.';
+      }
+    } catch (e) {
+      errorText.value = 'Gagal mengambil data kota. Silakan coba lagi.';
     }
   }
 
   @override
   void onInit() {
     super.onInit();
-    searchResults.value = cities;
+    fetchCities();
   }
 }
