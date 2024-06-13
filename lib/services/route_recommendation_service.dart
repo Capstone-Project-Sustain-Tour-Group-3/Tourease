@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:tourease/model/route_recommendation_cities.dart';
+import 'package:tourease/model/route_recommendation_cities_response.dart';
 import 'package:tourease/utils/base_url.dart';
 
 class RouteRecommendationService {

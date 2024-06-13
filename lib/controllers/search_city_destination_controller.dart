@@ -1,17 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tourease/model/route_recommendation_cities.dart';
+import 'package:tourease/model/route_recommendation_cities_response.dart';
+import 'package:tourease/pages/route_recommendation/search_route/search_route_page.dart';
 import 'package:tourease/services/route_recommendation_service.dart';
 
 class SearchCityDestinationController extends GetxController {
   var city = ''.obs;
   var searchText = ''.obs;
-  var errorText = ''.obs;
+  var id = ''.obs;
+  var errorText = Rxn<String>();
   final TextEditingController destinasiController = TextEditingController();
-  final TextEditingController searchDestinasiController = TextEditingController();
+  final TextEditingController searchDestinasiController =
+      TextEditingController();
   var searchResults = <City>[].obs;
   var cities = <City>[].obs;
+
+  @override
+  void dispose() {
+    destinasiController.dispose();
+    searchDestinasiController.dispose();
+    super.dispose();
+  }
 
   final RouteRecommendationService _apiService = RouteRecommendationService();
 
@@ -21,6 +31,7 @@ class SearchCityDestinationController extends GetxController {
   }
 
   void updateCity(City newCity) {
+    id.value = newCity.id;
     city.value = newCity.nama;
     errorText.value = '';
     searchText.value = newCity.nama;
@@ -41,16 +52,18 @@ class SearchCityDestinationController extends GetxController {
       searchResults.value = cities;
     } else {
       searchResults.value = cities
-          .where((city) => city.nama.toLowerCase().contains(query.toLowerCase()))
+          .where(
+              (city) => city.nama.toLowerCase().contains(query.toLowerCase()))
           .toList();
     }
   }
 
-  void validateCity() {
+  void validateCity({required String id}) {
     if (city.value.isEmpty) {
       errorText.value = 'Silahkan isi kota tujuan terlebih dahulu';
     } else {
-      errorText.value = '';
+      errorText.value = null;
+      Get.to(SearchRoutePage(id: id));
     }
   }
 
@@ -60,13 +73,12 @@ class SearchCityDestinationController extends GetxController {
       if (token != null) {
         CityResponse response = await _apiService.getCities(token);
         cities.value = response.data;
-        resetSearchResults(); 
+        resetSearchResults();
       } else {
         errorText.value = 'Token tidak ditemukan. Silakan login ulang.';
       }
     } catch (e) {
       errorText.value = 'Gagal mengambil data kota. Silakan coba lagi.';
-      
     }
   }
 

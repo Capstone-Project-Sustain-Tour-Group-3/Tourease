@@ -16,8 +16,11 @@ class RouteListWidget extends StatelessWidget {
         return ListView.separated(
           itemCount: searchRouteController.availableDestinations.length,
           itemBuilder: (context, index) {
-            final destination = searchRouteController.availableDestinations[index];
-            return RouteListTile(destination: destination,);
+            final destination =
+                searchRouteController.availableDestinations[index];
+            return RouteListTile(
+              destination: destination,
+            );
           },
           separatorBuilder: (context, index) => const Divider(),
         );
