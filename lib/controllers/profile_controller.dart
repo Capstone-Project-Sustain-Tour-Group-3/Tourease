@@ -47,10 +47,6 @@ class ProfileController extends GetxController {
             : '';
   }
 
-  final ProfileService service;
-
-  ProfileController(this.service);
-
   Rxn<ProfileResponseModel> userData = Rxn<ProfileResponseModel>();
   Rxn<EditProfileResponseModel> editData = Rxn<EditProfileResponseModel>();
 
@@ -63,7 +59,7 @@ class ProfileController extends GetxController {
       final token = await SharedPref.getAccessToken();
 
       if (token != null) {
-        final response = await service.getProfile(token);
+        final response = await ProfileService().getProfile(token);
         userData.value = response;
         usernameController.text = response.data!.username!;
         namaLengkapController.text = response.data!.namaLengkap!;
@@ -139,8 +135,8 @@ class ProfileController extends GetxController {
         provinsi: provinsiController.text,
       );
 
-      final response =
-          await service.editProfile(requestModel, token!, newBytes, fileName);
+      final response = await ProfileService()
+          .editProfile(requestModel, token!, newBytes, fileName);
       editData.value = response;
       Get.offAll(
         () => const BottomNavbar(
