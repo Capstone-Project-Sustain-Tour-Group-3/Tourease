@@ -14,7 +14,7 @@ class ProfilTentangKamiTextWidget extends StatelessWidget {
     return Column(
       children: [
         Align(
-            alignment: Alignment.center,
+            alignment: Alignment.centerLeft,
             child: AutoSizeText(
               title,
               style: TextStyleCollection.bodyBold
