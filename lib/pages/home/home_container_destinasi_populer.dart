@@ -66,7 +66,11 @@ class HomeContainerDestinasiPopuler extends StatelessWidget {
                 Center(
                   child: IconButton(
                     onPressed: () {
-                      Get.to(() => const VideoContentPage());
+                      Get.to(() => const VideoContentPage(
+                            url: '',
+                            deskripsiVideo: '',
+                            namaDestinasi: '',
+                          ));
                     },
                     icon: Icon(
                       Icons.play_arrow,

@@ -37,14 +37,16 @@ class DestinasiDetailVideoList extends StatelessWidget {
               itemCount:
                   controller.detailDestinasi.value.data?.urlVideo?.length,
               itemBuilder: (context, index) {
+                final video =
+                    controller.detailDestinasi.value.data?.urlVideo?[index];
                 return Padding(
                   padding: const EdgeInsets.only(right: 8),
                   child: DestinasiDetailVideo(
-                    url:
-                        'https://videos.pexels.com/video-files/20770858/20770858-hd_1080_1920_30fps.mp4',
-                    deskripsiVideo: controller.detailDestinasi.value.data
-                            ?.urlVideo?[index].judul ??
-                        '',
+                    url: video?.urlMedia ?? '',
+                    namaDestinasi:
+                        controller.detailDestinasi.value.data?.namaDestinasi ??
+                            '',
+                    deskripsiVideo: video?.judul ?? '',
                   ),
                 );
               },

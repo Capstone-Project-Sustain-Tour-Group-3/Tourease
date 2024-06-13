@@ -7,7 +7,7 @@ import 'package:tourease/constants/text_style_constant.dart';
 import 'package:tourease/controllers/bottom_navbar_controller.dart';
 import 'package:tourease/controllers/destinasi_controller.dart';
 import 'package:tourease/pages/bottom_navbar/bottom_navbar.dart';
-import 'package:tourease/pages/destinasi/destinai_zero_result.dart';
+import 'package:tourease/pages/destinasi/destinasi_zero_result.dart';
 import 'package:tourease/pages/destinasi/destinasi_card.dart';
 import 'package:tourease/pages/destinasi/destinasi_search_and_filter.dart';
 
@@ -33,11 +33,7 @@ class DestinasiPage extends StatelessWidget {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
         destinasiController.destinasiController.text = searchText ?? '';
-        destinasiController.searchDestinasi(
-          search: searchText,
-          sort: destinasiController.urutanPilihan.value,
-          filter: destinasiController.kategoriPilihan.value,
-        );
+        destinasiController.searchDestinasi();
       },
     );
 
@@ -100,7 +96,7 @@ class DestinasiPage extends StatelessWidget {
                           .destinasiResponse.value.data!.isEmpty ||
                       destinasiController.destinasiResponse.value.status ==
                           'failed') {
-                    return const DestinaiZeroResult();
+                    return const DestinasiZeroResult();
                   } else {
                     return const DestinasiCard();
                   }

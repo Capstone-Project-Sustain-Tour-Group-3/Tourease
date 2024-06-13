@@ -4,7 +4,7 @@ import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/model/personalized_recommendation_categories_model.dart';
 import 'package:tourease/model/personalized_recommendation_provinces_model.dart';
 import 'package:tourease/model/personalized_recommendation_selection_model.dart';
-import 'package:tourease/pages/home/home_page.dart';
+import 'package:tourease/pages/bottom_navbar/bottom_navbar.dart';
 import 'package:tourease/pages/login/login_page.dart';
 import 'package:tourease/pages/personalized_recommendation/personalized_page_finish.dart';
 import 'package:tourease/pages/personalized_recommendation/personalized_page_location.dart';
@@ -97,7 +97,11 @@ class PersonalizedRecommendationController extends GetxController {
   }
 
   void navigateToHomePage() {
-    Get.offAll(() => const HomePage());
+    Get.offAll(
+      () => const BottomNavbar(
+        initialIndex: 0,
+      ),
+    );
   }
 
   Rx<PersonalizedCategoriesModel> categories =

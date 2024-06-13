@@ -32,11 +32,14 @@ class RouteDestinationContainerWidget extends StatelessWidget {
                   ),
                   const SizedBox(width: 10),
                   AutoSizeText(
-                    homeController.savedCity.value ?? 'Location unknwon',
+                    homeController.savedCompletedCity.value ??
+                        'Location unknwon',
                     style: TextStyleCollection.caption
                         .copyWith(color: ColorNeutral.neutral900),
                     minFontSize: 14,
                     maxFontSize: 16,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                   ),
                 ],
               ),

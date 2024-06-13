@@ -10,13 +10,22 @@ import 'package:tourease/pages/video_content/video_content_play_and_pause.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoContentPage extends StatelessWidget {
-  const VideoContentPage({super.key});
+  const VideoContentPage({
+    super.key,
+    required this.url,
+    required this.namaDestinasi,
+    required this.deskripsiVideo,
+  });
+
+  final String url;
+  final String namaDestinasi;
+  final String deskripsiVideo;
 
   @override
   Widget build(BuildContext context) {
     StatusBarConstant.statusBar;
 
-    final VideoController videoController = Get.put(VideoController());
+    final VideoController videoController = Get.put(VideoController(url: url));
 
     return Scaffold(
       backgroundColor: ColorNeutral.neutral50,
@@ -75,7 +84,7 @@ class VideoContentPage extends StatelessWidget {
                           ),
                         ),
                         title: AutoSizeText(
-                          'Video Konten',
+                          namaDestinasi,
                           style: TextStyleCollection.subtitleBold.copyWith(
                             color: ColorNeutral.neutral50,
                           ),
@@ -93,7 +102,7 @@ class VideoContentPage extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ExpandableRichText(
-                        'Menikmati Pemandangan Indah Setelah Menelusuri Goa Jomblang di Gunung Kidul menjadi puncak kepuasan setelah petualangan yang mendebarkan di dalam goa. \n\nDengan tiupan angin yang segar dan panorama alam yang menakjubkan, momen ini benar-benar menyegarkan jiwa dan pikiran.\n',
+                        '$deskripsiVideo\n',
                         style: TextStyleCollection.captionMedium.copyWith(
                           color: ColorNeutral.neutral50,
                           fontSize: 14,
