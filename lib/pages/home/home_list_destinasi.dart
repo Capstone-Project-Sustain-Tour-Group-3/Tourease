@@ -85,7 +85,7 @@ class HomeListDestinasi extends StatelessWidget {
                           url: destinasiSekitar.urlGambar ?? '',
                           namaDestinasi: destinasiSekitar.nama ?? '',
                           lokasiDestinasi:
-                              '${destinasiSekitar.lokasi?.kota?.nama}, ${destinasiSekitar.lokasi?.provinsi?.nama}',
+                              '${homeController.capitalizeEachWord(destinasiSekitar.lokasi?.kota?.nama ?? '')}, ${homeController.capitalizeEachWord(destinasiSekitar.lokasi?.provinsi?.nama ?? '')}',
                         );
                       },
                     ),

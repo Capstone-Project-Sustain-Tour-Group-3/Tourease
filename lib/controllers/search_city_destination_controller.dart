@@ -12,7 +12,8 @@ class SearchCityDestinationController extends GetxController {
   var errorText = Rxn<String>();
   var isLoading = false.obs;
   final TextEditingController destinasiController = TextEditingController();
-  final TextEditingController searchDestinasiController = TextEditingController();
+  final TextEditingController searchDestinasiController =
+      TextEditingController();
   var searchResults = <City>[].obs;
   var cities = <City>[].obs;
 
@@ -30,10 +31,20 @@ class SearchCityDestinationController extends GetxController {
     return preferences.getString('access_token');
   }
 
+  String capitalizeEachWord(String text) {
+    if (text.isEmpty) return text;
+    return text.split(' ').map(
+      (word) {
+        if (word.isEmpty) return word;
+        return word[0].toUpperCase() + word.substring(1).toLowerCase();
+      },
+    ).join(' ');
+  }
+
   void updateCity(City newCity) {
     id.value = newCity.id;
-    city.value = newCity.nama;
-    errorText.value = null;  
+    city.value = capitalizeEachWord(newCity.nama);
+    errorText.value = null;
     searchText.value = newCity.nama;
     updateSearchResults(newCity.nama);
   }
@@ -52,7 +63,8 @@ class SearchCityDestinationController extends GetxController {
       searchResults.value = cities;
     } else {
       searchResults.value = cities
-          .where((city) => city.nama.toLowerCase().contains(query.toLowerCase()))
+          .where(
+              (city) => city.nama.toLowerCase().contains(query.toLowerCase()))
           .toList();
     }
   }
@@ -67,12 +79,14 @@ class SearchCityDestinationController extends GetxController {
   }
 
   Future<void> fetchCities() async {
-    isLoading.value = true;  
+    isLoading.value = true;
     try {
       String? token = await _getAccessToken();
       if (token != null) {
         CityResponse response = await _apiService.getCities(token);
-        cities.value = response.data;
+        cities.value = response.data.map((city) {
+          return City(id: city.id, nama: capitalizeEachWord(city.nama));
+        }).toList();
         resetSearchResults();
       } else {
         errorText.value = 'Token tidak ditemukan. Silakan login ulang.';
@@ -80,7 +94,7 @@ class SearchCityDestinationController extends GetxController {
     } catch (e) {
       errorText.value = 'Gagal mengambil data kota. Silakan coba lagi.';
     } finally {
-      isLoading.value = false;  
+      isLoading.value = false;
     }
   }
 
