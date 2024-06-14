@@ -71,7 +71,7 @@ class RouteHomePage extends StatelessWidget {
               const SizedBox(height: 45),
               GestureDetector(
                 onTap: () async {
-                  final result = await Get.to(() => const SearchPage());
+                  final result = await Get.to(() => SearchPage());
                   if (result != null) {
                     if (result is City) {
                       _searchCityDestinationController.updateCity(result);
@@ -82,26 +82,31 @@ class RouteHomePage extends StatelessWidget {
                 },
                 child: AbsorbPointer(
                     child: Obx(
-                  () => TextField(
-                    controller:
-                        _searchCityDestinationController.destinasiController
-                          ..text = _searchCityDestinationController.city.value,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(
-                            color: ColorNeutral.neutral50,
+                  () {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      _searchCityDestinationController.destinasiController.text =
+                          _searchCityDestinationController.city.value;
+                    });
+                    return TextField(
+                      controller:
+                          _searchCityDestinationController.destinasiController,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide(
+                              color: ColorNeutral.neutral50,
+                            ),
                           ),
-                        ),
-                        hintText: 'Pilih Kota Tujuan',
-                        hintStyle: TextStyleCollection.caption.copyWith(
-                          color: ColorNeutral.neutral600,
-                          fontSize: 14,
-                        ),
-                        prefixIcon: const Icon(Icons.search),
-                        errorText:
-                            _searchCityDestinationController.errorText.value),
-                  ),
+                          hintText: 'Pilih Kota Tujuan',
+                          hintStyle: TextStyleCollection.caption.copyWith(
+                            color: ColorNeutral.neutral600,
+                            fontSize: 14,
+                          ),
+                          prefixIcon: const Icon(Icons.search),
+                          errorText:
+                              _searchCityDestinationController.errorText.value),
+                    );
+                  },
                 )),
               ),
               const SizedBox(height: 20),

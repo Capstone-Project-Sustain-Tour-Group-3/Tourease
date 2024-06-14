@@ -46,6 +46,7 @@ class SearchCityDestinationController extends GetxController {
     city.value = capitalizeEachWord(newCity.nama);
     errorText.value = null;
     searchText.value = newCity.nama;
+    destinasiController.text = newCity.nama;
     updateSearchResults(newCity.nama);
   }
 
