@@ -58,15 +58,18 @@ class RegisterSuccessPage extends StatelessWidget {
                     ),
                     const Spacer(),
                     RegisterButton(
-                        text: "Mulai",
-                        onPressed: () async {
-                          loginController.emailController.text =
-                              registerController.emailController.text;
-                          loginController.passwordController.text =
-                              registerController.passwordController.text;
-                          loginController.login();
+                      text: "Mulai",
+                      onPressed: () async {
+                        loginController.emailController.text =
+                            registerController.emailController.text;
+                        loginController.passwordController.text =
+                            registerController.passwordController.text;
+                        bool success = await loginController.login();
+                        if (success) {
                           Get.to(() => const PersonalizedWelcomePage());
-                        })
+                        }
+                      },
+                    )
                   ],
                 ),
               ),

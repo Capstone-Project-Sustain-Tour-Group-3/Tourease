@@ -19,9 +19,11 @@ class LoginButton extends StatelessWidget {
         width: double.infinity,
         height: 48,
         child: ButtonWidget(
-          onPressed: () {
-            loginController.login();
-            Get.to(() => const LoginSuccessPage());
+          onPressed: () async {
+            bool success = await loginController.login();
+            if (success) {
+              Get.to(() => const LoginSuccessPage());
+            }
           },
           text: 'Masuk',
           textColor: ColorNeutral.neutral100,
