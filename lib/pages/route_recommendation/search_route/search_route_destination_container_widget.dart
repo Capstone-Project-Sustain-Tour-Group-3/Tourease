@@ -24,8 +24,8 @@ class RouteDestinationContainerWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         child: Column(
           children: [
-            Container(
-              height: 40,
+            SizedBox(
+              height: 42,
               child: Row(
                 children: [
                   Icon(
@@ -33,17 +33,20 @@ class RouteDestinationContainerWidget extends StatelessWidget {
                     color: ColorPrimary.primary500,
                     size: 24,
                   ),
-                  const SizedBox(width: 10),
-                  Flexible(
-                    child: AutoSizeText(
-                      homeController.savedCompletedCity.value ??
-                          'Location unknwon',
-                      style: TextStyleCollection.caption
-                          .copyWith(color: ColorNeutral.neutral900),
-                      minFontSize: 14,
-                      maxFontSize: 16,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                  // const SizedBox(width: 10),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: AutoSizeText(
+                        homeController.savedCompletedCity.value ??
+                            'Location unknwon',
+                        style: TextStyleCollection.caption
+                            .copyWith(color: ColorNeutral.neutral900),
+                        minFontSize: 14,
+                        maxFontSize: 16,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ),
                 ],
@@ -59,8 +62,8 @@ class RouteDestinationContainerWidget extends StatelessWidget {
                 return Column(
                   children: [
                     if (searchRouteController.destinations.isEmpty)
-                      Container(
-                        height: 40,
+                      SizedBox(
+                        height: 42,
                         child: Row(
                           children: [
                             Icon(
@@ -85,8 +88,8 @@ class RouteDestinationContainerWidget extends StatelessWidget {
                     else
                       ...searchRouteController.destinations
                           .map((destination) {
-                        return Container(
-                          height: 40,
+                        return SizedBox(
+                          height: 44,
                           child: Row(
                             children: [
                               Icon(
