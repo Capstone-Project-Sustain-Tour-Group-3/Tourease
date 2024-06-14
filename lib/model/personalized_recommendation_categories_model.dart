@@ -25,23 +25,23 @@ class PersonalizedCategoriesModel {
 class Data {
     String? id;
     String? nama;
-    String? url;
+    String? urlVideo;
 
     Data({
         this.id,
         this.nama,
-        this.url,
+        this.urlVideo,
     });
 
     factory Data.fromJson(Map<String, dynamic> json) => Data(
         id: json["id"],
         nama: json["nama"],
-        url: json["url"],
+        urlVideo: json["url_video"],
     );
 
     Map<String, dynamic> toJson() => {
         "id": id,
         "nama": nama,
-        "url": url,
+        "url_video": urlVideo,
     };
 }
