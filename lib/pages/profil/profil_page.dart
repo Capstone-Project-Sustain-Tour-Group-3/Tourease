@@ -98,17 +98,21 @@ class ProfilPage extends StatelessWidget {
                     style: TextStyleCollection.bodyBold,
                   ),
                 ),
-                Obx(
-                  () => Padding(
+                Obx(() {
+                  String bio =
+                      profileController.userData.value?.data?.bio ?? '';
+                  if (bio.isEmpty) {
+                    bio = 'Masukan bio anda';
+                  }
+                  return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      profileController.userData.value?.data?.bio ??
-                          'Masukan bio anda',
+                      bio,
                       style: TextStyleCollection.caption
                           .copyWith(color: ColorNeutral.neutral500),
                     ),
-                  ),
-                ),
+                  );
+                }),
                 const SizedBox(
                   height: 16,
                 ),
