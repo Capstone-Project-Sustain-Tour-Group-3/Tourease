@@ -49,7 +49,7 @@ class TourOptionListView extends StatelessWidget {
                 return Obx(
                   () {
                     return PersonalizedCategories(
-                      image: category?.url ?? '',
+                      image: category?.urlVideo ?? '',
                       title: category?.nama ?? '',
                       isSelected:
                           recommendationController.isTourOptionSelected(category?.id ?? ''),
