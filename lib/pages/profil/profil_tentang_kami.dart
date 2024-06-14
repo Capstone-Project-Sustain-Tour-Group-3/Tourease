@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
 import 'package:tourease/pages/profil/profil_tentang_kami_text_widget.dart';
@@ -23,6 +24,10 @@ class ProfilTentangKami extends StatelessWidget {
             minFontSize: 18,
             maxFontSize: 20,
           ),
+          leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: ColorPrimary.primary500),
+          onPressed: () => Get.back()
+        ),
         ),
         body: const SingleChildScrollView(
           child: Column(

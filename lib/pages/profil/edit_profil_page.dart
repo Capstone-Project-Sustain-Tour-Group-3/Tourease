@@ -28,6 +28,10 @@ class EditProfilPage extends StatelessWidget {
         ),
         toolbarHeight: 56,
         centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: ColorPrimary.primary500),
+          onPressed: () => Get.back()
+        ),
       ),
       body: Stack(
         children: [
