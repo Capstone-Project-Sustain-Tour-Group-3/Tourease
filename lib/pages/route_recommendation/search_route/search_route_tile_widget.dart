@@ -27,27 +27,31 @@ class RouteListTile extends StatelessWidget {
           size: 24,
         ),
       ),
-      title: Flexible(
-        child: AutoSizeText(
-          destination.name,
-          style: TextStyleCollection.bodyBold
-              .copyWith(color: ColorNeutral.neutral900),
-          minFontSize: 16,
-          maxFontSize: 16,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-        ),
+      title: LayoutBuilder(
+        builder: (context, constraints) {
+          return AutoSizeText(
+            destination.name,
+            style: TextStyleCollection.bodyBold
+                .copyWith(color: ColorNeutral.neutral900),
+            minFontSize: 16,
+            maxFontSize: 16,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          );
+        },
       ),
-      subtitle: Flexible(
-        child: AutoSizeText(
-          destination.subtitle,
-          style: TextStyleCollection.caption
-              .copyWith(color: ColorNeutral.neutral900),
-          minFontSize: 12,
-          maxFontSize: 12,
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-        ),
+      subtitle: LayoutBuilder(
+        builder: (context, constraints) {
+          return AutoSizeText(
+            destination.subtitle,
+            style: TextStyleCollection.caption
+                .copyWith(color: ColorNeutral.neutral900),
+            minFontSize: 12,
+            maxFontSize: 12,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          );
+        },
       ),
       trailing: IconButton(
         icon: Icon(

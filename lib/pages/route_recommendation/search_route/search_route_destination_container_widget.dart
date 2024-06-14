@@ -21,12 +21,12 @@ class RouteDestinationContainerWidget extends StatelessWidget {
       shadowColor: ColorCollection.black.withOpacity(0.80),
       color: ColorCollection.white,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Column(
-            children: [
-              Row(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        child: Column(
+          children: [
+            Container(
+              height: 40,
+              child: Row(
                 children: [
                   Icon(
                     Icons.location_on_outlined,
@@ -48,17 +48,20 @@ class RouteDestinationContainerWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              Divider(
-                color: ColorNeutral.neutral500,
-                indent: 31,
-                endIndent: 12,
-              ),
-              Obx(
-                () {
-                  return Column(
-                    children: [
-                      if (searchRouteController.destinations.isEmpty)
-                        Row(
+            ),
+            Divider(
+              color: ColorNeutral.neutral500,
+              indent: 31,
+              endIndent: 12,
+            ),
+            Obx(
+              () {
+                return Column(
+                  children: [
+                    if (searchRouteController.destinations.isEmpty)
+                      Container(
+                        height: 40,
+                        child: Row(
                           children: [
                             Icon(
                               Icons.add_location_alt_outlined,
@@ -77,11 +80,14 @@ class RouteDestinationContainerWidget extends StatelessWidget {
                               ),
                             ),
                           ],
-                        )
-                      else
-                        ...searchRouteController.destinations
-                            .map((destination) {
-                          return Row(
+                        ),
+                      )
+                    else
+                      ...searchRouteController.destinations
+                          .map((destination) {
+                        return Container(
+                          height: 40,
+                          child: Row(
                             children: [
                               Icon(
                                 Icons.verified,
@@ -110,14 +116,14 @@ class RouteDestinationContainerWidget extends StatelessWidget {
                                     .removeDestination(destination),
                               ),
                             ],
-                          );
-                        }),
-                    ],
-                  );
-                },
-              )
-            ],
-          ),
+                          ),
+                        );
+                      }),
+                  ],
+                );
+              },
+            )
+          ],
         ),
       ),
     );
