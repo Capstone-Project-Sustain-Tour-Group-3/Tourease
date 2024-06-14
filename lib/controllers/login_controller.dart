@@ -36,7 +36,7 @@ class LoginController extends GetxController {
     r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
   );
 
-  void login() async {
+  Future<bool> login() async {
     isLoadingLogin.value = true;
     try {
       final response = await AuthService().login(
@@ -48,10 +48,12 @@ class LoginController extends GetxController {
           token: loginResponse.value?.data?.accessToken ?? '-');
       SharedPref.saveRefreshToken(
           resfreshToken: loginResponse.value?.data?.refreshToken ?? '-');
+      return true;
     } catch (e) {
       SnackbarWidget.showSnackbar(
           message:
               'Akun tidak ditemukan. Periksa kembali email dan kata sandi Anda');
+      return false;
     } finally {
       isLoadingLogin.value = false;
     }

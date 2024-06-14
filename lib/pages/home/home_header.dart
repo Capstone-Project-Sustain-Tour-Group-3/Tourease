@@ -9,7 +9,6 @@ import 'package:tourease/controllers/bottom_navbar_controller.dart';
 import 'package:tourease/controllers/home_controller.dart';
 import 'package:tourease/controllers/profile_controller.dart';
 import 'package:tourease/pages/bottom_navbar/bottom_navbar.dart';
-import 'package:tourease/services/profile_service.dart';
 import 'package:tourease/widgets/cached_network_image_widget.dart';
 
 class HomeHeader extends StatelessWidget {
@@ -24,9 +23,7 @@ class HomeHeader extends StatelessWidget {
     );
 
     final profileController = Get.put(
-      ProfileController(
-        ProfileService(),
-      ),
+      ProfileController(),
     );
 
     WidgetsBinding.instance.addPostFrameCallback(

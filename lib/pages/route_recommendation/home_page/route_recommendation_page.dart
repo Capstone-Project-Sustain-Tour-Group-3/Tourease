@@ -71,7 +71,7 @@ class RouteHomePage extends StatelessWidget {
               const SizedBox(height: 45),
               GestureDetector(
                 onTap: () async {
-                  final result = await Get.to(() => SearchPage());
+                  final result = await Get.to(() => const SearchPage());
                   if (result != null) {
                     if (result is City) {
                       _searchCityDestinationController.updateCity(result);

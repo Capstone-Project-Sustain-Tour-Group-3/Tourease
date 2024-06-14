@@ -10,11 +10,13 @@ class SearchCityDestinationController extends GetxController {
   var searchText = ''.obs;
   var id = ''.obs;
   var errorText = Rxn<String>();
+  var isLoading = false.obs;
   final TextEditingController destinasiController = TextEditingController();
-  final TextEditingController searchDestinasiController =
-      TextEditingController();
+  final TextEditingController searchDestinasiController = TextEditingController();
   var searchResults = <City>[].obs;
   var cities = <City>[].obs;
+
+  final RouteRecommendationService _apiService = RouteRecommendationService();
 
   @override
   void dispose() {
@@ -22,8 +24,6 @@ class SearchCityDestinationController extends GetxController {
     searchDestinasiController.dispose();
     super.dispose();
   }
-
-  final RouteRecommendationService _apiService = RouteRecommendationService();
 
   Future<String?> _getAccessToken() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -33,7 +33,7 @@ class SearchCityDestinationController extends GetxController {
   void updateCity(City newCity) {
     id.value = newCity.id;
     city.value = newCity.nama;
-    errorText.value = '';
+    errorText.value = null;  
     searchText.value = newCity.nama;
     updateSearchResults(newCity.nama);
   }
@@ -52,8 +52,7 @@ class SearchCityDestinationController extends GetxController {
       searchResults.value = cities;
     } else {
       searchResults.value = cities
-          .where(
-              (city) => city.nama.toLowerCase().contains(query.toLowerCase()))
+          .where((city) => city.nama.toLowerCase().contains(query.toLowerCase()))
           .toList();
     }
   }
@@ -68,6 +67,7 @@ class SearchCityDestinationController extends GetxController {
   }
 
   Future<void> fetchCities() async {
+    isLoading.value = true;  
     try {
       String? token = await _getAccessToken();
       if (token != null) {
@@ -79,6 +79,8 @@ class SearchCityDestinationController extends GetxController {
       }
     } catch (e) {
       errorText.value = 'Gagal mengambil data kota. Silakan coba lagi.';
+    } finally {
+      isLoading.value = false;  
     }
   }
 
@@ -86,5 +88,9 @@ class SearchCityDestinationController extends GetxController {
   void onInit() {
     super.onInit();
     fetchCities();
+  }
+
+  void clearErrorText() {
+    errorText.value = null;
   }
 }

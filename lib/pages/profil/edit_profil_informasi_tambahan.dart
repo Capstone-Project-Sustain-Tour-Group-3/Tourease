@@ -5,13 +5,12 @@ import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
 import 'package:tourease/controllers/profile_controller.dart';
 import 'package:tourease/pages/profil/edit_profil_radio_button.dart';
-import 'package:tourease/services/profile_service.dart';
 import 'package:tourease/widgets/text_form_field_widget.dart';
 
 class EditProfilInformasiTambahan extends StatelessWidget {
-   EditProfilInformasiTambahan({super.key});
-final ProfileController editController = Get.put(
-    ProfileController(ProfileService()),
+  EditProfilInformasiTambahan({super.key});
+  final ProfileController editController = Get.put(
+    ProfileController(),
   );
   @override
   Widget build(BuildContext context) {
@@ -33,13 +32,13 @@ final ProfileController editController = Get.put(
             height: 20,
           ),
           TextFormFieldWidget(
-              keyboardType: TextInputType.name,
-              titleForm: 'Bio',
-              hintText: 'Masukkan bio anda',
-              colorTitleText: ColorNeutral.neutral900,
-              isPassword: false,
-              controller: editController.bioController,
-              ),
+            keyboardType: TextInputType.name,
+            titleForm: 'Bio',
+            hintText: 'Masukkan bio anda',
+            colorTitleText: ColorNeutral.neutral900,
+            isPassword: false,
+            controller: editController.bioController,
+          ),
           const Padding(
             padding: EdgeInsets.only(top: 16, bottom: 10),
             child: EditProfilRadioButton(),

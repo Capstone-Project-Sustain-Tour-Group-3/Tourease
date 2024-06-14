@@ -47,24 +47,27 @@ class ProfileController extends GetxController {
             : '';
   }
 
-  final ProfileService service;
-
-  ProfileController(this.service);
-
   Rxn<ProfileResponseModel> userData = Rxn<ProfileResponseModel>();
   Rxn<EditProfileResponseModel> editData = Rxn<EditProfileResponseModel>();
 
   RxBool isLoadingGetUser = false.obs;
   RxBool isLoadingEditUser = false.obs;
 
-  void getUserData() async {
+  Future<void> getUserData() async {
     isLoadingGetUser.value = true;
+
     try {
       final token = await SharedPref.getAccessToken();
+      if (kDebugMode) {
+        print("token $token");
+      }
 
       if (token != null) {
-        final response = await service.getProfile(token);
+        final response = await ProfileService().getProfile(token);
         userData.value = response;
+        if (kDebugMode) {
+          print("username: ${response.data!.username!}");
+        }
         usernameController.text = response.data!.username!;
         namaLengkapController.text = response.data!.namaLengkap!;
         bioController.text = response.data!.bio!;
@@ -139,8 +142,8 @@ class ProfileController extends GetxController {
         provinsi: provinsiController.text,
       );
 
-      final response =
-          await service.editProfile(requestModel, token!, newBytes, fileName);
+      final response = await ProfileService()
+          .editProfile(requestModel, token!, newBytes, fileName);
       editData.value = response;
       Get.offAll(
         () => const BottomNavbar(
@@ -148,7 +151,7 @@ class ProfileController extends GetxController {
         ),
       );
     } on DioException catch (e) {
-      if (e.response?.statusCode == 500 &&
+      if (e.response?.statusCode == 500 ||
           e.response?.data['message'] == 'Token sudah kadaluwarsa') {
         final response = await RefreshTokenLogoutService().postRefreshToken();
         if (response == true) {
