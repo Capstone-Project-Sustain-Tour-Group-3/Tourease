@@ -29,6 +29,7 @@ class Data {
   String? jamBuka;
   String? jamTutup;
   int? hargaMasuk;
+  int? visitCount;
   String? deskripsi;
   AlamatDestinasi? alamatDestinasi;
   List<Url>? urlGambar;
@@ -43,6 +44,7 @@ class Data {
     this.jamBuka,
     this.jamTutup,
     this.hargaMasuk,
+    this.visitCount,
     this.deskripsi,
     this.alamatDestinasi,
     this.urlGambar,
@@ -58,6 +60,7 @@ class Data {
         jamBuka: json["jam_buka"],
         jamTutup: json["jam_tutup"],
         hargaMasuk: json["harga_masuk"],
+        visitCount: json["visit_count"],
         deskripsi: json["deskripsi"],
         alamatDestinasi: json["alamat_destinasi"] == null
             ? null
@@ -87,6 +90,7 @@ class Data {
         "jam_buka": jamBuka,
         "jam_tutup": jamTutup,
         "harga_masuk": hargaMasuk,
+        "visit_count": visitCount,
         "deskripsi": deskripsi,
         "alamat_destinasi": alamatDestinasi?.toJson(),
         "url_gambar": urlGambar == null
@@ -144,6 +148,7 @@ class DestinasiSerupa {
   String? urlMedia;
   String? provinsi;
   String? kota;
+  int? visitCount;
   Kategori? kategori;
 
   DestinasiSerupa({
@@ -152,6 +157,7 @@ class DestinasiSerupa {
     this.urlMedia,
     this.provinsi,
     this.kota,
+    this.visitCount,
     this.kategori,
   });
 
@@ -162,6 +168,7 @@ class DestinasiSerupa {
         urlMedia: json["url_media"],
         provinsi: json["provinsi"],
         kota: json["kota"],
+        visitCount: json["visit_count"],
         kategori: json["kategori"] == null
             ? null
             : Kategori.fromJson(json["kategori"]),
@@ -173,6 +180,7 @@ class DestinasiSerupa {
         "url_media": urlMedia,
         "provinsi": provinsi,
         "kota": kota,
+        "visit_count": visitCount,
         "kategori": kategori?.toJson(),
       };
 }

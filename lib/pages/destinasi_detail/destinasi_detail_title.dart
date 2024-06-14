@@ -1,7 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:tourease/constants/assets_constant.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
 
@@ -11,6 +9,7 @@ class TitleSectionWidget extends StatelessWidget {
   final String time;
   final String price;
   final String category;
+  final String view;
 
   const TitleSectionWidget({
     super.key,
@@ -19,6 +18,7 @@ class TitleSectionWidget extends StatelessWidget {
     required this.time,
     required this.price,
     required this.category,
+    required this.view,
   });
 
   @override
@@ -31,67 +31,83 @@ class TitleSectionWidget extends StatelessWidget {
           style: TextStyleCollection.bodyBold
               .copyWith(fontSize: 20, color: ColorPrimary.primary500),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 4),
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.only(left: 4),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SvgPicture.asset(
-                AssetsCollection.locationIcon2, // Path to your SVG file
-                width: 20,
-                height: 20,
+              Icon(
+                Icons.remove_red_eye,
+                size: 16,
+                color: ColorCollection.black,
               ),
-              const SizedBox(width: 11),
-              Expanded(
-                child: Text(
-                  location,
-                  style: TextStyleCollection.captionMedium.copyWith(
-                    color: ColorNeutral.neutral900,
-                    fontSize: 14,
-                  ),
+              const SizedBox(width: 14),
+              Text(
+                view,
+                style: TextStyleCollection.captionMedium.copyWith(
+                  color: ColorNeutral.neutral900,
+                  fontSize: 12,
                 ),
               ),
             ],
           ),
         ),
         const SizedBox(height: 8),
-        Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SvgPicture.asset(AssetsCollection.clockIcon,
-                  width: 20, height: 20),
-              const SizedBox(width: 9),
-              Text(
-                time,
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.place,
+              color: ColorCollection.black,
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                location,
                 style: TextStyleCollection.captionMedium.copyWith(
                   color: ColorNeutral.neutral900,
                   fontSize: 14,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
         const SizedBox(height: 8),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SvgPicture.asset(AssetsCollection.dollarIcon,
-                  width: 20, height: 20),
-              const SizedBox(width: 13),
-              Text(
-                price,
-                style: TextStyleCollection.captionMedium.copyWith(
-                  color: ColorNeutral.neutral900,
-                  fontSize: 14,
-                ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.access_time,
+              color: ColorCollection.black,
+            ),
+            const SizedBox(width: 12),
+            Text(
+              time,
+              style: TextStyleCollection.captionMedium.copyWith(
+                color: ColorNeutral.neutral900,
+                fontSize: 14,
               ),
-            ],
-          ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.attach_money,
+              color: ColorCollection.black,
+            ),
+            const SizedBox(width: 12),
+            Text(
+              price,
+              style: TextStyleCollection.captionMedium.copyWith(
+                color: ColorNeutral.neutral900,
+                fontSize: 14,
+              ),
+            ),
+          ],
         ),
         const SizedBox(height: 16),
         Row(

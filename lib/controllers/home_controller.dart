@@ -76,6 +76,16 @@ class HomeController extends GetxController {
     }
   }
 
+  String capitalizeEachWord(String text) {
+    if (text.isEmpty) return text;
+    return text.split(' ').map(
+      (word) {
+        if (word.isEmpty) return word;
+        return word[0].toUpperCase() + word.substring(1).toLowerCase();
+      },
+    ).join(' ');
+  }
+
   void getSavedCity() async {
     savedCity.value = await SharedPref.getSavedLocation();
     savedCompletedCity.value = await SharedPref.getSavedCompletedLocation();
@@ -94,7 +104,6 @@ class HomeController extends GetxController {
           await HomeService.getHomeData(provinsi: savedProvince.value!);
       if (response.data != null) {
         listDestinasiPilihan.value = response.data!.destinasiRekomendasi!;
-        print('pilihan : $listDestinasiPilihan');
       }
     } on DioException catch (e) {
       if (e.response?.statusCode == 500 &&
