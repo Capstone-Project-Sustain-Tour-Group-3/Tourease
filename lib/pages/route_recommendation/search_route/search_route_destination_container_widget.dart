@@ -21,44 +21,50 @@ class RouteDestinationContainerWidget extends StatelessWidget {
       shadowColor: ColorCollection.black.withOpacity(0.80),
       color: ColorCollection.white,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Column(
-            children: [
-              Row(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 42,
+              child: Row(
                 children: [
                   Icon(
                     Icons.location_on_outlined,
                     color: ColorPrimary.primary500,
                     size: 24,
                   ),
-                  const SizedBox(width: 10),
-                  Flexible(
-                    child: AutoSizeText(
-                      homeController.savedCompletedCity.value ??
-                          'Location unknwon',
-                      style: TextStyleCollection.caption
-                          .copyWith(color: ColorNeutral.neutral900),
-                      minFontSize: 14,
-                      maxFontSize: 16,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                  // const SizedBox(width: 10),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: AutoSizeText(
+                        homeController.savedCompletedCity.value ??
+                            'Location unknwon',
+                        style: TextStyleCollection.caption
+                            .copyWith(color: ColorNeutral.neutral900),
+                        minFontSize: 14,
+                        maxFontSize: 16,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ),
                 ],
               ),
-              Divider(
-                color: ColorNeutral.neutral500,
-                indent: 31,
-                endIndent: 12,
-              ),
-              Obx(
-                () {
-                  return Column(
-                    children: [
-                      if (searchRouteController.destinations.isEmpty)
-                        Row(
+            ),
+            Divider(
+              color: ColorNeutral.neutral500,
+              indent: 31,
+              endIndent: 12,
+            ),
+            Obx(
+              () {
+                return Column(
+                  children: [
+                    if (searchRouteController.destinations.isEmpty)
+                      SizedBox(
+                        height: 42,
+                        child: Row(
                           children: [
                             Icon(
                               Icons.add_location_alt_outlined,
@@ -77,11 +83,14 @@ class RouteDestinationContainerWidget extends StatelessWidget {
                               ),
                             ),
                           ],
-                        )
-                      else
-                        ...searchRouteController.destinations
-                            .map((destination) {
-                          return Row(
+                        ),
+                      )
+                    else
+                      ...searchRouteController.destinations
+                          .map((destination) {
+                        return SizedBox(
+                          height: 44,
+                          child: Row(
                             children: [
                               Icon(
                                 Icons.verified,
@@ -110,14 +119,14 @@ class RouteDestinationContainerWidget extends StatelessWidget {
                                     .removeDestination(destination),
                               ),
                             ],
-                          );
-                        }),
-                    ],
-                  );
-                },
-              )
-            ],
-          ),
+                          ),
+                        );
+                      }),
+                  ],
+                );
+              },
+            )
+          ],
         ),
       ),
     );
