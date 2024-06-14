@@ -53,14 +53,21 @@ class ProfileController extends GetxController {
   RxBool isLoadingGetUser = false.obs;
   RxBool isLoadingEditUser = false.obs;
 
-  void getUserData() async {
+  Future<void> getUserData() async {
     isLoadingGetUser.value = true;
+
     try {
       final token = await SharedPref.getAccessToken();
+      if (kDebugMode) {
+        print("token $token");
+      }
 
       if (token != null) {
         final response = await ProfileService().getProfile(token);
         userData.value = response;
+        if (kDebugMode) {
+          print("username: ${response.data!.username!}");
+        }
         usernameController.text = response.data!.username!;
         namaLengkapController.text = response.data!.namaLengkap!;
         bioController.text = response.data!.bio!;
@@ -144,7 +151,7 @@ class ProfileController extends GetxController {
         ),
       );
     } on DioException catch (e) {
-      if (e.response?.statusCode == 500 &&
+      if (e.response?.statusCode == 500 ||
           e.response?.data['message'] == 'Token sudah kadaluwarsa') {
         final response = await RefreshTokenLogoutService().postRefreshToken();
         if (response == true) {

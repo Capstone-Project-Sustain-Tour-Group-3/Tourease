@@ -3,7 +3,6 @@ import 'package:tourease/model/change_password_response_model.dart';
 import 'package:tourease/model/edit_profile_request_model.dart';
 import 'package:tourease/model/edit_profile_response_model.dart';
 import 'package:tourease/model/profile_response_model.dart';
-import 'package:tourease/services/refresh_token_and_logout_service.dart';
 import 'package:tourease/utils/base_url.dart';
 
 class ProfileService {
@@ -17,43 +16,20 @@ class ProfileService {
   );
 
   Future<ProfileResponseModel> getProfile(String token) async {
-    try {
-      final response = await _dio.get(
-        '/profile',
-        options: Options(
-          headers: {
-            'Authorization': 'Bearer $token',
-            'Content-Type': 'application/json',
-          },
-        ),
-      );
+    final response = await _dio.get(
+      '/profile',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+      ),
+    );
 
-      if (response.statusCode == 200) {
-        return ProfileResponseModel.fromJson(response.data);
-      } else {
-        throw Exception('Failed to load profile');
-      }
-    } on DioException catch (e) {
-      if (e.response?.statusCode == 500 &&
-          e.response?.data['message'] == 'Token sudah kadaluwarsa') {
-        final refreshTokenResponse =
-            await RefreshTokenLogoutService().postRefreshToken();
-        if (refreshTokenResponse == true) {
-          return getProfile(token);
-        } else {
-          throw DioException(
-            requestOptions: e.requestOptions,
-            response: e.response,
-            error: 'Failed to refresh token',
-          );
-        }
-      } else {
-        throw DioException(
-          requestOptions: e.requestOptions,
-          response: e.response,
-          error: 'Failed to load profile: ${e.message}',
-        );
-      }
+    if (response.statusCode == 200) {
+      return ProfileResponseModel.fromJson(response.data);
+    } else {
+      throw Exception('Failed to load profile');
     }
   }
 
