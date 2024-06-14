@@ -2,6 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 String _keyLocation = 'location';
 String _keyCompletedLocation = 'completed_location';
+String _keyProvince = 'province';
 String _keyLatitude = 'latitude';
 String _keyLongitude = 'longitude';
 String _keySearchHistory = 'history';
@@ -19,6 +20,12 @@ class SharedPref {
     SharedPreferences preferences = await SharedPreferences.getInstance();
 
     await preferences.setString(_keyCompletedLocation, completedLocation);
+  }
+
+  static void saveProvinceLocation({required String province}) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+
+    await preferences.setString(_keyProvince, province);
   }
 
   static void saveLatitudeLongitude({
@@ -46,6 +53,13 @@ class SharedPref {
     return savedCompletedLocation;
   }
 
+  static Future<String?> getSavedProvinceLocation() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+
+    String? savedProvinceLocation = preferences.getString(_keyProvince);
+    return savedProvinceLocation;
+  }
+
   static Future<String?> getSavedLatitude() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
 
@@ -64,6 +78,7 @@ class SharedPref {
     SharedPreferences preferences = await SharedPreferences.getInstance();
 
     preferences.remove(_keyLocation);
+    preferences.remove(_keyCompletedLocation);
     preferences.remove(_keyLatitude);
     preferences.remove(_keyLongitude);
   }

@@ -1,10 +1,15 @@
 import 'package:carousel_slider/carousel_controller.dart';
+import 'package:dio/dio.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:tourease/pages/home/home_container_pilihan_destinasi.dart';
+import 'package:tourease/model/home_response_model.dart';
+import 'package:tourease/pages/login/login_page.dart';
 import 'package:tourease/services/geolocator_service.dart';
+import 'package:tourease/services/home_service.dart';
+import 'package:tourease/services/refresh_token_and_logout_service.dart';
 import 'package:tourease/utils/shared_preference_utils.dart';
+import 'package:tourease/widgets/snackbar_widget.dart';
 
 class HomeController extends GetxController {
   RxBool isLoading = false.obs;
@@ -12,14 +17,25 @@ class HomeController extends GetxController {
   Rx<String?> currentCity = Rx<String?>(null);
   Rx<String?> savedCity = Rx<String?>(null);
   Rx<String?> savedCompletedCity = Rx<String?>(null);
+  Rx<String?> savedProvince = Rx<String?>(null);
 
   @override
   void onInit() {
-    getLocation();
+    initializeData();
     super.onInit();
   }
 
-  void getLocation() async {
+  void initializeData() async {
+    await getLocation();
+    while (savedProvince.value == null) {
+      await getLocation();
+    }
+    getDestinasiPilihan();
+    getDestinasiSekitar();
+    getDestinasiPopuler();
+  }
+
+  Future<void> getLocation() async {
     isLoading.value = true;
     SharedPref.removeSavedLocation();
     try {
@@ -46,7 +62,10 @@ class HomeController extends GetxController {
         );
         SharedPref.saveCompletedLocation(
           completedLocation:
-              '${placemark[0].name}, ${placemark[0].locality}, ${placemark[0].administrativeArea}, ${placemark[0].country}',
+              '${placemark[0].name}, ${placemark[0].locality} ${placemark[0].subAdministrativeArea} ${placemark[0].administrativeArea}, ${placemark[0].country}',
+        );
+        SharedPref.saveProvinceLocation(
+          province: placemark[0].administrativeArea!,
         );
         getSavedCity();
       }
@@ -60,30 +79,99 @@ class HomeController extends GetxController {
   void getSavedCity() async {
     savedCity.value = await SharedPref.getSavedLocation();
     savedCompletedCity.value = await SharedPref.getSavedCompletedLocation();
+    savedProvince.value = await SharedPref.getSavedProvinceLocation();
   }
 
   RxInt activeIndex = 0.obs;
   CarouselController carouselController = CarouselController();
-  RxList listContainerPilihanDestinasi = [
-    const HomeContainerDestination(
-      imageUrl:
-          'https://s3-alpha-sig.figma.com/img/c40e/7a16/92ad4487d72b3ebd0d50481556a01d63?Expires=1717977600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=C0za7zGlwMzoNOVsu7ozAXVj9VoSyHJdytvaTl9O8Ixr8XuU1lTeMFQMhAwXrdFcYJnTouZbSC-DryHD0Peu0zkV9uGKbMv0Hv7PJL1NzAnYc43NVyjcivwI0DOPRvuhpzYbaEHOCOlBZZ6EjHYl5spWMl9Z51QTtPHvdIrKxI~PcD4cxgG6bPoM14SHn~yLiJxwfiTaiJbTkDOYDSCOMdrDA9F-oMCYl0L5q6Zabsl1ryX1jfU0kN~sW06LwG3jS-~3OmopXslRFVmgeDLRgTEZ2g2eHbQQn41dPzdHTEEJ6Lb6-8vQvPiBRT7JO8yogGvs2zI1LT3a6GPKa6abGA__',
-      location: 'Ulen Sentalu, Yogyakarta',
-    ),
-    const HomeContainerDestination(
-      imageUrl:
-          'https://s3-alpha-sig.figma.com/img/c40e/7a16/92ad4487d72b3ebd0d50481556a01d63?Expires=1717977600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=C0za7zGlwMzoNOVsu7ozAXVj9VoSyHJdytvaTl9O8Ixr8XuU1lTeMFQMhAwXrdFcYJnTouZbSC-DryHD0Peu0zkV9uGKbMv0Hv7PJL1NzAnYc43NVyjcivwI0DOPRvuhpzYbaEHOCOlBZZ6EjHYl5spWMl9Z51QTtPHvdIrKxI~PcD4cxgG6bPoM14SHn~yLiJxwfiTaiJbTkDOYDSCOMdrDA9F-oMCYl0L5q6Zabsl1ryX1jfU0kN~sW06LwG3jS-~3OmopXslRFVmgeDLRgTEZ2g2eHbQQn41dPzdHTEEJ6Lb6-8vQvPiBRT7JO8yogGvs2zI1LT3a6GPKa6abGA__',
-      location: 'Ulen Sentalu, Yogyakarta',
-    ),
-    const HomeContainerDestination(
-      imageUrl:
-          'https://s3-alpha-sig.figma.com/img/c40e/7a16/92ad4487d72b3ebd0d50481556a01d63?Expires=1717977600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=C0za7zGlwMzoNOVsu7ozAXVj9VoSyHJdytvaTl9O8Ixr8XuU1lTeMFQMhAwXrdFcYJnTouZbSC-DryHD0Peu0zkV9uGKbMv0Hv7PJL1NzAnYc43NVyjcivwI0DOPRvuhpzYbaEHOCOlBZZ6EjHYl5spWMl9Z51QTtPHvdIrKxI~PcD4cxgG6bPoM14SHn~yLiJxwfiTaiJbTkDOYDSCOMdrDA9F-oMCYl0L5q6Zabsl1ryX1jfU0kN~sW06LwG3jS-~3OmopXslRFVmgeDLRgTEZ2g2eHbQQn41dPzdHTEEJ6Lb6-8vQvPiBRT7JO8yogGvs2zI1LT3a6GPKa6abGA__',
-      location: 'Ulen Sentalu, Yogyakarta',
-    ),
-    const HomeContainerDestination(
-      imageUrl:
-          'https://s3-alpha-sig.figma.com/img/c40e/7a16/92ad4487d72b3ebd0d50481556a01d63?Expires=1717977600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=C0za7zGlwMzoNOVsu7ozAXVj9VoSyHJdytvaTl9O8Ixr8XuU1lTeMFQMhAwXrdFcYJnTouZbSC-DryHD0Peu0zkV9uGKbMv0Hv7PJL1NzAnYc43NVyjcivwI0DOPRvuhpzYbaEHOCOlBZZ6EjHYl5spWMl9Z51QTtPHvdIrKxI~PcD4cxgG6bPoM14SHn~yLiJxwfiTaiJbTkDOYDSCOMdrDA9F-oMCYl0L5q6Zabsl1ryX1jfU0kN~sW06LwG3jS-~3OmopXslRFVmgeDLRgTEZ2g2eHbQQn41dPzdHTEEJ6Lb6-8vQvPiBRT7JO8yogGvs2zI1LT3a6GPKa6abGA__',
-      location: 'Ulen Sentalu, Yogyakarta',
-    ),
-  ].obs;
+  RxList<Destinasi> listDestinasiPilihan = <Destinasi>[].obs;
+  RxBool isLoadingDestinasiPilihan = false.obs;
+
+  void getDestinasiPilihan() async {
+    isLoadingDestinasiPilihan.value = true;
+    try {
+      final response =
+          await HomeService.getHomeData(provinsi: savedProvince.value!);
+      if (response.data != null) {
+        listDestinasiPilihan.value = response.data!.destinasiRekomendasi!;
+        print('pilihan : $listDestinasiPilihan');
+      }
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 500 &&
+          e.response?.data['message'] == 'Token sudah kadaluwarsa') {
+        final response = await RefreshTokenLogoutService().postRefreshToken();
+        if (response == true) {
+          getDestinasiPilihan();
+        } else {
+          SnackbarWidget.showSnackbar(
+            message: 'Sesi anda telah berakhir, silahkan login kembali',
+          );
+          SharedPref.removeAll();
+          Get.offAll(() => LoginPage());
+        }
+      }
+    } finally {
+      isLoadingDestinasiPilihan.value = false;
+    }
+  }
+
+  RxList<Destinasi> listDestinasiSekitar = <Destinasi>[].obs;
+  RxBool isLoadingDestinasiSekitar = false.obs;
+
+  void getDestinasiSekitar() async {
+    isLoadingDestinasiSekitar.value = true;
+    try {
+      final response =
+          await HomeService.getHomeData(provinsi: savedProvince.value!);
+      if (response.data != null) {
+        listDestinasiSekitar.value = response.data!.destinasiSekitar!;
+      }
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 500 &&
+          e.response?.data['message'] == 'Token sudah kadaluwarsa') {
+        final response = await RefreshTokenLogoutService().postRefreshToken();
+        if (response == true) {
+          getDestinasiSekitar();
+        } else {
+          SnackbarWidget.showSnackbar(
+            message: 'Sesi anda telah berakhir, silahkan login kembali',
+          );
+          SharedPref.removeAll();
+          Get.offAll(() => LoginPage());
+        }
+      }
+    } finally {
+      isLoadingDestinasiSekitar.value = false;
+    }
+  }
+
+  RxList<DestinasiPopuler> listDestinasiPopuler = <DestinasiPopuler>[].obs;
+  RxBool isLoadingDestinasiPopuler = false.obs;
+
+  void getDestinasiPopuler() async {
+    isLoadingDestinasiPopuler.value = true;
+    try {
+      final response =
+          await HomeService.getHomeData(provinsi: savedProvince.value!);
+      if (response.data != null) {
+        listDestinasiPopuler.value = response.data!.destinasiPopuler!;
+      }
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 500 &&
+          e.response?.data['message'] == 'Token sudah kadaluwarsa') {
+        final response = await RefreshTokenLogoutService().postRefreshToken();
+        if (response == true) {
+          getDestinasiPopuler();
+        } else {
+          SnackbarWidget.showSnackbar(
+            message: 'Sesi anda telah berakhir, silahkan login kembali',
+          );
+          SharedPref.removeAll();
+          Get.offAll(() => LoginPage());
+        }
+      }
+    } finally {
+      isLoadingDestinasiPopuler.value = false;
+    }
+  }
 }

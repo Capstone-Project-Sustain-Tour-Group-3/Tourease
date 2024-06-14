@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/status_bar_constant.dart';
+import 'package:tourease/controllers/home_controller.dart';
 import 'package:tourease/pages/home/home_container_rute.dart';
 import 'package:tourease/pages/home/home_header.dart';
 import 'package:tourease/pages/home/home_list_destinasi.dart';
@@ -14,6 +16,8 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     StatusBarConstant.statusBar;
+
+    Get.put(HomeController());
 
     return Scaffold(
       backgroundColor: ColorNeutral.neutral50,
