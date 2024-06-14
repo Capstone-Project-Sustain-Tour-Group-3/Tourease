@@ -86,8 +86,12 @@ class DestinasiDetailPage extends StatelessWidget {
                             title: controller.detailDestinasi.value.data
                                     ?.namaDestinasi ??
                                 '',
+                            view: controller
+                                    .detailDestinasi.value.data?.visitCount
+                                    .toString() ??
+                                '',
                             location:
-                                '${controller.detailDestinasi.value.data?.alamatDestinasi?.namaJalan}, ${controller.detailDestinasi.value.data?.alamatDestinasi?.kecamatan}, ${controller.detailDestinasi.value.data?.alamatDestinasi?.kota}, ${controller.detailDestinasi.value.data?.alamatDestinasi?.provinsi} \n${controller.detailDestinasi.value.data?.alamatDestinasi?.kodePos}',
+                                '${controller.detailDestinasi.value.data?.alamatDestinasi?.namaJalan}, ${controller.detailDestinasi.value.data?.alamatDestinasi?.kecamatan}, ${controller.capitalizeEachWord(controller.detailDestinasi.value.data?.alamatDestinasi?.kota ?? '')}, ${controller.capitalizeEachWord(controller.detailDestinasi.value.data?.alamatDestinasi?.provinsi ?? '')} \n${controller.detailDestinasi.value.data?.alamatDestinasi?.kodePos}',
                             time:
                                 '${controller.detailDestinasi.value.data?.jamBuka} - ${controller.detailDestinasi.value.data?.jamTutup}',
                             price:

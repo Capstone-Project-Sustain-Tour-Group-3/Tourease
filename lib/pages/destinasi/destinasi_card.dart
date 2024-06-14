@@ -30,7 +30,7 @@ class DestinasiCard extends StatelessWidget {
           onTap: () {
             Get.to(
               () => DestinasiDetailPage(
-                id: destinasi?.id ?? '',
+                id: destinasi.id ?? '',
               ),
             );
           },
@@ -49,7 +49,7 @@ class DestinasiCard extends StatelessWidget {
             widthImage: double.infinity,
             namaDestinasi: destinasi?.nama ?? '-',
             lokasiDestinasi:
-                '${destinasi?.kota ?? '-'}, ${destinasi?.provinsi ?? '-'}',
+                '${destinasiController.capitalizeEachWord(destinasi?.kota ?? '-')}, ${destinasiController.capitalizeEachWord(destinasi?.provinsi ?? '-')}',
             view: Positioned(
               bottom: 12.5,
               left: 10,
@@ -66,7 +66,9 @@ class DestinasiCard extends StatelessWidget {
                     width: 8,
                   ),
                   Text(
-                    destinasi?.visitCount.toString() ?? '0',
+                    destinasi!.visitCount! > 999
+                        ? '999+'
+                        : destinasi.visitCount.toString(),
                     style: TextStyleCollection.caption.copyWith(
                       color: ColorNeutral.neutral50,
                       fontSize: 13,
@@ -90,7 +92,7 @@ class DestinasiCard extends StatelessWidget {
                         horizontal: 12,
                       ),
                       child: Text(
-                        destinasi?.kategori?.nama ?? '-',
+                        destinasi.kategori?.nama ?? '-',
                         style: TextStyleCollection.caption.copyWith(
                           fontSize: 12,
                           color: ColorNeutral.neutral600,
