@@ -7,13 +7,12 @@ import 'package:tourease/constants/text_style_constant.dart';
 import 'package:tourease/controllers/profile_controller.dart';
 import 'package:tourease/pages/profil/edit_profil_container.dart';
 import 'package:tourease/pages/profil/ubah_sandi.dart';
-import 'package:tourease/services/profile_service.dart';
 import 'package:tourease/widgets/text_form_field_widget.dart';
 
 class EditProfilInformasiUmum extends StatelessWidget {
   EditProfilInformasiUmum({super.key});
   final ProfileController editController = Get.put(
-    ProfileController(ProfileService()),
+    ProfileController(),
   );
   @override
   Widget build(BuildContext context) {
