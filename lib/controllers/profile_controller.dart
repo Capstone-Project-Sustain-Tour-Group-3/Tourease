@@ -58,16 +58,11 @@ class ProfileController extends GetxController {
 
     try {
       final token = await SharedPref.getAccessToken();
-      if (kDebugMode) {
-        print("token $token");
-      }
 
       if (token != null) {
         final response = await ProfileService().getProfile(token);
         userData.value = response;
-        if (kDebugMode) {
-          print("username: ${response.data!.username!}");
-        }
+
         usernameController.text = response.data!.username!;
         namaLengkapController.text = response.data!.namaLengkap!;
         bioController.text = response.data!.bio!;
@@ -115,9 +110,7 @@ class ProfileController extends GetxController {
       }
 
       final token = await SharedPref.getAccessToken();
-      if (kDebugMode) {
-        print("token nya itu ${token!}");
-      }
+
       final XFile? pickedFile = imageFile.value;
       List<int>? bytes;
       String? fileName;

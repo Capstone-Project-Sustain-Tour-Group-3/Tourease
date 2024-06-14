@@ -20,6 +20,10 @@ class UbahSandi extends StatelessWidget {
         toolbarHeight: 56,
         surfaceTintColor: ColorNeutral.neutral50,
         backgroundColor: ColorNeutral.neutral50,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: ColorPrimary.primary500),
+          onPressed: () => Get.back()
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.only(
