@@ -71,7 +71,7 @@ class RouteHomePage extends StatelessWidget {
               const SizedBox(height: 45),
               GestureDetector(
                 onTap: () async {
-                  final result = await Get.to(() => SearchPage());
+                  final result = await Get.to(() => const SearchPage());
                   if (result != null) {
                     if (result is City) {
                       _searchCityDestinationController.updateCity(result);
@@ -80,12 +80,11 @@ class RouteHomePage extends StatelessWidget {
                     }
                   }
                 },
-                child: AbsorbPointer(
-                    child: Obx(
+                child: AbsorbPointer(child: Obx(
                   () {
                     WidgetsBinding.instance.addPostFrameCallback((_) {
-                      _searchCityDestinationController.destinasiController.text =
-                          _searchCityDestinationController.city.value;
+                      _searchCityDestinationController.destinasiController
+                          .text = _searchCityDestinationController.city.value;
                     });
                     return TextField(
                       controller:
