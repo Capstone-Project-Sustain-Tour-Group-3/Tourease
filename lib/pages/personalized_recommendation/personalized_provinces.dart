@@ -23,7 +23,7 @@ class PersonalizedProvinces extends StatelessWidget {
       onTap: onTap,
       child: Center(
         child: SizedBox(
-          height: 86,
+          height: 90,
           child: Stack(
             children: [
               ClipRRect(
@@ -33,7 +33,7 @@ class PersonalizedProvinces extends StatelessWidget {
                     CachedNetworkImageWidget(
                       imageUrl: image,
                       width: 165,
-                      height: 86,
+                      height: 90,
                       gradient: LinearGradient(
                         begin: Alignment.bottomCenter,
                         end: Alignment.topCenter,
@@ -47,7 +47,7 @@ class PersonalizedProvinces extends StatelessWidget {
                     if (isSelected)
                       Container(
                         width: 165,
-                        height: 86,
+                        height: 90,
                         color: Colors.black.withOpacity(0.5),
                       )
                   ],
@@ -56,6 +56,7 @@ class PersonalizedProvinces extends StatelessWidget {
               Positioned(
                 bottom: 8,
                 left: 8,
+                right: 4,
                 child: AutoSizeText(
                   title,
                   style: TextStyleCollection.bodyMedium.copyWith(
@@ -64,6 +65,8 @@ class PersonalizedProvinces extends StatelessWidget {
                   textAlign: TextAlign.left,
                   minFontSize: 12,
                   maxFontSize: 14,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
               if (isSelected)

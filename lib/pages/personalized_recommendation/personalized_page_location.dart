@@ -33,6 +33,15 @@ class PersonalizedLocationPage extends StatelessWidget {
           maxFontSize: 18,
           textAlign: TextAlign.center,
         ),
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: ColorPrimary.primary500,
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.only(

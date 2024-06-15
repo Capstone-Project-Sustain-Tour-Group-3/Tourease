@@ -23,24 +23,26 @@ class LocationGridView extends StatelessWidget {
           shrinkWrap: true,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            // crossAxisSpacing: 2,
-            // mainAxisSpacing: 2,
-            childAspectRatio: 16/9, // 4.5/2
+            crossAxisSpacing: 0.5,
+            mainAxisSpacing: 0.5,
+            childAspectRatio: 16 / 9, // 4.5/2
           ),
           itemCount: recommendationController.provinces.value.data?.length,
           itemBuilder: (context, index) {
             final province =
                 recommendationController.provinces.value.data?[index];
             if (recommendationController.isLoadingCategory.value) {
-              return SizedBox(
-                height: 86,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: Shimmer.fromColors(
-                    baseColor: ColorNeutral.neutral50,
-                    highlightColor: ColorNeutral.neutral300,
-                    child: Container(
-                      color: ColorNeutral.neutral300,
+              return Center(
+                child: SizedBox(
+                  height: 90,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Shimmer.fromColors(
+                      baseColor: ColorNeutral.neutral50,
+                      highlightColor: ColorNeutral.neutral300,
+                      child: Container(
+                        color: ColorNeutral.neutral300,
+                      ),
                     ),
                   ),
                 ),
@@ -50,7 +52,8 @@ class LocationGridView extends StatelessWidget {
                 () {
                   return PersonalizedProvinces(
                     image: province?.url ?? '',
-                    title: province?.nama ?? '',
+                    title: recommendationController
+                        .capitalizeEachWord(province?.nama ?? ''),
                     isSelected: recommendationController
                         .isProvinceSelected(province?.id ?? ''),
                     onTap: () => recommendationController
