@@ -156,7 +156,7 @@ class RegisterController extends GetxController {
         }
         _validateForm();
       } finally {
-        isLoading.value = false; 
+        isLoading.value = false;
       }
     } else {
       SnackbarWidget.showSnackbar(
