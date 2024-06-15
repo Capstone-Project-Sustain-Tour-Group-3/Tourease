@@ -51,7 +51,7 @@ class CachedNetworkImageWidget extends StatelessWidget {
                 errorWidget: errorWidget ??
                     (context, url, error) => Icon(
                           Icons.error,
-                          color: ColorNeutral.neutral50,
+                          color: ColorDanger.danger500,
                           size: 40,
                         ),
                 fit: fit ?? BoxFit.cover,
