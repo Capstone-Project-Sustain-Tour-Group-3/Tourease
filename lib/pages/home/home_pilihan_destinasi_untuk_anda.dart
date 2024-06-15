@@ -50,7 +50,7 @@ class HomePilihanDestinasiUntukAnda extends StatelessWidget {
                   return HomeContainerDestination(
                     imageUrl: destinasiPilihan.urlGambar ?? '',
                     location:
-                        '${destinasiPilihan.nama}, ${destinasiPilihan.provinsi!.nama}',
+                        '${destinasiPilihan.nama}, ${homeController.capitalizeEachWord(destinasiPilihan.provinsi?.nama ?? '')}',
                   );
                 },
                 options: CarouselOptions(
@@ -63,7 +63,7 @@ class HomePilihanDestinasiUntukAnda extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 8,
+                height: 12,
               ),
               Obx(
                 () => AnimatedSmoothIndicator(

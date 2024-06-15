@@ -17,7 +17,7 @@ class HomeController extends GetxController {
   Rx<String?> currentCity = Rx<String?>(null);
   Rx<String?> savedCity = Rx<String?>(null);
   Rx<String?> savedCompletedCity = Rx<String?>(null);
-  Rx<String?> savedProvince = Rx<String?>(null);
+  String? savedProvince;
 
   @override
   void onInit() {
@@ -27,7 +27,7 @@ class HomeController extends GetxController {
 
   void initializeData() async {
     await getLocation();
-    while (savedProvince.value == null) {
+    while (savedProvince == null) {
       await getLocation();
     }
     getDestinasiPilihan();
@@ -38,6 +38,9 @@ class HomeController extends GetxController {
   Future<void> getLocation() async {
     isLoading.value = true;
     SharedPref.removeSavedLocation();
+    listDestinasiPilihan.value = [];
+    listDestinasiSekitar.value = [];
+    listDestinasiPopuler.value = [];
     try {
       currentLocation.value = await GeolocatorService().getCurrentLocation();
       List<Placemark> placemark = await placemarkFromCoordinates(
@@ -64,9 +67,10 @@ class HomeController extends GetxController {
           completedLocation:
               '${placemark[0].name}, ${placemark[0].locality} ${placemark[0].subAdministrativeArea} ${placemark[0].administrativeArea}, ${placemark[0].country}',
         );
-        SharedPref.saveProvinceLocation(
-          province: placemark[0].administrativeArea!,
-        );
+        savedProvince = placemark[0].administrativeArea!;
+        getDestinasiPilihan();
+        getDestinasiSekitar();
+        getDestinasiPopuler();
         getSavedCity();
       }
     } catch (e) {
@@ -89,7 +93,6 @@ class HomeController extends GetxController {
   void getSavedCity() async {
     savedCity.value = await SharedPref.getSavedLocation();
     savedCompletedCity.value = await SharedPref.getSavedCompletedLocation();
-    savedProvince.value = await SharedPref.getSavedProvinceLocation();
   }
 
   RxInt activeIndex = 0.obs;
@@ -100,10 +103,14 @@ class HomeController extends GetxController {
   void getDestinasiPilihan() async {
     isLoadingDestinasiPilihan.value = true;
     try {
-      final response =
-          await HomeService.getHomeData(provinsi: savedProvince.value!);
-      if (response.data != null) {
-        listDestinasiPilihan.value = response.data!.destinasiRekomendasi!;
+      if (savedProvince == null) {
+        await getLocation();
+      } else {
+        final response =
+            await HomeService.getHomeData(provinsi: savedProvince!);
+        if (response.data != null) {
+          listDestinasiPilihan.value = response.data!.destinasiRekomendasi!;
+        }
       }
     } on DioException catch (e) {
       if (e.response?.statusCode == 500 &&
@@ -130,10 +137,14 @@ class HomeController extends GetxController {
   void getDestinasiSekitar() async {
     isLoadingDestinasiSekitar.value = true;
     try {
-      final response =
-          await HomeService.getHomeData(provinsi: savedProvince.value!);
-      if (response.data != null) {
-        listDestinasiSekitar.value = response.data!.destinasiSekitar!;
+      if (savedProvince == null) {
+        await getLocation();
+      } else {
+        final response =
+            await HomeService.getHomeData(provinsi: savedProvince!);
+        if (response.data != null) {
+          listDestinasiSekitar.value = response.data!.destinasiSekitar!;
+        }
       }
     } on DioException catch (e) {
       if (e.response?.statusCode == 500 &&
@@ -160,10 +171,14 @@ class HomeController extends GetxController {
   void getDestinasiPopuler() async {
     isLoadingDestinasiPopuler.value = true;
     try {
-      final response =
-          await HomeService.getHomeData(provinsi: savedProvince.value!);
-      if (response.data != null) {
-        listDestinasiPopuler.value = response.data!.destinasiPopuler!;
+      if (savedProvince == null) {
+        await getLocation();
+      } else {
+        final response =
+            await HomeService.getHomeData(provinsi: savedProvince!);
+        if (response.data != null) {
+          listDestinasiPopuler.value = response.data!.destinasiPopuler!;
+        }
       }
     } on DioException catch (e) {
       if (e.response?.statusCode == 500 &&
