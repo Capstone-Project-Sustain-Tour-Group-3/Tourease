@@ -30,7 +30,15 @@ class EditProfilPage extends StatelessWidget {
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: ColorPrimary.primary500),
-          onPressed: () => Get.back()
+          onPressed: () {
+            FocusScope.of(context).unfocus();
+            Future.delayed(
+              const Duration(milliseconds: 100),
+              () {
+                Get.back();
+              },
+            );
+          },
         ),
       ),
       body: Stack(

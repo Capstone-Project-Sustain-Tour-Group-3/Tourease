@@ -79,7 +79,6 @@ class DestinasiController extends GetxController {
   void aturUlang({String? searchText}) {
     urutanPilihan.value = '';
     kategoriPilihan.value = '';
-    destinasiController.text = '';
     searchDestinasi();
   }
 

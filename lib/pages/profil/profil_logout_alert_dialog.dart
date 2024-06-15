@@ -17,7 +17,7 @@ class ProfilLogoutAlertDialog extends StatelessWidget {
       ),
       actions: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             GestureDetector(
               onTap: () {
@@ -40,6 +40,9 @@ class ProfilLogoutAlertDialog extends StatelessWidget {
                 ),
               ),
             ),
+            const SizedBox(
+              width: 12,
+            ),
             GestureDetector(
               onTap: () {
                 logoutController.logout();
@@ -48,9 +51,9 @@ class ProfilLogoutAlertDialog extends StatelessWidget {
                 width: 128,
                 height: 48,
                 decoration: BoxDecoration(
-                    color: ColorDanger.danger400,
-                    border: Border.all(color: ColorPrimary.primary700),
-                    borderRadius: BorderRadius.circular(12)),
+                  color: ColorDanger.danger400,
+                  borderRadius: BorderRadius.circular(12),
+                ),
                 child: Center(
                   child: Text(
                     'Keluar',
@@ -66,9 +69,11 @@ class ProfilLogoutAlertDialog extends StatelessWidget {
         )
       ],
       title: Center(
-        child: Text('Keluar',
-            style: TextStyleCollection.bodyBold
-                .copyWith(color: ColorNeutral.neutral900, fontSize: 16)),
+        child: Text(
+          'Keluar',
+          style: TextStyleCollection.bodyBold
+              .copyWith(color: ColorNeutral.neutral900, fontSize: 16),
+        ),
       ),
       content: Text(
         'Apakah Anda yakin ingin keluar dari akun ini?',

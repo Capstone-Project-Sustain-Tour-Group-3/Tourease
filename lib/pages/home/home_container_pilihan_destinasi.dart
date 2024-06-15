@@ -33,11 +33,11 @@ class HomeContainerDestination extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.bottomCenter,
                 end: Alignment.topCenter,
-                stops: const [0.1, 0.35, 0.6],
+                stops: const [0, 0.45, 0.65],
                 colors: [
                   ColorCollection.black.withOpacity(0.75),
-                  ColorCollection.black.withOpacity(0.5),
-                  ColorCollection.transparent,
+                  ColorCollection.black.withOpacity(0.25),
+                  ColorCollection.black.withOpacity(0.2),
                 ],
               ),
               imageUrl: imageUrl,

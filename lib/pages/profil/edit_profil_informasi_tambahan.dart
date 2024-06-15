@@ -35,7 +35,6 @@ class EditProfilInformasiTambahan extends StatelessWidget {
             keyboardType: TextInputType.name,
             titleForm: 'Bio',
             hintText: 'Masukkan bio anda',
-            colorTitleText: ColorNeutral.neutral900,
             isPassword: false,
             controller: editController.bioController,
           ),
@@ -47,7 +46,6 @@ class EditProfilInformasiTambahan extends StatelessWidget {
               keyboardType: TextInputType.name,
               titleForm: 'Kota',
               hintText: 'Masukkan kota anda',
-              colorTitleText: ColorNeutral.neutral900,
               isPassword: false,
               controller: editController.kotaController),
           const SizedBox(
@@ -57,7 +55,6 @@ class EditProfilInformasiTambahan extends StatelessWidget {
               keyboardType: TextInputType.name,
               titleForm: 'Provinsi',
               hintText: 'Masukkan provinsi anda',
-              colorTitleText: ColorNeutral.neutral900,
               isPassword: false,
               controller: editController.provinsiController),
         ],

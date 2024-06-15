@@ -47,7 +47,7 @@ class TextFormFieldWidget extends StatelessWidget {
                           : colorTitleText ?? ColorPrimary.primary500)
                       : textFormFieldWidgetController.handleErrorForm(errorText)
                           ? ColorDanger.danger500
-                          : colorTitleText ?? ColorNeutral.neutral700),
+                          : colorTitleText ?? ColorNeutral.neutral900),
               minFontSize: 16,
               maxFontSize: 18,
             ),

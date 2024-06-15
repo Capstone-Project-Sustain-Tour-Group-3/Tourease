@@ -37,7 +37,6 @@ class EditProfilInformasiUmum extends StatelessWidget {
               keyboardType: TextInputType.name,
               titleForm: 'Nama Pengguna',
               hintText: 'Masukkan nama anda',
-              colorTitleText: ColorNeutral.neutral900,
               isPassword: false,
               controller: editController.usernameController,
               errorText: editController.errorMessageNamaPengguna.value,
@@ -55,7 +54,6 @@ class EditProfilInformasiUmum extends StatelessWidget {
               titleForm: 'Nama Lengkap',
               hintText: 'Masukkan nama lengkap anda',
               isPassword: false,
-              colorTitleText: ColorNeutral.neutral900,
               controller: editController.namaLengkapController,
               errorText: editController.errorMessageNamaLengkap.value,
               onChanged: (value) {
@@ -72,7 +70,6 @@ class EditProfilInformasiUmum extends StatelessWidget {
               titleForm: 'Email',
               hintText: 'Masukkan email anda',
               isPassword: false,
-              colorTitleText: ColorNeutral.neutral900,
               controller: editController.emailController,
               errorText: editController.errorMessageEmail.value,
               onChanged: (value) {
@@ -89,7 +86,6 @@ class EditProfilInformasiUmum extends StatelessWidget {
               titleForm: 'Nomor Telepon',
               hintText: 'Masukkan nomor telepon anda',
               isPassword: false,
-              colorTitleText: ColorNeutral.neutral900,
               controller: editController.nomorTeleponController,
               errorText: editController.errorMessageNomorTelepon.value,
               onChanged: (value) {
