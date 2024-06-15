@@ -27,7 +27,12 @@ class BulletPoint extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 5),
+      padding: const EdgeInsets.only(
+        top: 4,
+        bottom: 4,
+        left: 10,
+        right: 5,
+      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -38,6 +43,9 @@ class BulletPoint extends StatelessWidget {
               color: ColorNeutral.neutral700,
             ),
           ),
+          const SizedBox(
+            width: 2.5,
+          ),
           Expanded(
             child: Text(
               text,
@@ -45,6 +53,7 @@ class BulletPoint extends StatelessWidget {
                 fontSize: 14,
                 color: ColorNeutral.neutral700,
               ),
+              textAlign: TextAlign.justify,
             ),
           ),
         ],

@@ -21,9 +21,8 @@ class UbahSandi extends StatelessWidget {
         surfaceTintColor: ColorNeutral.neutral50,
         backgroundColor: ColorNeutral.neutral50,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: ColorPrimary.primary500),
-          onPressed: () => Get.back()
-        ),
+            icon: Icon(Icons.arrow_back, color: ColorPrimary.primary500),
+            onPressed: () => Get.back()),
       ),
       body: Padding(
         padding: const EdgeInsets.only(
@@ -68,7 +67,6 @@ class UbahSandi extends StatelessWidget {
                           titleForm: 'Kata Sandi Lama',
                           hintText: 'Masukkan kata sandi lama anda',
                           isPassword: true,
-                          colorTitleText: ColorNeutral.neutral900,
                           errorText: controller.errorMessageOldPassword.value,
                           onChanged: controller.validatorOldPassword,
                         )),
@@ -81,7 +79,6 @@ class UbahSandi extends StatelessWidget {
                           titleForm: 'Kata Sandi Baru',
                           hintText: 'Masukkan kata sandi baru anda',
                           isPassword: true,
-                          colorTitleText: ColorNeutral.neutral900,
                           errorText: controller.errorMessageNewPassword.value,
                           onChanged: controller.validatorNewPassword,
                         )),
@@ -94,7 +91,6 @@ class UbahSandi extends StatelessWidget {
                           titleForm: 'Konfirmasi Kata Sandi Baru',
                           hintText: 'Masukkan konfirmasi kata sandi anda',
                           isPassword: true,
-                          colorTitleText: ColorNeutral.neutral900,
                           errorText:
                               controller.errorMessageConfirmPassword.value,
                           onChanged: controller.validatorConfirmPassword,
