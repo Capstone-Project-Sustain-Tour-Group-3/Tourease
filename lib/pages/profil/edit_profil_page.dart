@@ -32,6 +32,7 @@ class EditProfilPage extends StatelessWidget {
           icon: Icon(Icons.arrow_back, color: ColorPrimary.primary500),
           onPressed: () {
             FocusScope.of(context).unfocus();
+            editController.cancelEditProfile();
             Future.delayed(
               const Duration(milliseconds: 100),
               () {

@@ -259,6 +259,14 @@ class ProfileController extends GetxController {
     }
   }
 
+  void cancelEditProfile() {
+    bioController.text = userData.value!.data!.bio!;
+    kotaController.text = userData.value!.data!.kota!;
+    provinsiController.text = userData.value!.data!.provinsi!;
+    imageFile.value = null;
+    imagePath!.value = '';
+  }
+
   @override
   void dispose() {
     usernameController.dispose();
