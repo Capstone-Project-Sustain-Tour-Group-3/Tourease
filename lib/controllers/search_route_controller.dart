@@ -10,6 +10,7 @@ import 'package:tourease/widgets/snackbar_widget.dart';
 
 class SearchRouteController extends GetxController {
   var destinations = <SearchRouteModel>[].obs;
+  var destinationId = <String>[].obs;
   var availableDestinations = <SearchRouteModel>[].obs;
   Rx<KotaDestinasiResponseModel> kotaDestinasiResponse =
       KotaDestinasiResponseModel().obs;
@@ -56,6 +57,7 @@ class SearchRouteController extends GetxController {
 
     if (!exists && destinations.length < 3) {
       destinations.add(destination);
+      destinationId.add(destination.id ?? '');
       availableDestinations.remove(destination);
     } else if (destinations.length >= 3) {
       SnackbarWidget.showSnackbar(
@@ -66,6 +68,7 @@ class SearchRouteController extends GetxController {
 
   void removeDestination(SearchRouteModel destination) {
     destinations.remove(destination);
+    destinationId.remove(destination.id ?? '');
     availableDestinations.add(destination);
   }
 }

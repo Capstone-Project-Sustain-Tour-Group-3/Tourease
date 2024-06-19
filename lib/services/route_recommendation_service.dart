@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:tourease/model/route_recommendation_cities_response.dart';
+import 'package:tourease/model/route_request_model.dart';
+import 'package:tourease/model/route_response_model.dart';
 import 'package:tourease/utils/base_url.dart';
 
 class RouteRecommendationService {
@@ -32,5 +34,14 @@ class RouteRecommendationService {
     } catch (e) {
       throw Exception('Failed to load cities: $e');
     }
+  }
+
+  Future<RouteResponseModel> postRouteRecommendation(
+      RouteRequestModel route) async {
+    final response = await _dio.post(
+      '/mobile/routes/summarize',
+      data: route.toJson(),
+    );
+    return RouteResponseModel.fromJson(response.data);
   }
 }
