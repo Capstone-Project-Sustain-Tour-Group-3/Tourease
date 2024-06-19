@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:tourease/model/route_recommendation_cities_response.dart';
 import 'package:tourease/model/route_request_model.dart';
 import 'package:tourease/model/route_response_model.dart';
+import 'package:tourease/model/save_route_request_model.dart';
 import 'package:tourease/utils/base_url.dart';
 
 class RouteRecommendationService {
@@ -43,5 +44,13 @@ class RouteRecommendationService {
       data: route.toJson(),
     );
     return RouteResponseModel.fromJson(response.data);
+  }
+
+  Future<void> postSaveRoute(SaveRouteRequestModel saveRoute) async {
+    final response = await _dio.post(
+      '/mobile/routes/save',
+      data: saveRoute.toJson(),
+    );
+    return response.data;
   }
 }

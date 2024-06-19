@@ -76,14 +76,14 @@ class DestinasiSearchPage extends StatelessWidget {
               controller: destinasiController.searchDestinasiController,
               onFieldSubmitted: (value) {
                 if (value.isNotEmpty) {
-                  destinasiController.saveSearchHistory(value);
-                  destinasiController.searchDestinasiController.clear();
-                  bottomNavbarController.updateSearchText(value);
                   Get.off(
                     () => const BottomNavbar(
                       initialIndex: 1,
                     ),
                   );
+                  destinasiController.saveSearchHistory(value);
+                  destinasiController.searchDestinasiController.clear();
+                  bottomNavbarController.updateSearchText(value);
                 }
               },
               autofocus: true,

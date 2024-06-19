@@ -60,8 +60,8 @@ class HomeController extends GetxController {
             .trim();
         SharedPref.saveLocation(location: currentCity.value!);
         SharedPref.saveLatitudeLongitude(
-          latitude: currentLocation.value!.latitude.toString(),
-          longitude: currentLocation.value!.longitude.toString(),
+          latitude: currentLocation.value!.latitude,
+          longitude: currentLocation.value!.longitude,
         );
         SharedPref.saveCompletedLocation(
           completedLocation:
