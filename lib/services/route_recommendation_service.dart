@@ -40,7 +40,7 @@ class RouteRecommendationService {
   Future<RouteResponseModel> postRouteRecommendation(
       RouteRequestModel route) async {
     final response = await _dio.post(
-      '/mobile/routes/summarize',
+      '/routes/summarize',
       data: route.toJson(),
     );
     return RouteResponseModel.fromJson(response.data);
@@ -48,7 +48,7 @@ class RouteRecommendationService {
 
   Future<void> postSaveRoute(SaveRouteRequestModel saveRoute) async {
     final response = await _dio.post(
-      '/mobile/routes/save',
+      '/routes/save',
       data: saveRoute.toJson(),
     );
     return response.data;

@@ -10,7 +10,7 @@ import 'package:tourease/widgets/snackbar_widget.dart';
 
 class SearchRouteController extends GetxController {
   var destinations = <SearchRouteModel>[].obs;
-  var destinationId = <String>[].obs;
+  var destinationIds = <String>[].obs;
   var availableDestinations = <SearchRouteModel>[].obs;
   Rx<KotaDestinasiResponseModel> kotaDestinasiResponse =
       KotaDestinasiResponseModel().obs;
@@ -24,10 +24,10 @@ class SearchRouteController extends GetxController {
       if (response.data != null) {
         List<SearchRouteModel> apiDestinations = response.data!
             .map((datum) => SearchRouteModel(
-                  name: datum.namaDestinasi ?? 'Unknown Destination',
-                  subtitle:
-                      '${datum.namaJalan} ${datum.kecamatan} ${datum.kota} ${datum.provinsi}',
-                ))
+                name: datum.namaDestinasi ?? 'Unknown Destination',
+                subtitle:
+                    '${datum.namaJalan} ${datum.kecamatan} ${datum.kota} ${datum.provinsi}',
+                id: datum.id))
             .toList();
 
         availableDestinations.addAll(apiDestinations);
@@ -57,18 +57,20 @@ class SearchRouteController extends GetxController {
 
     if (!exists && destinations.length < 3) {
       destinations.add(destination);
-      destinationId.add(destination.id ?? '');
+      List<String?> ids =
+          destinations.map((destination) => destination.id).toList();
+      ids.removeWhere((id) => id == null);
+      destinationIds.assignAll(ids.cast<String>());
       availableDestinations.remove(destination);
     } else if (destinations.length >= 3) {
       SnackbarWidget.showSnackbar(
-        message:
-            "Maaf, rute tujuan anda telah mencapai maksimal");
+          message: "Maaf, rute tujuan anda telah mencapai maksimal");
     }
   }
 
   void removeDestination(SearchRouteModel destination) {
     destinations.remove(destination);
-    destinationId.remove(destination.id ?? '');
+    destinationIds.remove(destination.id);
     availableDestinations.add(destination);
   }
 }
