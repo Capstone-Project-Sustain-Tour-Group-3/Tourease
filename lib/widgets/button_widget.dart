@@ -8,16 +8,18 @@ class ButtonWidget extends StatelessWidget {
     super.key,
     required this.onPressed,
     this.side,
-    required this.text,
-    required this.textColor,
+    this.text,
+    this.textColor,
     this.backgroundColor,
+    this.child,
   });
 
   final void Function()? onPressed;
   final BorderSide? side;
-  final String text;
-  final Color textColor;
+  final String? text;
+  final Color? textColor;
   final Color? backgroundColor;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +34,15 @@ class ButtonWidget extends StatelessWidget {
         overlayColor: ColorNeutral.neutral200,
         shadowColor: ColorCollection.transparent,
       ),
-      child: AutoSizeText(
-        text,
-        style: TextStyleCollection.bodyMedium.copyWith(
-          color: textColor,
-        ),
-        minFontSize: 14,
-        maxFontSize: 16,
-      ),
+      child: child ??
+          AutoSizeText(
+            text ?? '',
+            style: TextStyleCollection.bodyMedium.copyWith(
+              color: textColor,
+            ),
+            minFontSize: 14,
+            maxFontSize: 16,
+          ),
     );
   }
 }

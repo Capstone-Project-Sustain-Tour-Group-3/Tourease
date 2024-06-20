@@ -65,7 +65,6 @@ class RouteRecommendationController extends GetxController {
       }
     } finally {
       isLoadingPostRoute.value = false;
-      print(route.toJson());
     }
   }
 

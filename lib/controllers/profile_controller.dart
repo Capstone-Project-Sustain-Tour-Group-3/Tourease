@@ -82,7 +82,6 @@ class ProfileController extends GetxController {
         if (response == true) {
           getUserData();
         } else {
-          Get.snackbar('Error nih ', e.toString());
           SharedPref.removeAll();
           Get.offAll(() => LoginPage());
         }
@@ -150,7 +149,6 @@ class ProfileController extends GetxController {
         if (response == true) {
           editProfile();
         } else {
-          Get.snackbar('Error', e.toString());
           SharedPref.removeAll();
           Get.offAll(() => LoginPage());
         }

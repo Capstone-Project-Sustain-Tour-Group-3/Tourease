@@ -81,9 +81,14 @@ class DestinasiSearchPage extends StatelessWidget {
                       initialIndex: 1,
                     ),
                   );
-                  destinasiController.saveSearchHistory(value);
-                  destinasiController.searchDestinasiController.clear();
-                  bottomNavbarController.updateSearchText(value);
+                  Future.delayed(
+                    const Duration(milliseconds: 200),
+                    () {
+                      destinasiController.saveSearchHistory(value);
+                      destinasiController.searchDestinasiController.clear();
+                      bottomNavbarController.updateSearchText(value);
+                    },
+                  );
                 }
               },
               autofocus: true,
