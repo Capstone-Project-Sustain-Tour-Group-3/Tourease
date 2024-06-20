@@ -46,11 +46,15 @@ class DestinasiService {
   Future<KotaDestinasiResponseModel> getDestinationByCity(
       {required String id}) async {
     final token = await SharedPref.getAccessToken();
-    final response = await dio.get('${BaseUrl.urlAPI}/destinations/cities/$id',
-        options: Options(headers: {
+    final response = await dio.get(
+      '${BaseUrl.urlAPI}/destinations/cities/$id',
+      options: Options(
+        headers: {
           'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',
-        }));
+        },
+      ),
+    );
 
     return KotaDestinasiResponseModel.fromJson(response.data);
   }

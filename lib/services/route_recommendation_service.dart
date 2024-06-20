@@ -4,6 +4,7 @@ import 'package:tourease/model/route_request_model.dart';
 import 'package:tourease/model/route_response_model.dart';
 import 'package:tourease/model/save_route_request_model.dart';
 import 'package:tourease/utils/base_url.dart';
+import 'package:tourease/utils/shared_preference_utils.dart';
 
 class RouteRecommendationService {
   final Dio _dio = Dio(
@@ -39,16 +40,30 @@ class RouteRecommendationService {
 
   Future<RouteResponseModel> postRouteRecommendation(
       RouteRequestModel route) async {
+    final token = await SharedPref.getAccessToken();
     final response = await _dio.post(
       '/routes/summarize',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+      ),
       data: route.toJson(),
     );
     return RouteResponseModel.fromJson(response.data);
   }
 
   Future<void> postSaveRoute(SaveRouteRequestModel saveRoute) async {
+    final token = await SharedPref.getAccessToken();
     final response = await _dio.post(
       '/routes/save',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+      ),
       data: saveRoute.toJson(),
     );
     return response.data;
