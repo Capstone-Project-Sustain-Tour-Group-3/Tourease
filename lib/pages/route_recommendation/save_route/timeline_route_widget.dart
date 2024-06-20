@@ -6,9 +6,28 @@ import 'package:tourease/pages/route_recommendation/save_route/route_card_widget
 
 class TimelineRouteWidget extends StatelessWidget {
   final bool isLast;
+
   final int destinationLength;
-  const TimelineRouteWidget(
-      {super.key, required this.isLast, required this.destinationLength});
+  final String urlGambar;
+  final String namaDestinasi;
+  final String waktuKunjungan;
+  final String waktuSelesai;
+  final String waktuPerjalanan;
+  final String biaya;
+  final String id;
+
+  const TimelineRouteWidget({
+    super.key,
+    required this.isLast,
+    required this.destinationLength,
+    required this.urlGambar,
+    required this.namaDestinasi,
+    required this.waktuKunjungan,
+    required this.waktuSelesai,
+    required this.biaya,
+    required this.waktuPerjalanan,
+    required this.id,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +62,7 @@ class TimelineRouteWidget extends StatelessWidget {
       afterLineStyle: LineStyle(thickness: 5, color: ColorPrimary.primary100),
       axis: TimelineAxis.vertical,
       isLast: isLast,
-      endChild: const SizedBox(
+      endChild: SizedBox(
         height: 300,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,19 +74,19 @@ class TimelineRouteWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('1j20m'),
+                    Text(waktuPerjalanan),
                   ],
                 ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 64, right: 26),
+              padding: const EdgeInsets.only(left: 64, right: 26),
               child: RouteCardWidget(
-                photoUrl:
-                    'https://s3-alpha-sig.figma.com/img/c2e3/979b/84ab1c74580bd5751e3492b346f9b9b5?Expires=1717977600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=RCpjEhDNDe9QKUFdK09Ylf~oyTu1mfQ6yPnTjD5ZrQQRq6Bn8foNdrmrHnSzlvdlG7kha4Qv0fP6QltWAFZ0KENu7op0Lrzz0pdFRx-RveXkg1MGFncHALcx66xtB5L1GqwCo4JO6vH3w080Fegzv0MhIAdBCPc4h3wA9Tdt3ize-duC4mvIUVKjM0Vs5fWJvoNiyO2a2tW56Zb2uhF3J13RItlkq1aHpzT0ATwTvusClnpOAF~oTf4fmIElQi9XWeCgvoDDufRUxWNrgbQ-67PT6DGIV0GjRwl7YVD4uSaEJCg47pjwcuEQtqmw5inXq75o2s5wcX2NZ4dDk7ROWQ__',
-                namaTempat: 'Taman Nasional Baluran',
-                openTime: '08.45 - 11.45',
-                biaya: 'Rp 150.000',
+                id: id,
+                photoUrl: urlGambar,
+                namaTempat: namaDestinasi,
+                openTime: '$waktuKunjungan - $waktuSelesai',
+                biaya: biaya,
               ),
             ),
           ],

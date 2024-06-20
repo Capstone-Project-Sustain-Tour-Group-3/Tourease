@@ -12,6 +12,8 @@ import 'package:tourease/widgets/snackbar_widget.dart';
 class RouteRecommendationController extends GetxController {
   RxBool isLoadingPostRoute = false.obs;
   Rx<RouteResponseModel> routeResponseModel = RouteResponseModel().obs;
+  RxBool isLastRoute = false.obs;
+  RxBool isFirstRoute = false.obs;
 
   void postRouteRecommendation({
     required String idKota,
@@ -35,7 +37,7 @@ class RouteRecommendationController extends GetxController {
           await RouteRecommendationService().postRouteRecommendation(route);
       routeResponseModel.value = response;
       Get.to(
-        () => const SaveRoutePage(),
+        () => SaveRoutePage(),
       );
     } on DioException catch (e) {
       if (e.response?.statusCode == 500 &&
@@ -65,5 +67,13 @@ class RouteRecommendationController extends GetxController {
       isLoadingPostRoute.value = false;
       print(route.toJson());
     }
+  }
+
+  String calculateFullBiaya() {
+    int fullBiaya = 0;
+    for (var detailRute in routeResponseModel.value.data!.detailRute!) {
+      fullBiaya += detailRute.destinasi!.biayaMasuk!.raw!.toInt();
+    }
+    return 'Rp.${fullBiaya.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}';
   }
 }

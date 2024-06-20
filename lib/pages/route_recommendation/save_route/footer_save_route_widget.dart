@@ -5,7 +5,11 @@ import 'package:tourease/constants/text_style_constant.dart';
 import 'package:tourease/widgets/button_widget.dart';
 
 class FooterSaveRouteWidget extends StatelessWidget {
-  const FooterSaveRouteWidget({super.key});
+  final String fullBiaya;
+  const FooterSaveRouteWidget({
+    super.key,
+    required this.fullBiaya,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +19,7 @@ class FooterSaveRouteWidget extends StatelessWidget {
       bottom: 0,
       child: Container(
         decoration: BoxDecoration(
-          color: ColorNeutral.neutral50,
+          color: ColorCollection.white,
           boxShadow: [
             BoxShadow(
               color: ColorCollection.black.withOpacity(0.1),
@@ -40,7 +44,7 @@ class FooterSaveRouteWidget extends StatelessWidget {
                         .copyWith(color: ColorNeutral.neutral900, fontSize: 14),
                   ),
                   Text(
-                    'Rp 200.000',
+                    fullBiaya,
                     style: TextStyleCollection.bodyBold
                         .copyWith(color: ColorPrimary.primary900, fontSize: 16),
                   ),
@@ -137,7 +141,7 @@ class FooterSaveRouteWidget extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             vertical: 12, horizontal: 16),
                         child: Icon(
-                          Icons.bookmark,
+                          Icons.bookmark_border,
                           color: ColorPrimary.primary500,
                         ),
                       ),

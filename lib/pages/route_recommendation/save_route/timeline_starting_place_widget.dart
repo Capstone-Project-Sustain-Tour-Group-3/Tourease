@@ -4,7 +4,8 @@ import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/pages/route_recommendation/save_route/starting_place_widget.dart';
 
 class TimelineStartingPlaceWidget extends StatelessWidget {
-  const TimelineStartingPlaceWidget({super.key});
+  final String lokasiAwal;
+  const TimelineStartingPlaceWidget({super.key, required this.lokasiAwal});
 
   @override
   Widget build(BuildContext context) {
@@ -13,12 +14,12 @@ class TimelineStartingPlaceWidget extends StatelessWidget {
       afterLineStyle: LineStyle(thickness: 5, color: ColorPrimary.primary100),
       beforeLineStyle: LineStyle(thickness: 5, color: ColorPrimary.primary100),
       axis: TimelineAxis.vertical,
-      endChild: const Column(
+      endChild:  Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 64, right: 26),
-            child: StartingPlaceWidget(),
+            padding: const EdgeInsets.only(left: 64, right: 26),
+            child: StartingPlaceWidget(lokasiAwal: lokasiAwal,),
           ),
         ],
       ),

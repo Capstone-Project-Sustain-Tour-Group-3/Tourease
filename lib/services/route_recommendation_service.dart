@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:tourease/model/route_recommendation_cities_response.dart';
 import 'package:tourease/model/route_request_model.dart';
 import 'package:tourease/model/route_response_model.dart';
@@ -51,6 +52,13 @@ class RouteRecommendationService {
       ),
       data: route.toJson(),
     );
+
+    if (kDebugMode) {
+      print('''
+Response status: ${response.statusCode}
+Response data: ${response.data}
+''');
+    }
     return RouteResponseModel.fromJson(response.data);
   }
 

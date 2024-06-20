@@ -67,7 +67,7 @@ class HomeController extends GetxController {
         );
         SharedPref.saveCompletedLocation(
           completedLocation:
-              '${placemark[0].name}, ${placemark[0].locality} ${placemark[0].subAdministrativeArea} ${placemark[0].administrativeArea}, ${placemark[0].country}',
+              '${placemark[0].street}, ${placemark[0].subLocality} ${placemark[0].locality} ${placemark[0].subAdministrativeArea}, ${placemark[0].administrativeArea}, ${placemark[0].postalCode}, ${placemark[0].country}',
         );
         savedProvince = placemark[0].administrativeArea!;
         getDestinasiPilihan();
