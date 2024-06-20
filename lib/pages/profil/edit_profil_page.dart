@@ -34,7 +34,7 @@ class EditProfilPage extends StatelessWidget {
             FocusScope.of(context).unfocus();
             editController.cancelEditProfile();
             Future.delayed(
-              const Duration(milliseconds: 100),
+              const Duration(milliseconds: 200),
               () {
                 Get.back();
               },

@@ -55,7 +55,7 @@ class DestinasiDetailDestinasiSerupa extends StatelessWidget {
                       url: destinasiSerupa?.urlMedia ?? '',
                       namaDestinasi: destinasiSerupa?.nama ?? '',
                       lokasiDestinasi:
-                          '${destinasiSerupa?.kota ?? ''}, ${destinasiSerupa?.provinsi ?? ''}',
+                          '${controller.capitalizeEachWord(destinasiSerupa?.kota ?? '')}, ${controller.capitalizeEachWord(destinasiSerupa?.provinsi ?? '')}',
                     ),
                   );
                 },
