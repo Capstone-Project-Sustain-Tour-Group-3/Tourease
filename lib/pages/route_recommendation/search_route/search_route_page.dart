@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
+import 'package:tourease/controllers/route_recommendation_controller.dart';
 import 'package:tourease/controllers/search_city_destination_controller.dart';
 import 'package:tourease/controllers/search_route_controller.dart';
 import 'package:tourease/pages/route_recommendation/search_route/search_route_button_widget.dart';
@@ -18,6 +19,9 @@ class SearchRoutePage extends StatelessWidget {
 
   final SearchCityDestinationController _searchCityDestinationController =
       Get.put(SearchCityDestinationController());
+
+  final RouteRecommendationController _routeRecomendationController =
+      Get.put(RouteRecommendationController());
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -76,7 +80,12 @@ class SearchRoutePage extends StatelessWidget {
           Obx(() {
             return SearchRouteButton(
               isEnabled: searchRouteController.destinations.isNotEmpty,
-              onPressed: () {},
+              onPressed: () {
+                _routeRecomendationController.postRouteRecommendation(
+                    idKota:
+                        _searchCityDestinationController.id.value.toString(),
+                    idDestinasiTujuan: searchRouteController.destinationIds);
+              },
             );
           })
         ],

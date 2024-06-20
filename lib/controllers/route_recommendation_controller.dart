@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:tourease/model/route_request_model.dart';
 import 'package:tourease/model/route_response_model.dart';
 import 'package:tourease/pages/login/login_page.dart';
+import 'package:tourease/pages/route_recommendation/save_route/save_route_page.dart';
 import 'package:tourease/services/refresh_token_and_logout_service.dart';
 import 'package:tourease/services/route_recommendation_service.dart';
 import 'package:tourease/utils/shared_preference_utils.dart';
@@ -30,6 +31,8 @@ class RouteRecommendationController extends GetxController {
       final response =
           await RouteRecommendationService().postRouteRecommendation(route);
       routeResponseModel.value = response;
+
+      Get.to(const SaveRoutePage());
     } on DioException catch (e) {
       if (e.response?.statusCode == 500 &&
           e.response?.data['message'] == 'Token sudah kadaluwarsa') {
@@ -53,6 +56,7 @@ class RouteRecommendationController extends GetxController {
       }
     } finally {
       isLoadingPostRoute.value = false;
+      print(route.toJson());
     }
   }
 }
