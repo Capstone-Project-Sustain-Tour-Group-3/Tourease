@@ -16,13 +16,16 @@ class RouteRecommendationController extends GetxController {
   void postRouteRecommendation({
     required String idKota,
     required List<String> idDestinasiTujuan,
+    required String namaLokasiAwal,
+    required double latitude,
+    required double longitude,
   }) async {
     final route = RouteRequestModel(
       idKota: idKota,
       lokasiAwal: LokasiAwalRequest(
-        nama: await SharedPref.getSavedCompletedLocation(),
-        latitude: await SharedPref.getSavedLatitude(),
-        longitude: await SharedPref.getSavedLongitude(),
+        nama: namaLokasiAwal,
+        latitude: latitude,
+        longitude: longitude,
       ),
       idDestinasiTujuan: idDestinasiTujuan,
     );
@@ -31,8 +34,9 @@ class RouteRecommendationController extends GetxController {
       final response =
           await RouteRecommendationService().postRouteRecommendation(route);
       routeResponseModel.value = response;
-
-      Get.to(const SaveRoutePage());
+      Get.to(
+        () => const SaveRoutePage(),
+      );
     } on DioException catch (e) {
       if (e.response?.statusCode == 500 &&
           e.response?.data['message'] == 'Token sudah kadaluwarsa') {
@@ -41,6 +45,9 @@ class RouteRecommendationController extends GetxController {
           postRouteRecommendation(
             idKota: idKota,
             idDestinasiTujuan: idDestinasiTujuan,
+            namaLokasiAwal: namaLokasiAwal,
+            latitude: latitude,
+            longitude: latitude,
           );
         } else {
           SnackbarWidget.showSnackbar(

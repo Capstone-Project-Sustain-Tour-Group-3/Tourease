@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
+import 'package:tourease/controllers/home_controller.dart';
 import 'package:tourease/controllers/route_recommendation_controller.dart';
 import 'package:tourease/controllers/search_city_destination_controller.dart';
 import 'package:tourease/controllers/search_route_controller.dart';
@@ -22,6 +23,9 @@ class SearchRoutePage extends StatelessWidget {
 
   final RouteRecommendationController _routeRecomendationController =
       Get.put(RouteRecommendationController());
+
+  final HomeController _homeController = Get.put(HomeController());
+
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -82,9 +86,13 @@ class SearchRoutePage extends StatelessWidget {
               isEnabled: searchRouteController.destinations.isNotEmpty,
               onPressed: () {
                 _routeRecomendationController.postRouteRecommendation(
-                    idKota:
-                        _searchCityDestinationController.id.value.toString(),
-                    idDestinasiTujuan: searchRouteController.destinationIds);
+                  idKota: _searchCityDestinationController.id.value.toString(),
+                  idDestinasiTujuan: searchRouteController.destinationIds,
+                  namaLokasiAwal:
+                      _homeController.savedCompletedCity.value ?? '',
+                  latitude: _homeController.savedLatitude.value ?? 0,
+                  longitude: _homeController.savedLongitude.value ?? 0,
+                );
               },
             );
           })
