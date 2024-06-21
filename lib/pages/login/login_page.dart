@@ -71,7 +71,7 @@ class LoginPage extends StatelessWidget {
             () {
               if (loginController.isLoadingLogin.value) {
                 return Container(
-                  color: ColorNeutral.neutral900.withOpacity(0.5),
+                  color: ColorNeutral.neutral50.withOpacity(0.5),
                   child: Center(
                     child: CircularProgressIndicator(
                       valueColor: AlwaysStoppedAnimation<Color>(

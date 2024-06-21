@@ -40,7 +40,7 @@ class SaveRoutePage extends StatelessWidget {
             const SizedBox(width: 6),
             IconButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Get.back();
                 },
                 icon: Icon(
                   Icons.arrow_back,
@@ -96,7 +96,9 @@ class SaveRoutePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               FooterSaveRouteWidget(
-                fullBiaya: _routeRecomendationController.calculateFullBiaya(),
+                fullBiaya: _routeRecomendationController
+                    .routeResponseModel.value.data!.estimasiBiaya!.format
+                    .toString(),
               ),
             ],
           ),

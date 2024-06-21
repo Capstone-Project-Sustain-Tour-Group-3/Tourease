@@ -56,48 +56,72 @@ class SearchRoutePage extends StatelessWidget {
           maxFontSize: 20,
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: Stack(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 16,
-              top: 16,
-              right: 16,
-            ),
-            child: Obx(() => AutoSizeText(
-                  _searchCityDestinationController.city.value,
-                  style: TextStyleCollection.bodyBold
-                      .copyWith(color: ColorNeutral.neutral900),
-                  minFontSize: 18,
-                  maxFontSize: 20,
-                )),
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: RouteDestinationContainerWidget(),
-          ),
-          // const SizedBox(height: 12),
-          const Divider(),
-          // const SizedBox(height: 8),
-          const Expanded(child: RouteListWidget()),
-          Obx(() {
-            return SearchRouteButton(
-              isEnabled: searchRouteController.destinations.isNotEmpty,
-              onPressed: () {
-                _routeRecomendationController.postRouteRecommendation(
-                  idKota: _searchCityDestinationController.id.value.toString(),
-                  idDestinasiTujuan: searchRouteController.destinationIds,
-                  namaLokasiAwal:
-                      _homeController.savedCompletedCity.value ?? '',
-                  latitude: _homeController.savedLatitude.value ?? 0,
-                  longitude: _homeController.savedLongitude.value ?? 0,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 16,
+                  top: 16,
+                  right: 16,
+                ),
+                child: Obx(() => AutoSizeText(
+                      _searchCityDestinationController.city.value,
+                      style: TextStyleCollection.bodyBold
+                          .copyWith(color: ColorNeutral.neutral900),
+                      minFontSize: 18,
+                      maxFontSize: 20,
+                    )),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: RouteDestinationContainerWidget(),
+              ),
+              // const SizedBox(height: 12),
+              const Divider(),
+              // const SizedBox(height: 8),
+              const Expanded(child: RouteListWidget()),
+              Obx(() {
+                return SearchRouteButton(
+                  isEnabled: searchRouteController.destinations.isNotEmpty,
+                  onPressed: () {
+                    _routeRecomendationController.postRouteRecommendation(
+                      idKota:
+                          _searchCityDestinationController.id.value.toString(),
+                      idDestinasiTujuan: searchRouteController.destinationIds,
+                      namaLokasiAwal:
+                          _homeController.savedCompletedCity.value ?? '',
+                      latitude: _homeController.savedLatitude.value ?? 0,
+                      longitude: _homeController.savedLongitude.value ?? 0,
+                    );
+                    _routeRecomendationController.namaKota.value =
+                        _searchCityDestinationController.city.value;
+                    searchRouteController.destinations.clear();
+                  },
                 );
-                _routeRecomendationController.namaKota.value =
-                    _searchCityDestinationController.city.value;
-              },
-            );
-          })
+              })
+            ],
+          ),
+          Obx(
+            () {
+              if (_routeRecomendationController.isLoadingPostRoute.value) {
+                return Container(
+                  color: ColorNeutral.neutral50.withOpacity(0.5),
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        ColorPrimary.primary500,
+                      ),
+                    ),
+                  ),
+                );
+              } else {
+                return const SizedBox.shrink();
+              }
+            },
+          ),
         ],
       ),
     );

@@ -37,7 +37,7 @@ class RouteRecommendationController extends GetxController {
       final response =
           await RouteRecommendationService().postRouteRecommendation(route);
       routeResponseModel.value = response;
-      Get.to(SaveRoutePage());
+      Get.off(() => SaveRoutePage());
     } on DioException catch (e) {
       if (e.response?.statusCode == 500 &&
           e.response?.data['message'] == 'Token sudah kadaluwarsa') {
@@ -65,13 +65,5 @@ class RouteRecommendationController extends GetxController {
     } finally {
       isLoadingPostRoute.value = false;
     }
-  }
-
-  String calculateFullBiaya() {
-    int fullBiaya = 0;
-    for (var detailRute in routeResponseModel.value.data!.detailRute!) {
-      fullBiaya += detailRute.destinasi!.biayaMasuk!.raw!.toInt();
-    }
-    return 'Rp.${fullBiaya.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]}.')}';
   }
 }
