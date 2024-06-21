@@ -133,7 +133,7 @@ class RegisterPage extends StatelessWidget {
           Obx(() {
             if (registerController.isLoading.value) {
               return Container(
-                color: ColorNeutral.neutral900.withOpacity(0.5),
+                color: ColorNeutral.neutral50.withOpacity(0.5),
                 child: Center(
                   child: CircularProgressIndicator(
                     valueColor: AlwaysStoppedAnimation<Color>(

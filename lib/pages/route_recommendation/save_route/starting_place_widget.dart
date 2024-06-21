@@ -30,6 +30,8 @@ class StartingPlaceWidget extends StatelessWidget {
       child: Center(
         child: Text(
           lokasiAwal,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 4,
           style: TextStyleCollection.captionBold.copyWith(
             color: ColorNeutral.neutral800,
             fontSize: 14,
