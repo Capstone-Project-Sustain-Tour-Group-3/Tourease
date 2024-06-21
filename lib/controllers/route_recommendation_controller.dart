@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/model/route_request_model.dart';
 import 'package:tourease/model/route_response_model.dart';
+import 'package:tourease/model/save_route_request_model.dart';
 import 'package:tourease/pages/login/login_page.dart';
 import 'package:tourease/pages/route_recommendation/save_route/save_route_page.dart';
 import 'package:tourease/services/refresh_token_and_logout_service.dart';
@@ -15,6 +17,7 @@ class RouteRecommendationController extends GetxController {
   RxBool isLastRoute = false.obs;
   RxBool isFirstRoute = false.obs;
   RxString namaKota = ''.obs;
+  RxBool isRouteSaved = false.obs;
 
   void postRouteRecommendation({
     required String idKota,
@@ -48,7 +51,7 @@ class RouteRecommendationController extends GetxController {
             idDestinasiTujuan: idDestinasiTujuan,
             namaLokasiAwal: namaLokasiAwal,
             latitude: latitude,
-            longitude: latitude,
+            longitude: longitude,
           );
         } else {
           SnackbarWidget.showSnackbar(
@@ -65,5 +68,43 @@ class RouteRecommendationController extends GetxController {
     } finally {
       isLoadingPostRoute.value = false;
     }
+  }
+
+  Future<void> saveRoute(SaveRouteRequestModel saveRouteRequest) async {
+    try {
+      await RouteRecommendationService().postSaveRoute(saveRouteRequest);
+      isRouteSaved.value = true;
+
+      SnackbarWidget.showSnackbar(
+        message: 'Rute berhasil disimpan',
+        backgroundColor: ColorNeutral.neutral50,
+        textColor: ColorNeutral.neutral700,
+        textContainerColor: ColorNeutral.neutral50,
+      );
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 500 &&
+          e.response?.data['message'] == 'Token sudah kadaluwarsa') {
+        final response = await RefreshTokenLogoutService().postRefreshToken();
+        if (response == true) {
+          saveRoute(saveRouteRequest);
+        } else {
+          SnackbarWidget.showSnackbar(
+            message: 'Sesi anda telah berakhir, silahkan login kembali',
+          );
+          SharedPref.removeAll();
+          Get.offAll(() => LoginPage());
+        }
+      } else {
+        print('Exception caught: $e');
+        print('Response data: ${e.response?.data}');
+        SnackbarWidget.showSnackbar(
+          message: 'Gagal menyimpan rute, silahkan coba lagi',
+        );
+      }
+    }
+  }
+
+  void resetRouteSaved() {
+    isRouteSaved.value = false;
   }
 }

@@ -4,6 +4,7 @@ import 'package:tourease/model/route_recommendation_cities_response.dart';
 import 'package:tourease/model/route_request_model.dart';
 import 'package:tourease/model/route_response_model.dart';
 import 'package:tourease/model/save_route_request_model.dart';
+import 'package:tourease/model/save_route_response_model.dart';
 import 'package:tourease/utils/base_url.dart';
 import 'package:tourease/utils/shared_preference_utils.dart';
 
@@ -62,7 +63,7 @@ Response data: ${response.data}
     return RouteResponseModel.fromJson(response.data);
   }
 
-  Future<void> postSaveRoute(SaveRouteRequestModel saveRoute) async {
+  Future<SaveRouteResponseModel> postSaveRoute(SaveRouteRequestModel saveRoute) async {
     final token = await SharedPref.getAccessToken();
     final response = await _dio.post(
       '/routes/save',
@@ -74,6 +75,6 @@ Response data: ${response.data}
       ),
       data: saveRoute.toJson(),
     );
-    return response.data;
+    return SaveRouteResponseModel.fromJson(response.data);
   }
 }

@@ -21,15 +21,7 @@ class SharedPref {
     await preferences.setString(_keyCompletedLocation, completedLocation);
   }
 
-  static void saveLatitudeLongitude({
-    required double latitude,
-    required double longitude,
-  }) async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-
-    await preferences.setDouble(_keyLatitude, latitude);
-    await preferences.setDouble(_keyLongitude, longitude);
-  }
+  
 
   static Future<String?> getSavedLocation() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -46,19 +38,6 @@ class SharedPref {
     return savedCompletedLocation;
   }
 
-  static Future<double?> getSavedLatitude() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-
-    double? savedLatitude = preferences.getDouble(_keyLatitude);
-    return savedLatitude;
-  }
-
-  static Future<double?> getSavedLongitude() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-
-    double? savedLongitude = preferences.getDouble(_keyLongitude);
-    return savedLongitude;
-  }
 
   static void removeSavedLocation() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
