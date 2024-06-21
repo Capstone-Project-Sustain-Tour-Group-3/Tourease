@@ -14,27 +14,12 @@ class SaveRoutePage extends StatelessWidget {
   final RouteRecommendationController _routeRecomendationController =
       Get.put(RouteRecommendationController());
 
-  DateTime convertTimeStringToDateTime(String time) {
-    final timeParts = time.split(':');
-    final hours = int.parse(timeParts[0]);
-    final minutes = int.parse(timeParts[1]);
-    return DateTime(DateTime.now().year, DateTime.now().month,
-        DateTime.now().day, hours, minutes);
-  }
-
-  String formatDuration(Duration duration) {
-    String twoDigits(int n) {
-      if (n >= 10) return "$n";
-      return "0$n";
-    }
-
-    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
-    return "${twoDigits(duration.inHours)}j${twoDigitMinutes}m";
-  }
-
   @override
   Widget build(BuildContext context) {
     StatusBarConstant.statusBar;
+
+    final detailRute = _routeRecomendationController
+        .routeResponseModel.value.data!.detailRute!;
 
     return Scaffold(
       backgroundColor: ColorNeutral.neutral50,
@@ -71,7 +56,7 @@ class SaveRoutePage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const CityNameWidget(),
+                CityNameWidget(),
                 Padding(
                   padding: const EdgeInsets.only(left: 32),
                   child: Column(
@@ -83,58 +68,18 @@ class SaveRoutePage extends StatelessWidget {
                               .data!
                               .lokasiAwal!
                               .nama!),
-                      for (var i = 0;
-                          i <
-                              _routeRecomendationController.routeResponseModel
-                                  .value.data!.detailRute!.length;
-                          i++)
+                      for (var i = 0; i < detailRute.length; i++)
                         TimelineRouteWidget(
-                          id: _routeRecomendationController.routeResponseModel
-                              .value.data!.detailRute![i].destinasi!.id!,
-                          waktuPerjalanan: _routeRecomendationController
-                              .routeResponseModel
-                              .value
-                              .data!
-                              .detailRute![i]
-                              .durasi!
-                              .simple!
-                              .toString(),
-                          isLast: i ==
-                              _routeRecomendationController.routeResponseModel
-                                      .value.data!.detailRute!.length -
-                                  1,
+                          id: detailRute[i].destinasi!.id!,
+                          waktuPerjalanan:
+                              detailRute[i].durasi!.simple!.toString(),
+                          isLast: i == detailRute.length - 1 && i != 0,
                           destinationLength: i + 1,
-                          urlGambar: _routeRecomendationController
-                              .routeResponseModel
-                              .value
-                              .data!
-                              .detailRute![i]
-                              .destinasi!
-                              .urlGambar!,
-                          namaDestinasi: _routeRecomendationController
-                              .routeResponseModel
-                              .value
-                              .data!
-                              .detailRute![i]
-                              .destinasi!
-                              .nama!,
-                          waktuKunjungan: _routeRecomendationController
-                              .routeResponseModel
-                              .value
-                              .data!
-                              .detailRute![i]
-                              .waktuKunjungan!,
-                          waktuSelesai: _routeRecomendationController
-                              .routeResponseModel
-                              .value
-                              .data!
-                              .detailRute![i]
-                              .waktuSelesai!,
-                          biaya: _routeRecomendationController
-                              .routeResponseModel
-                              .value
-                              .data!
-                              .detailRute![i]
+                          urlGambar: detailRute[i].destinasi!.urlGambar!,
+                          namaDestinasi: detailRute[i].destinasi!.nama!,
+                          waktuKunjungan: detailRute[i].waktuKunjungan!,
+                          waktuSelesai: detailRute[i].waktuSelesai!,
+                          biaya: detailRute[i]
                               .destinasi!
                               .biayaMasuk!
                               .format
@@ -147,8 +92,13 @@ class SaveRoutePage extends StatelessWidget {
               ],
             ),
           ),
-          FooterSaveRouteWidget(
-            fullBiaya: _routeRecomendationController.calculateFullBiaya(),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              FooterSaveRouteWidget(
+                fullBiaya: _routeRecomendationController.calculateFullBiaya(),
+              ),
+            ],
           ),
         ],
       ),

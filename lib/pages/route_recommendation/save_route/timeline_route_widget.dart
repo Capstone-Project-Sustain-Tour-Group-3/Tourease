@@ -6,7 +6,6 @@ import 'package:tourease/pages/route_recommendation/save_route/route_card_widget
 
 class TimelineRouteWidget extends StatelessWidget {
   final bool isLast;
-
   final int destinationLength;
   final String urlGambar;
   final String namaDestinasi;
@@ -28,7 +27,6 @@ class TimelineRouteWidget extends StatelessWidget {
     required this.waktuPerjalanan,
     required this.id,
   });
-
   @override
   Widget build(BuildContext context) {
     return TimelineTile(

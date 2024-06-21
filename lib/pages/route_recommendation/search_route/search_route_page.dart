@@ -93,6 +93,8 @@ class SearchRoutePage extends StatelessWidget {
                   latitude: _homeController.savedLatitude.value ?? 0,
                   longitude: _homeController.savedLongitude.value ?? 0,
                 );
+                _routeRecomendationController.namaKota.value =
+                    _searchCityDestinationController.city.value;
               },
             );
           })
