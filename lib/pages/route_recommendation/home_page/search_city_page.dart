@@ -13,7 +13,9 @@ class SearchPage extends StatelessWidget {
     final SearchCityDestinationController destinasiController =
         Get.put(SearchCityDestinationController());
 
-    destinasiController.resetSearchResults();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      destinasiController.fetchCities();
+    });
 
     return Scaffold(
       backgroundColor: ColorNeutral.neutral50,
@@ -22,6 +24,7 @@ class SearchPage extends StatelessWidget {
         surfaceTintColor: ColorNeutral.neutral50,
         leading: IconButton(
           onPressed: () {
+            destinasiController.resetSearchResults();
             if (destinasiController.searchDestinasiController.text.isEmpty) {
               Get.back();
             } else {
