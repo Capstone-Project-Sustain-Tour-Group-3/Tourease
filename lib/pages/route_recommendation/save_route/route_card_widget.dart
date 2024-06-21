@@ -57,6 +57,7 @@ class RouteCardWidget extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Container(
+                    height: 122,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
@@ -82,6 +83,7 @@ class RouteCardWidget extends StatelessWidget {
                 children: [
                   Text(
                     namaTempat,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyleCollection.captionBold.copyWith(
                       color: ColorNeutral.neutral800,
                       fontSize: 14,

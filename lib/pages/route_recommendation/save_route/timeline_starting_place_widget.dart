@@ -12,14 +12,15 @@ class TimelineStartingPlaceWidget extends StatelessWidget {
     return TimelineTile(
       isFirst: true,
       afterLineStyle: LineStyle(thickness: 5, color: ColorPrimary.primary100),
-      beforeLineStyle: LineStyle(thickness: 5, color: ColorPrimary.primary100),
       axis: TimelineAxis.vertical,
-      endChild:  Column(
+      endChild: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 64, right: 26),
-            child: StartingPlaceWidget(lokasiAwal: lokasiAwal,),
+            child: StartingPlaceWidget(
+              lokasiAwal: lokasiAwal,
+            ),
           ),
         ],
       ),
@@ -27,6 +28,7 @@ class TimelineStartingPlaceWidget extends StatelessWidget {
         width: 32,
         color: ColorPrimary.primary100,
         indicatorXY: 0.5,
+        height: 32,
       ),
     );
   }

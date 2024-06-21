@@ -14,6 +14,7 @@ class RouteRecommendationController extends GetxController {
   Rx<RouteResponseModel> routeResponseModel = RouteResponseModel().obs;
   RxBool isLastRoute = false.obs;
   RxBool isFirstRoute = false.obs;
+  RxString namaKota = ''.obs;
 
   void postRouteRecommendation({
     required String idKota,
@@ -36,9 +37,7 @@ class RouteRecommendationController extends GetxController {
       final response =
           await RouteRecommendationService().postRouteRecommendation(route);
       routeResponseModel.value = response;
-      Get.to(
-        () => SaveRoutePage(),
-      );
+      Get.to(SaveRoutePage());
     } on DioException catch (e) {
       if (e.response?.statusCode == 500 &&
           e.response?.data['message'] == 'Token sudah kadaluwarsa') {
