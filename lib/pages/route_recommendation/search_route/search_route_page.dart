@@ -88,8 +88,7 @@ class SearchRoutePage extends StatelessWidget {
                   isEnabled: searchRouteController.destinations.isNotEmpty,
                   onPressed: () {
                     _routeRecomendationController.postRouteRecommendation(
-                      idKota:
-                          _searchCityDestinationController.id.value.toString(),
+                      idKota: _searchCityDestinationController.id.value,
                       idDestinasiTujuan: searchRouteController.destinationIds,
                       namaLokasiAwal:
                           _homeController.savedCompletedCity.value ?? '',
