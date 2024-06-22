@@ -13,6 +13,7 @@ import 'package:tourease/pages/profil/edit_profil_page.dart';
 import 'package:tourease/pages/profil/profil_container.dart';
 import 'package:tourease/pages/profil/profil_logout_container.dart';
 import 'package:tourease/pages/profil/profil_tentang_kami.dart';
+import 'package:tourease/pages/saved_route/saved_route_page_home.dart';
 
 class ProfilPage extends StatelessWidget {
   const ProfilPage({super.key});
@@ -126,7 +127,9 @@ class ProfilPage extends StatelessWidget {
                 ProfilContainer(
                   asset: AssetsCollection.addLocation,
                   text: 'Rute Tersimpan',
-                  function: () {},
+                  function: () {
+                    Get.to(() => const SavedRouteHomePage());
+                  },
                 ),
                 ProfilContainer(
                   asset: AssetsCollection.campaign,
