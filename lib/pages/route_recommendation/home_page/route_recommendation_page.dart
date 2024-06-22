@@ -115,7 +115,6 @@ class RouteHomePage extends StatelessWidget {
                   onPressed: () {
                     _searchCityDestinationController.validateCity(
                         id: _searchCityDestinationController.id.value);
-                    _searchCityDestinationController.city.value = '';
                     _searchCityDestinationController.destinasiController
                         .clear();
                   },

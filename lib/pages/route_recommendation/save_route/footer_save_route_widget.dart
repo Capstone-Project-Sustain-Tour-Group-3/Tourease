@@ -92,38 +92,36 @@ class FooterSaveRouteWidget extends StatelessWidget {
                                       ),
                                     ),
                                     const SizedBox(height: 24),
-                                    Container(
-                                      height: 48,
-                                      width: double.infinity,
-                                      alignment: Alignment.center,
-                                      padding: const EdgeInsets.only(
-                                          left: 16, bottom: 12, top: 4),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(4),
-                                        border: Border.all(
-                                          color: ColorNeutral.neutral200,
-                                          width: 1,
-                                        ),
-                                      ),
-                                      child: TextField(
-                                        controller: _routeNameController,
-                                        decoration: InputDecoration(
-                                          suffixIcon: IconButton(
-                                            icon: Icon(
-                                              Icons.highlight_remove,
-                                              color: ColorNeutral.neutral500,
-                                            ),
-                                            onPressed: () {
-                                              _routeNameController.clear();
-                                            },
+                                    TextField(
+                                      controller: _routeNameController,
+                                      decoration: InputDecoration(
+                                        suffixIcon: IconButton(
+                                          icon: Icon(
+                                            Icons.highlight_remove,
+                                            color: ColorNeutral.neutral500,
                                           ),
-                                          hintText: 'Masukkan nama rute ...',
-                                          hintStyle: TextStyleCollection.caption
-                                              .copyWith(
-                                                  color:
-                                                      ColorNeutral.neutral700,
-                                                  fontSize: 14),
-                                          border: InputBorder.none,
+                                          onPressed: () {
+                                            _routeNameController.clear();
+                                          },
+                                        ),
+                                        hintText: 'Masukkan nama rute ...',
+                                        hintStyle: TextStyleCollection.caption
+                                            .copyWith(
+                                                color: ColorNeutral.neutral700,
+                                                fontSize: 14),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: ColorNeutral.neutral200,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(4),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: ColorPrimary.primary500,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(4),
                                         ),
                                       ),
                                     ),

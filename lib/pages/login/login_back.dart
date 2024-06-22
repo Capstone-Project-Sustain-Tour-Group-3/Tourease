@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tourease/constants/color_constant.dart';
-import 'package:tourease/controllers/logout_controller.dart';
 
 class LoginBack extends StatelessWidget {
   final bool showIconButton;
