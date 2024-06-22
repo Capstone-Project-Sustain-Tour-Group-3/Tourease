@@ -7,14 +7,20 @@ import 'package:tourease/controllers/saved_route_controller.dart';
 import 'package:tourease/pages/saved_route/saved_route_widget_detail_list_view.dart';
 
 class SavedRouteDetailPage extends StatelessWidget {
-  const SavedRouteDetailPage({super.key});
+  const SavedRouteDetailPage({
+    super.key,
+    required this.id,
+  });
 
+  final String id;
   @override
   Widget build(BuildContext context) {
     final SavedRouteController savedRouteController =
-        Get.find<SavedRouteController>();
-    savedRouteController.calculateTotalCost();
-    // variable hitung total cost?
+        Get.put(SavedRouteController());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      savedRouteController.getDetailRoute(id: id);
+    });
 
     return Scaffold(
       backgroundColor: ColorNeutral.neutral50,
@@ -45,7 +51,9 @@ class SavedRouteDetailPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 Expanded(
-                  child: SavedRouteDetailListView(),
+                  child: SavedRouteDetailListView(
+                    id: id,
+                  ),
                 ),
               ],
             ),
@@ -85,8 +93,9 @@ class SavedRouteDetailPage extends StatelessWidget {
                         maxFontSize: 16,
                       ),
                       AutoSizeText(
-                        // 'Rp. ${savedRouteController.totalCost.value.toStringAsFixed(0)}',
-                        savedRouteController.totalCostString.value,
+                        savedRouteController.formatRupiah(savedRouteController
+                                .detailRoute.value.data?.estimasiBiaya ??
+                            0),
                         style: TextStyleCollection.bodyBold
                             .copyWith(color: ColorDanger.danger500),
                         minFontSize: 18,

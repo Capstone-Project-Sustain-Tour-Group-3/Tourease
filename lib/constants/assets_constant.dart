@@ -34,6 +34,7 @@ class AssetsCollection {
   static String bedIcon = 'assets/images/bed_icon.svg';
   static String logoPng = 'assets/images/logo_tourease.png';
   static String defaultProfile = 'assets/images/default_profile.svg';
+  static String emptySavedRoute = 'assets/images/saved_route_empty.svg';
 }
 
 class IconBottomNavbar {

@@ -93,8 +93,8 @@ class RouteRecommendationController extends GetxController {
           message: 'Gagal menyimpan rute, silahkan coba lagi',
         );
       }
-      return false;
     }
+    return false;
   }
 
   void resetRouteSaved() {

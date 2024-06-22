@@ -22,8 +22,8 @@ class SavedRouteHomePage extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      body: const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: SavedRouteHomeListView(),
       ),
     );
