@@ -61,19 +61,13 @@ class SaveRoutePage extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 32),
                   child: Column(
                     children: [
-                      TimelineStartingPlaceWidget(
-                          lokasiAwal: _routeRecomendationController
-                              .routeResponseModel
-                              .value
-                              .data!
-                              .lokasiAwal!
-                              .nama!),
+                      TimelineStartingPlaceWidget(),
                       for (var i = 0; i < detailRute.length; i++)
                         TimelineRouteWidget(
                           id: detailRute[i].destinasi!.id!,
                           waktuPerjalanan:
                               detailRute[i].durasi!.simple!.toString(),
-                          isLast: i == detailRute.length - 1 && i != 0,
+                          isLast: i == detailRute.length - 1,
                           destinationLength: i + 1,
                           urlGambar: detailRute[i].destinasi!.urlGambar!,
                           namaDestinasi: detailRute[i].destinasi!.nama!,
