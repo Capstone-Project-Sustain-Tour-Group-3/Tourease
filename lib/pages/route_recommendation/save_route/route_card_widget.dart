@@ -58,6 +58,7 @@ class RouteCardWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   child: Container(
                     height: 122,
+                    width: double.infinity,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,

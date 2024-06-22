@@ -7,6 +7,11 @@
         android:label="tourease"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+<meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBeHFM0zDvqUofJDzGGdO0riVkMEQ5rj54" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
