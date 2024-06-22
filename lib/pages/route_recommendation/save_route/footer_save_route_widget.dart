@@ -73,157 +73,157 @@ class FooterSaveRouteWidget extends StatelessWidget {
                           Dialog(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
-                              side: BorderSide(
-                                color: ColorNeutral.neutral50,
-                              ),
                             ),
-                            backgroundColor: ColorNeutral.neutral50,
-                            elevation: 16,
-                            shadowColor:
-                                const Color(0xFF000000).withOpacity(0.1),
-                            child: Container(
-                              color: ColorNeutral.neutral50,
-                              height: 240,
-                              padding: const EdgeInsets.all(16),
-                              child: Column(
-                                children: [
-                                  const SizedBox(height: 12),
-                                  Text(
-                                    "Simpan Rute Perjalanan",
-                                    style:
-                                        TextStyleCollection.bodyBold.copyWith(
-                                      fontSize: 16,
-                                      color: ColorNeutral.neutral900,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 24),
-                                  Container(
-                                    height: 48,
-                                    width: double.infinity,
-                                    alignment: Alignment.center,
-                                    padding: const EdgeInsets.only(
-                                        left: 16, bottom: 12, top: 4),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4),
-                                      border: Border.all(
-                                        color: ColorNeutral.neutral200,
-                                        width: 1,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Container(
+                                color: ColorNeutral.neutral50,
+                                height: 220,
+                                padding: const EdgeInsets.all(16),
+                                child: Column(
+                                  children: [
+                                    const SizedBox(height: 12),
+                                    Text(
+                                      "Simpan Rute Perjalanan",
+                                      style:
+                                          TextStyleCollection.bodyBold.copyWith(
+                                        fontSize: 16,
+                                        color: ColorNeutral.neutral900,
                                       ),
                                     ),
-                                    child: TextField(
-                                      controller: _routeNameController,
-                                      decoration: InputDecoration(
-                                        suffixIcon: IconButton(
-                                          icon: Icon(
-                                            Icons.highlight_remove,
-                                            color: ColorNeutral.neutral500,
-                                          ),
-                                          onPressed: () {
-                                            _routeNameController.clear();
-                                          },
+                                    const SizedBox(height: 24),
+                                    Container(
+                                      height: 48,
+                                      width: double.infinity,
+                                      alignment: Alignment.center,
+                                      padding: const EdgeInsets.only(
+                                          left: 16, bottom: 12, top: 4),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4),
+                                        border: Border.all(
+                                          color: ColorNeutral.neutral200,
+                                          width: 1,
                                         ),
-                                        hintText: 'Masukkan nama rute ...',
-                                        hintStyle: TextStyleCollection.caption
-                                            .copyWith(
-                                                color: ColorNeutral.neutral700,
-                                                fontSize: 14),
-                                        border: InputBorder.none,
+                                      ),
+                                      child: TextField(
+                                        controller: _routeNameController,
+                                        decoration: InputDecoration(
+                                          suffixIcon: IconButton(
+                                            icon: Icon(
+                                              Icons.highlight_remove,
+                                              color: ColorNeutral.neutral500,
+                                            ),
+                                            onPressed: () {
+                                              _routeNameController.clear();
+                                            },
+                                          ),
+                                          hintText: 'Masukkan nama rute ...',
+                                          hintStyle: TextStyleCollection.caption
+                                              .copyWith(
+                                                  color:
+                                                      ColorNeutral.neutral700,
+                                                  fontSize: 14),
+                                          border: InputBorder.none,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 24),
-                                  SizedBox(
-                                    width: double.infinity,
-                                    height: 48,
-                                    child: ButtonWidget(
-                                      onPressed: () async {
-                                        if (_routeNameController.text.isEmpty) {
-                                          SnackbarWidget.showSnackbar(
-                                            message:
-                                                'Masukkan nama terlebih dahulu untuk menyimpan!',
-                                            backgroundColor:
-                                                ColorDanger.danger100,
-                                            textColor: ColorDanger.danger500,
-                                            textContainerColor:
-                                                ColorDanger.danger100,
-                                          );
-                                          return;
-                                        }
-
-                                        final saveRouteRequest =
-                                            SaveRouteRequestModel(
-                                          cityId:
-                                              searchCityDestinationController
-                                                  .id.value,
-                                          name: _routeNameController.text,
-                                          startLocation:
-                                              routeRecommendationController
-                                                  .routeResponseModel
-                                                  .value
-                                                  .data!
-                                                  .lokasiAwal!
-                                                  .nama!,
-                                          startLongitude:
-                                              routeRecommendationController
-                                                  .routeResponseModel
-                                                  .value
-                                                  .data!
-                                                  .lokasiAwal!
-                                                  .longitude!,
-                                          startLatitude:
-                                              routeRecommendationController
-                                                  .routeResponseModel
-                                                  .value
-                                                  .data!
-                                                  .lokasiAwal!
-                                                  .latitude!,
-                                          price: int.parse(fullBiaya.replaceAll(
-                                              RegExp(r'[^0-9]'), '')),
-                                          routeDetails:
-                                              routeRecommendationController
-                                                  .routeResponseModel
-                                                  .value
-                                                  .data!
-                                                  .detailRute!
-                                                  .map((detail) {
-                                            return RouteDetail(
-                                              destinationId:
-                                                  detail.destinasi!.id!,
-                                              longitude:
-                                                  detail.destinasi!.longitude!,
-                                              latitude:
-                                                  detail.destinasi!.latitude!,
-                                              duration: detail.durasi!.raw!,
-                                              order: detail.urutan!,
-                                              visitStart:
-                                                  detail.waktuKunjungan!,
-                                              visitEnd: detail.waktuSelesai!,
+                                    const SizedBox(height: 24),
+                                    SizedBox(
+                                      width: double.infinity,
+                                      height: 48,
+                                      child: ButtonWidget(
+                                        onPressed: () async {
+                                          if (_routeNameController
+                                              .text.isEmpty) {
+                                            SnackbarWidget.showSnackbar(
+                                              message:
+                                                  'Masukkan nama terlebih dahulu untuk menyimpan!',
+                                              backgroundColor:
+                                                  ColorDanger.danger100,
+                                              textColor: ColorDanger.danger500,
+                                              textContainerColor:
+                                                  ColorDanger.danger100,
                                             );
-                                          }).toList(),
-                                        );
+                                            return;
+                                          }
 
-                                        final isSuccess =
-                                            await routeRecommendationController
-                                                .saveRoute(saveRouteRequest);
-
-                                        Get.back();
-
-                                        if (isSuccess) {
-                                          SnackbarWidget.showSnackbar(
-                                            message: 'Rute berhasil disimpan',
-                                            backgroundColor:
-                                                ColorNeutral.neutral50,
-                                            textColor: ColorNeutral.neutral700,
-                                            textContainerColor:
-                                                ColorNeutral.neutral50,
+                                          final saveRouteRequest =
+                                              SaveRouteRequestModel(
+                                            cityId:
+                                                searchCityDestinationController
+                                                    .id.value,
+                                            name: _routeNameController.text,
+                                            startLocation:
+                                                routeRecommendationController
+                                                    .routeResponseModel
+                                                    .value
+                                                    .data!
+                                                    .lokasiAwal!
+                                                    .nama!,
+                                            startLongitude:
+                                                routeRecommendationController
+                                                    .routeResponseModel
+                                                    .value
+                                                    .data!
+                                                    .lokasiAwal!
+                                                    .longitude!,
+                                            startLatitude:
+                                                routeRecommendationController
+                                                    .routeResponseModel
+                                                    .value
+                                                    .data!
+                                                    .lokasiAwal!
+                                                    .latitude!,
+                                            price: int.parse(
+                                                fullBiaya.replaceAll(
+                                                    RegExp(r'[^0-9]'), '')),
+                                            routeDetails:
+                                                routeRecommendationController
+                                                    .routeResponseModel
+                                                    .value
+                                                    .data!
+                                                    .detailRute!
+                                                    .map((detail) {
+                                              return RouteDetail(
+                                                destinationId:
+                                                    detail.destinasi!.id!,
+                                                longitude: detail
+                                                    .destinasi!.longitude!,
+                                                latitude:
+                                                    detail.destinasi!.latitude!,
+                                                duration: detail.durasi!.raw!,
+                                                order: detail.urutan!,
+                                                visitStart:
+                                                    detail.waktuKunjungan!,
+                                                visitEnd: detail.waktuSelesai!,
+                                              );
+                                            }).toList(),
                                           );
-                                        }
-                                      },
-                                      text: 'Simpan',
-                                      textColor: ColorNeutral.neutral100,
+
+                                          final isSuccess =
+                                              await routeRecommendationController
+                                                  .saveRoute(saveRouteRequest);
+
+                                          Get.back();
+
+                                          if (isSuccess) {
+                                            SnackbarWidget.showSnackbar(
+                                              message: 'Rute berhasil disimpan',
+                                              backgroundColor:
+                                                  ColorNeutral.neutral50,
+                                              textColor:
+                                                  ColorNeutral.neutral700,
+                                              textContainerColor:
+                                                  ColorNeutral.neutral50,
+                                            );
+                                          }
+                                        },
+                                        text: 'Simpan',
+                                        textColor: ColorNeutral.neutral100,
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),

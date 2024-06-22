@@ -11,6 +11,7 @@ class ProfilLogoutAlertDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final LogoutController logoutController = Get.put(LogoutController());
     return AlertDialog(
+      backgroundColor: ColorNeutral.neutral50,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       insetPadding: const EdgeInsets.symmetric(
         horizontal: 30,
