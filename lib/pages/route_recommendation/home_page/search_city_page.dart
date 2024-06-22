@@ -96,7 +96,11 @@ class SearchPage extends StatelessWidget {
           Expanded(
             child: Obx(() {
               if (destinasiController.isLoading.value) {
-                return const Center(child: CircularProgressIndicator());
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: ColorPrimary.primary500,
+                  ),
+                );
               } else {
                 final searchResults = destinasiController.searchResults;
                 return ListView.builder(

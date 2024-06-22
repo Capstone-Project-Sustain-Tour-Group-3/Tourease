@@ -115,6 +115,8 @@ class RouteHomePage extends StatelessWidget {
                   onPressed: () {
                     _searchCityDestinationController.validateCity(
                         id: _searchCityDestinationController.id.value);
+                    _searchCityDestinationController.destinasiController
+                        .clear();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: ColorPrimary.primary500,
