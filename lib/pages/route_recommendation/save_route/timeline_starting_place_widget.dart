@@ -20,9 +20,9 @@ class TimelineStartingPlaceWidget extends StatelessWidget {
       afterLineStyle: LineStyle(thickness: 5, color: ColorPrimary.primary100),
       axis: TimelineAxis.vertical,
       endChild: Padding(
-        padding: const EdgeInsets.only(left: 40),
+        padding: const EdgeInsets.only(left: 62),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               decoration: BoxDecoration(

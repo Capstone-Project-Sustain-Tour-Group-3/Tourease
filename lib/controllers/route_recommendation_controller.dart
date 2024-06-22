@@ -63,7 +63,7 @@ class RouteRecommendationController extends GetxController {
         }
       } else {
         SnackbarWidget.showSnackbar(
-          message: e.toString(),
+          message: 'Gagal membuat rute perjalanan, silahkan coba lagi',
         );
       }
     } finally {
@@ -95,8 +95,8 @@ class RouteRecommendationController extends GetxController {
           message: 'Gagal menyimpan rute, silahkan coba lagi',
         );
       }
-      return false;
     }
+    return false;
   }
 
   void resetRouteSaved() {
