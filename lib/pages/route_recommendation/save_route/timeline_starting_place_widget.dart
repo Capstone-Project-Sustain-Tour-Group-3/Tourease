@@ -52,7 +52,7 @@ class TimelineStartingPlaceWidget extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: Container(
-                          height: 122,
+                          height: 190,
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               begin: Alignment.topCenter,
@@ -87,11 +87,11 @@ class TimelineStartingPlaceWidget extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     child: Text(
                       lokasiAwal.nama!,
-                      maxLines: 6,
+                      maxLines: 4,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyleCollection.captionBold.copyWith(
                         color: ColorNeutral.neutral800,
-                        fontSize: 14,
+                        fontSize: 12,
                       ),
                     ),
                   ),
