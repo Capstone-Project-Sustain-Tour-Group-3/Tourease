@@ -118,7 +118,9 @@ class DestinasiController extends GetxController {
             message: 'Sesi anda telah berakhir, silahkan login kembali',
           );
           SharedPref.removeAll();
-          Get.offAll(() => LoginPage());
+          Get.offAll(() => LoginPage(
+                showIconButton: false,
+          ));
         }
       }
     } finally {

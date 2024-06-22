@@ -83,7 +83,7 @@ class ProfileController extends GetxController {
           getUserData();
         } else {
           SharedPref.removeAll();
-          Get.offAll(() => LoginPage());
+          Get.offAll(() => LoginPage(showIconButton: false,));
         }
       }
     } finally {
@@ -150,7 +150,7 @@ class ProfileController extends GetxController {
           editProfile();
         } else {
           SharedPref.removeAll();
-          Get.offAll(() => LoginPage());
+          Get.offAll(() => LoginPage(showIconButton: false,));
         }
       }
     } finally {

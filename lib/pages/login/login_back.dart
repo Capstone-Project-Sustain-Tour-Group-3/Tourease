@@ -4,7 +4,9 @@ import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/controllers/logout_controller.dart';
 
 class LoginBack extends StatelessWidget {
-  const LoginBack({super.key});
+  final bool showIconButton;
+
+  const LoginBack({super.key, this.showIconButton = true});
 
   @override
   Widget build(BuildContext context) {
@@ -12,29 +14,22 @@ class LoginBack extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 40),
-        Obx(() {
-          final bool showIconButton =
-              Get.put(LogoutController()).showIconButton.value;
-          if (showIconButton) {
-            return Padding(
-              padding: const EdgeInsets.only(left: 8),
-              child: IconButton(
-                onPressed: () {
-                  Get.back();
-                },
-                style: ButtonStyle(
-                  overlayColor: WidgetStatePropertyAll(ColorNeutral.neutral100),
-                ),
-                icon: Icon(
-                  Icons.arrow_back,
-                  color: ColorPrimary.primary500,
-                ),
+        if (showIconButton)
+          Padding(
+            padding: const EdgeInsets.only(left: 8),
+            child: IconButton(
+              onPressed: () {
+                Get.back();
+              },
+              style: ButtonStyle(
+                overlayColor: WidgetStatePropertyAll(ColorNeutral.neutral100),
               ),
-            );
-          } else {
-            return const SizedBox.shrink();
-          }
-        }),
+              icon: Icon(
+                Icons.arrow_back,
+                color: ColorPrimary.primary500,
+              ),
+            ),
+          ),
       ],
     );
   }

@@ -12,7 +12,8 @@ import 'package:tourease/pages/login/login_footer.dart';
 import 'package:tourease/pages/login/login_form.dart';
 
 class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+  final bool showIconButton;
+  LoginPage({super.key, this.showIconButton = true});
 
   final LoginController loginController = Get.put(
     LoginController(),
@@ -37,7 +38,7 @@ class LoginPage extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const LoginBack(),
+                      LoginBack(showIconButton: showIconButton),
                       const LoginBanner(),
                       LoginForm(),
                       Padding(

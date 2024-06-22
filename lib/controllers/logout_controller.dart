@@ -11,7 +11,9 @@ class LogoutController extends GetxController {
       final response = await RefreshTokenLogoutService().logout();
       if (response == true) {
         showIconButton.value = false;
-        Get.offAll(() => LoginPage());
+        Get.offAll(() => LoginPage(
+              showIconButton: false,
+            ));
       }
     } on DioException catch (e) {
       SnackbarWidget.showSnackbar(

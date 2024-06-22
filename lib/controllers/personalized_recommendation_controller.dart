@@ -135,7 +135,7 @@ class PersonalizedRecommendationController extends GetxController {
             message: 'Sesi anda telah berakhir, silahkan login kembali',
           );
           SharedPref.removeAll();
-          Get.offAll(() => LoginPage());
+          Get.offAll(() => LoginPage(showIconButton: false,));
         }
       }
     } finally {
@@ -163,7 +163,7 @@ class PersonalizedRecommendationController extends GetxController {
             message: 'Sesi anda telah berakhir, silahkan login kembali',
           );
           SharedPref.removeAll();
-          Get.offAll(() => LoginPage());
+          Get.offAll(() => LoginPage(showIconButton: false,));
         }
       }
     } finally {
@@ -189,7 +189,7 @@ class PersonalizedRecommendationController extends GetxController {
             message: 'Sesi anda telah berakhir, silahkan login kembali',
           );
           SharedPref.removeAll();
-          Get.offAll(() => LoginPage());
+          Get.offAll(() => LoginPage(showIconButton: false,));
         }
       } else if (e.response?.statusCode == 409 &&
           e.response?.data['message'] == 'Personalisasi sudah dibuat') {

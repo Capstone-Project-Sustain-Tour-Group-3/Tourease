@@ -86,7 +86,9 @@ class AiChatbotService {
     } else {
       if (onError != null) {
         onError!('Sesi telah berakhir, tolong login kembali');
-        Get.offAll(LoginPage());
+        Get.offAll(LoginPage(
+          showIconButton: false,
+        ));
       }
     }
   }
