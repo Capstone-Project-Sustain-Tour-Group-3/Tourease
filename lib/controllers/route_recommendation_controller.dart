@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/model/route_request_model.dart';
 import 'package:tourease/model/route_response_model.dart';
 import 'package:tourease/model/save_route_request_model.dart';
@@ -70,37 +69,31 @@ class RouteRecommendationController extends GetxController {
     }
   }
 
-  Future<void> saveRoute(SaveRouteRequestModel saveRouteRequest) async {
+  Future<bool> saveRoute(SaveRouteRequestModel saveRouteRequest) async {
     try {
       await RouteRecommendationService().postSaveRoute(saveRouteRequest);
       isRouteSaved.value = true;
-
-      SnackbarWidget.showSnackbar(
-        message: 'Rute berhasil disimpan',
-        backgroundColor: ColorNeutral.neutral50,
-        textColor: ColorNeutral.neutral700,
-        textContainerColor: ColorNeutral.neutral50,
-      );
+      return true;
     } on DioException catch (e) {
       if (e.response?.statusCode == 500 &&
           e.response?.data['message'] == 'Token sudah kadaluwarsa') {
         final response = await RefreshTokenLogoutService().postRefreshToken();
         if (response == true) {
-          saveRoute(saveRouteRequest);
+          return saveRoute(saveRouteRequest);
         } else {
           SnackbarWidget.showSnackbar(
             message: 'Sesi anda telah berakhir, silahkan login kembali',
           );
           SharedPref.removeAll();
           Get.offAll(() => LoginPage());
+          return false;
         }
       } else {
-        print('Exception caught: $e');
-        print('Response data: ${e.response?.data}');
         SnackbarWidget.showSnackbar(
           message: 'Gagal menyimpan rute, silahkan coba lagi',
         );
       }
+      return false;
     }
   }
 
