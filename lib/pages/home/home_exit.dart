@@ -11,6 +11,7 @@ class HomeExit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      backgroundColor: ColorNeutral.neutral50,
       title: Center(
         child: Text(
           'Keluar',

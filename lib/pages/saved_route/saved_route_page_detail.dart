@@ -34,80 +34,137 @@ class SavedRouteDetailPage extends StatelessWidget {
           maxFontSize: 20,
         ),
         centerTitle: true,
-      ),
-      body: Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AutoSizeText(
-                  savedRouteController.selectedRouteTitle.value,
-                  style: TextStyleCollection.bodyBold
-                      .copyWith(color: ColorPrimary.primary700),
-                  minFontSize: 18,
-                  maxFontSize: 20,
-                ),
-                const SizedBox(height: 16),
-                Expanded(
-                  child: SavedRouteDetailListView(
-                    id: id,
-                  ),
-                ),
-              ],
-            ),
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: ColorPrimary.primary500,
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Obx(
-              () {
-                return Container(
-                  width: double.infinity,
-                  height: 109,
-                  decoration: BoxDecoration(
-                    color: ColorNeutral.neutral50,
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        blurRadius: 24,
-                        offset: const Offset(0, -12),
-                      ),
-                    ],
-                  ),
-                  padding: const EdgeInsets.only(
-                    left: 24,
-                    top: 16,
-                    right: 24,
-                    bottom: 46,
-                  ),
+        ),
+      ),
+      body: Obx(
+        () {
+          if (savedRouteController.isLoadingDetailRoute.value) {
+            return Center(
+              child: CircularProgressIndicator(
+                color: ColorPrimary.primary500,
+              ),
+            );
+          } else {
+            return Stack(
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AutoSizeText(
-                        'Estimasi Biaya',
-                        style: TextStyleCollection.captionMedium
-                            .copyWith(color: ColorNeutral.neutral900),
-                        minFontSize: 14,
-                        maxFontSize: 16,
+                      Obx(
+                        () => AutoSizeText(
+                          savedRouteController
+                                  .detailRoute.value.data?.namaRute ??
+                              '',
+                          style: TextStyleCollection.bodyBold
+                              .copyWith(color: ColorPrimary.primary700),
+                          minFontSize: 18,
+                          maxFontSize: 20,
+                        ),
                       ),
-                      AutoSizeText(
-                        savedRouteController.formatRupiah(savedRouteController
-                                .detailRoute.value.data?.estimasiBiaya ??
-                            0),
-                        style: TextStyleCollection.bodyBold
-                            .copyWith(color: ColorDanger.danger500),
-                        minFontSize: 18,
-                        maxFontSize: 20,
+                      const SizedBox(height: 16),
+                      Text(
+                        'Lokasi Awal',
+                        style: TextStyleCollection.captionBold.copyWith(
+                          color: ColorNeutral.neutral500,
+                          fontSize: 12,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Obx(
+                        () => Text(
+                          savedRouteController
+                                  .detailRoute.value.data?.lokasiAwal ??
+                              '',
+                          style: TextStyleCollection.caption.copyWith(
+                            color: ColorNeutral.neutral900,
+                            fontSize: 12,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        'Destinasi Tujuan',
+                        style: TextStyleCollection.captionBold.copyWith(
+                          color: ColorNeutral.neutral500,
+                          fontSize: 12,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Expanded(
+                        child: SavedRouteDetailListView(
+                          id: id,
+                        ),
                       ),
                     ],
                   ),
-                );
-              },
-            ),
-          ),
-        ],
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Obx(
+                    () {
+                      return Container(
+                        width: double.infinity,
+                        height: 109,
+                        decoration: BoxDecoration(
+                          color: ColorNeutral.neutral50,
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              blurRadius: 24,
+                              offset: const Offset(0, -12),
+                            ),
+                          ],
+                        ),
+                        padding: const EdgeInsets.only(
+                          left: 24,
+                          top: 16,
+                          right: 24,
+                          bottom: 46,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            AutoSizeText(
+                              'Estimasi Biaya',
+                              style: TextStyleCollection.captionMedium
+                                  .copyWith(color: ColorNeutral.neutral900),
+                              minFontSize: 14,
+                              maxFontSize: 16,
+                            ),
+                            AutoSizeText(
+                              savedRouteController.formatRupiah(
+                                  savedRouteController.detailRoute.value.data
+                                          ?.estimasiBiaya ??
+                                      0),
+                              style: TextStyleCollection.bodyBold
+                                  .copyWith(color: ColorDanger.danger500),
+                              minFontSize: 18,
+                              maxFontSize: 20,
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            );
+          }
+        },
       ),
     );
   }

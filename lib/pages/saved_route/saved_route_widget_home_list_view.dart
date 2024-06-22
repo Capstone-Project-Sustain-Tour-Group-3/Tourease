@@ -51,11 +51,13 @@ class SavedRouteHomeListView extends StatelessWidget {
 
                     if (isSuccess) {
                       Get.back();
-                      SnackbarWidget.showSnackbar(
-                        message: 'Rute berhasil dihapus',
-                        backgroundColor: ColorNeutral.neutral50,
-                        textColor: ColorNeutral.neutral700,
-                        textContainerColor: ColorNeutral.neutral50,
+                      Future.delayed(
+                        const Duration(milliseconds: 100),
+                        () {
+                          SnackbarWidget.showSnackbar(
+                            message: 'Rute berhasil dihapus',
+                          );
+                        },
                       );
                     }
                   },

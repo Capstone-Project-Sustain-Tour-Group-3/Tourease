@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tourease/model/route_request_model.dart';
 import 'package:tourease/model/route_response_model.dart';
 import 'package:tourease/model/save_route_request_model.dart';
@@ -17,6 +18,7 @@ class RouteRecommendationController extends GetxController {
   RxBool isFirstRoute = false.obs;
   RxString namaKota = ''.obs;
   RxBool isRouteSaved = false.obs;
+  late GoogleMapController mapController;
 
   void postRouteRecommendation({
     required String idKota,
@@ -61,7 +63,7 @@ class RouteRecommendationController extends GetxController {
         }
       } else {
         SnackbarWidget.showSnackbar(
-          message: e.toString(),
+          message: 'Gagal membuat rute perjalanan, silahkan coba lagi',
         );
       }
     } finally {
@@ -99,5 +101,9 @@ class RouteRecommendationController extends GetxController {
 
   void resetRouteSaved() {
     isRouteSaved.value = false;
+  }
+
+  void onMapCreated(GoogleMapController controller) {
+    mapController = controller;
   }
 }

@@ -19,8 +19,8 @@ class SavedRouteHomeListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card.outlined(
-      // color: ColorCollection.white,
-      // surfaceTintColor: ColorCollection.white,
+      color: ColorCollection.white,
+      surfaceTintColor: ColorCollection.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4),
         side: BorderSide(

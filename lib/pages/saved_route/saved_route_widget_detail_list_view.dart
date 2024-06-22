@@ -17,10 +17,6 @@ class SavedRouteDetailListView extends StatelessWidget {
     final SavedRouteController savedRouteController =
         Get.put(SavedRouteController());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      savedRouteController.getDetailRoute(id: id);
-    });
-
     return Obx(
       () => ListView.builder(
         itemCount:
@@ -37,7 +33,7 @@ class SavedRouteDetailListView extends StatelessWidget {
               );
             },
             child: SavedRouteDetailCard(
-              imageUrl: '',
+              imageUrl: detailRoute?.urlMedia ?? '',
               destinationPlace: detailRoute?.namaDestinasi ?? '',
               estimatedTime:
                   '${detailRoute?.waktuKunjungan ?? ''} - ${detailRoute?.waktuSelesaiKunjungan ?? ''}',
