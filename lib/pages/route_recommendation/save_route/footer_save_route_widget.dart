@@ -6,25 +6,26 @@ import 'package:tourease/controllers/route_recommendation_controller.dart';
 import 'package:tourease/controllers/search_city_destination_controller.dart';
 import 'package:tourease/widgets/button_widget.dart';
 import 'package:tourease/model/save_route_request_model.dart';
+import 'package:tourease/widgets/snackbar_widget.dart';
 
 class FooterSaveRouteWidget extends StatelessWidget {
   final String fullBiaya;
 
   FooterSaveRouteWidget({
-    Key? key,
+    super.key,
     required this.fullBiaya,
-  }) : super(key: key);
+  });
 
   final TextEditingController _routeNameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final RouteRecommendationController _routeRecommendationController =
+    final RouteRecommendationController routeRecommendationController =
         Get.put(RouteRecommendationController());
 
-    final SearchCityDestinationController _searchCityDestinationController =
+    final SearchCityDestinationController searchCityDestinationController =
         Get.put(SearchCityDestinationController());
-    _routeRecommendationController.resetRouteSaved();
+    routeRecommendationController.resetRouteSaved();
 
     return Align(
       alignment: Alignment.bottomCenter,
@@ -42,10 +43,10 @@ class FooterSaveRouteWidget extends StatelessWidget {
         height: 96,
         width: double.infinity,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 14, top: 16, bottom: 24),
+              padding: const EdgeInsets.only(left: 16, top: 16, bottom: 24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -62,9 +63,10 @@ class FooterSaveRouteWidget extends StatelessWidget {
                 ],
               ),
             ),
+            const Spacer(),
             Obx(() {
               return Visibility(
-                visible: !_routeRecommendationController.isRouteSaved.value,
+                visible: !routeRecommendationController.isRouteSaved.value,
                 child: GestureDetector(
                   onTap: () {
                     Get.dialog(
@@ -135,25 +137,25 @@ class FooterSaveRouteWidget extends StatelessWidget {
                                   onPressed: () async {
                                     final saveRouteRequest =
                                         SaveRouteRequestModel(
-                                      cityId: _searchCityDestinationController
+                                      cityId: searchCityDestinationController
                                           .id.value,
                                       name: _routeNameController.text,
                                       startLocation:
-                                          _routeRecommendationController
+                                          routeRecommendationController
                                               .routeResponseModel
                                               .value
                                               .data!
                                               .lokasiAwal!
                                               .nama!,
                                       startLongitude:
-                                          _routeRecommendationController
+                                          routeRecommendationController
                                               .routeResponseModel
                                               .value
                                               .data!
                                               .lokasiAwal!
                                               .longitude!,
                                       startLatitude:
-                                          _routeRecommendationController
+                                          routeRecommendationController
                                               .routeResponseModel
                                               .value
                                               .data!
@@ -162,7 +164,7 @@ class FooterSaveRouteWidget extends StatelessWidget {
                                       price: int.parse(fullBiaya.replaceAll(
                                           RegExp(r'[^0-9]'), '')),
                                       routeDetails:
-                                          _routeRecommendationController
+                                          routeRecommendationController
                                               .routeResponseModel
                                               .value
                                               .data!
@@ -181,10 +183,21 @@ class FooterSaveRouteWidget extends StatelessWidget {
                                       }).toList(),
                                     );
 
-                                    await _routeRecommendationController
-                                        .saveRoute(saveRouteRequest);
+                                    final isSuccess =
+                                        await routeRecommendationController
+                                            .saveRoute(saveRouteRequest);
 
                                     Get.back();
+
+                                    if (isSuccess) {
+                                      SnackbarWidget.showSnackbar(
+                                        message: 'Rute berhasil disimpan',
+                                        backgroundColor: ColorNeutral.neutral50,
+                                        textColor: ColorNeutral.neutral700,
+                                        textContainerColor:
+                                            ColorNeutral.neutral50,
+                                      );
+                                    }
                                   },
                                   text: 'Simpan',
                                   textColor: ColorNeutral.neutral100,
@@ -198,7 +211,7 @@ class FooterSaveRouteWidget extends StatelessWidget {
                   },
                   child: Padding(
                     padding:
-                        const EdgeInsets.only(top: 14, right: 14, bottom: 24),
+                        const EdgeInsets.only(top: 16, right: 16, bottom: 24),
                     child: Container(
                       decoration: BoxDecoration(
                         border: Border.all(
