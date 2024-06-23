@@ -202,17 +202,23 @@ class FooterSaveRouteWidget extends StatelessWidget {
                                               await routeRecommendationController
                                                   .saveRoute(saveRouteRequest);
 
-                                          Get.back();
-
                                           if (isSuccess) {
-                                            SnackbarWidget.showSnackbar(
-                                              message: 'Rute berhasil disimpan',
-                                              backgroundColor:
-                                                  ColorNeutral.neutral50,
-                                              textColor:
-                                                  ColorNeutral.neutral700,
-                                              textContainerColor:
-                                                  ColorNeutral.neutral50,
+                                            Get.back();
+
+                                            Future.delayed(
+                                              const Duration(milliseconds: 100),
+                                              () {
+                                                SnackbarWidget.showSnackbar(
+                                                  message:
+                                                      'Rute berhasil disimpan',
+                                                  backgroundColor:
+                                                      ColorNeutral.neutral50,
+                                                  textColor:
+                                                      ColorNeutral.neutral700,
+                                                  textContainerColor:
+                                                      ColorNeutral.neutral50,
+                                                );
+                                              },
                                             );
                                           }
                                         },
