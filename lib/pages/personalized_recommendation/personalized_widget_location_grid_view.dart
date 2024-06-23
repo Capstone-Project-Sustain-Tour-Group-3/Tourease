@@ -55,9 +55,9 @@ class LocationGridView extends StatelessWidget {
                     title: recommendationController
                         .capitalizeEachWord(province?.nama ?? ''),
                     isSelected: recommendationController
-                        .isProvinceSelected(province?.id ?? ''),
+                        .isProvinceSelected(province?.provinsiId ?? ''),
                     onTap: () => recommendationController
-                        .toggleProvinceSelection(province?.id ?? ''),
+                        .toggleProvinceSelection(province?.provinsiId ?? ''),
                   );
                 },
               );
