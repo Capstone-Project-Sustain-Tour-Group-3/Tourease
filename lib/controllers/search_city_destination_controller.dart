@@ -71,7 +71,8 @@ class SearchCityDestinationController extends GetxController {
   }
 
   void validateCity({required String id}) {
-    if (city.value.isEmpty) {
+    if (city.value.isEmpty || destinasiController.text == '') {
+      city.value = '';
       errorText.value = 'Silahkan isi kota tujuan terlebih dahulu';
     } else {
       errorText.value = null;
