@@ -108,6 +108,7 @@ class SavedRouteDetailPage extends StatelessWidget {
                           id: id,
                         ),
                       ),
+                      const SizedBox(height: 109),
                     ],
                   ),
                 ),
