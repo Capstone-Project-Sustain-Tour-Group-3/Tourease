@@ -220,6 +220,8 @@ class FooterSaveRouteWidget extends StatelessWidget {
                                                 );
                                               },
                                             );
+                                          } else {
+                                            Get.back();
                                           }
                                         },
                                         text: 'Simpan',
