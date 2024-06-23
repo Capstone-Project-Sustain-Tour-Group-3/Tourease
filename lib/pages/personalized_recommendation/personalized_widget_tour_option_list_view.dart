@@ -49,13 +49,13 @@ class TourOptionListView extends StatelessWidget {
                 return Obx(
                   () {
                     return PersonalizedCategories(
-                      image: category?.urlVideo ?? '',
+                      image: category?.url ?? '',
                       title: category?.nama ?? '',
-                      isSelected:
-                          recommendationController.isTourOptionSelected(category?.id ?? ''),
+                      isSelected: recommendationController
+                          .isTourOptionSelected(category?.kategoriId ?? ''),
                       onTap: () {
-                        recommendationController
-                            .toggleTourOptionSelection(category?.id ?? '');
+                        recommendationController.toggleTourOptionSelection(
+                            category?.kategoriId ?? '');
                       },
                     );
                   },
