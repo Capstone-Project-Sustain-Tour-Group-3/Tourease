@@ -113,7 +113,7 @@ Jika Anda memiliki pertanyaan, jangan ragu untuk menghubungi kami:
   - **Yazid Syafiq Irsyad**: irsyadyazidsyafiq@gmail.com
   - **M. Rafy Shah Pahlevi**: rafysyah23@gmail.com
   - **Wira Respati**: wirarespatibppn@gmail.com
-  - **Fatih Hakim Alfaridzi**:
+  - **Fatih Hakim Alfaridzi**: fatihhakim7220@gmail.com
   - **Al Akbar Baihaqi**: baihaqi08.aa@gmail.com
 - 🧑‍💻 **Github**: 
   - **Yazid Syafiq Irsyad**: [YazidSyafiq](https://github.com/YazidSyafiq)
