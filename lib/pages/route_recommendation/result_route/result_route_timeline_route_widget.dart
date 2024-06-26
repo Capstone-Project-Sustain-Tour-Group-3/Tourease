@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:timeline_tile_nic/timeline_tile.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
-import 'package:tourease/pages/route_recommendation/save_route/route_card_widget.dart';
+import 'package:tourease/pages/route_recommendation/result_route/result_route_card_widget.dart';
 
-class TimelineRouteWidget extends StatelessWidget {
+class ResultRouteTimelineRouteWidget extends StatelessWidget {
   final bool isLast;
   final int destinationLength;
   final String urlGambar;
@@ -15,7 +15,7 @@ class TimelineRouteWidget extends StatelessWidget {
   final String biaya;
   final String id;
 
-  const TimelineRouteWidget({
+  const ResultRouteTimelineRouteWidget({
     super.key,
     required this.isLast,
     required this.destinationLength,
@@ -79,7 +79,7 @@ class TimelineRouteWidget extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 64, right: 26),
-              child: RouteCardWidget(
+              child: ResultRouteCardWidget(
                 id: id,
                 photoUrl: urlGambar,
                 namaTempat: namaDestinasi,

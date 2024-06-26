@@ -5,8 +5,8 @@ import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
 import 'package:tourease/controllers/search_city_destination_controller.dart';
 
-class SearchPage extends StatelessWidget {
-  const SearchPage({super.key});
+class SearchCityList extends StatelessWidget {
+  const SearchCityList({super.key});
 
   @override
   Widget build(BuildContext context) {

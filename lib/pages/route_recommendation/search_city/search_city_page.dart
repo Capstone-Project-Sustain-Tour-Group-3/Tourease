@@ -9,14 +9,14 @@ import 'package:tourease/controllers/bottom_navbar_controller.dart';
 import 'package:tourease/controllers/search_city_destination_controller.dart';
 import 'package:tourease/model/route_recommendation_cities_response.dart';
 import 'package:tourease/pages/bottom_navbar/bottom_navbar.dart';
-import 'package:tourease/pages/route_recommendation/home_page/instruction_use.dart';
-import 'package:tourease/pages/route_recommendation/home_page/search_city_page.dart';
+import 'package:tourease/pages/route_recommendation/search_city/search_city_instruction_use.dart';
+import 'package:tourease/pages/route_recommendation/search_city/search_city_list.dart';
 
-class RouteHomePage extends StatelessWidget {
+class SearchCityPage extends StatelessWidget {
   final SearchCityDestinationController _searchCityDestinationController =
       Get.put(SearchCityDestinationController());
 
-  RouteHomePage({super.key});
+  SearchCityPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +71,7 @@ class RouteHomePage extends StatelessWidget {
               const SizedBox(height: 45),
               GestureDetector(
                 onTap: () async {
-                  final result = await Get.to(() => const SearchPage());
+                  final result = await Get.to(() => const SearchCityList());
                   if (result != null) {
                     if (result is City) {
                       _searchCityDestinationController.updateCity(result);
@@ -152,8 +152,8 @@ class RouteHomePage extends StatelessWidget {
                       ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          InstructionUseBottomDialog.showInstructionDialog(
-                              context);
+                          SearchCityInstructionUseBottomDialog
+                              .showInstructionDialog(context);
                         },
                     ),
                   ],

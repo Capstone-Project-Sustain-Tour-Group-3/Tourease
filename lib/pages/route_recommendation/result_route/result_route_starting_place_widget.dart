@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
 
-class StartingPlaceWidget extends StatelessWidget {
+class ResultRouteStartingPlaceWidget extends StatelessWidget {
   final String lokasiAwal;
-  const StartingPlaceWidget({super.key, required this.lokasiAwal});
+  const ResultRouteStartingPlaceWidget({super.key, required this.lokasiAwal});
 
   @override
   Widget build(BuildContext context) {

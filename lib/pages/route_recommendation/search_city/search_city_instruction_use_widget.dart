@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
 
-class InstructionUseWidget extends StatelessWidget {
+class SearchCityInstructionUseWidget extends StatelessWidget {
   final String number;
   final String text;
 
-  const InstructionUseWidget({
+  const SearchCityInstructionUseWidget({
     super.key,
     required this.number,
     required this.text,

@@ -6,8 +6,8 @@ import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
 import 'package:tourease/controllers/route_recommendation_controller.dart';
 
-class TimelineStartingPlaceWidget extends StatelessWidget {
-  TimelineStartingPlaceWidget({super.key});
+class ResultRouteTimelineStartingPlaceWidget extends StatelessWidget {
+  ResultRouteTimelineStartingPlaceWidget({super.key});
   final RouteRecommendationController _routeRecomendationController =
       Get.put(RouteRecommendationController());
 
