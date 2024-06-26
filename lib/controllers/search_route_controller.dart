@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:tourease/model/kota_destinasi_response_model.dart';
 import 'package:tourease/pages/login/login_page.dart';
-import 'package:tourease/pages/route_recommendation/search_route/search_route_model.dart';
+import 'package:tourease/model/search_route_model.dart';
 import 'package:tourease/services/destinasi_service.dart';
 import 'package:tourease/services/refresh_token_and_logout_service.dart';
 import 'package:tourease/utils/shared_preference_utils.dart';
