@@ -4,13 +4,13 @@ import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/status_bar_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
 import 'package:tourease/controllers/route_recommendation_controller.dart';
-import 'package:tourease/pages/route_recommendation/save_route/city_name_widget.dart';
-import 'package:tourease/pages/route_recommendation/save_route/footer_save_route_widget.dart';
-import 'package:tourease/pages/route_recommendation/save_route/timeline_route_widget.dart';
-import 'package:tourease/pages/route_recommendation/save_route/timeline_starting_place_widget.dart';
+import 'package:tourease/pages/route_recommendation/result_route/result_route_city_name_widget.dart';
+import 'package:tourease/pages/route_recommendation/result_route/result_route_footer_widget.dart';
+import 'package:tourease/pages/route_recommendation/result_route/result_route_timeline_route_widget.dart';
+import 'package:tourease/pages/route_recommendation/result_route/result_route_timeline_starting_place_widget.dart';
 
-class SaveRoutePage extends StatelessWidget {
-  SaveRoutePage({super.key});
+class ResultRoutePage extends StatelessWidget {
+  ResultRoutePage({super.key});
   final RouteRecommendationController _routeRecommendationController =
       Get.put(RouteRecommendationController());
 
@@ -53,12 +53,12 @@ class SaveRoutePage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CityNameWidget(),
+                ResultRouteCityNameWidget(),
                 Padding(
                   padding: const EdgeInsets.only(left: 32),
                   child: Column(
                     children: [
-                      TimelineStartingPlaceWidget(),
+                      ResultRouteTimelineStartingPlaceWidget(),
                       Obx(() {
                         var detailRute = _routeRecommendationController
                             .routeResponseModel.value.data!.detailRute!;
@@ -68,7 +68,7 @@ class SaveRoutePage extends StatelessWidget {
                           shrinkWrap:
                               true, 
                           itemCount: detailRute.length,
-                          itemBuilder: (_, i) => TimelineRouteWidget(
+                          itemBuilder: (_, i) => ResultRouteTimelineRouteWidget(
                             id: detailRute[i].destinasi!.id!,
                             waktuPerjalanan:
                                 detailRute[i].durasi!.simple!.toString(),
@@ -96,7 +96,7 @@ class SaveRoutePage extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              FooterSaveRouteWidget(
+              ResultRouteFooterWidget(
                 fullBiaya: _routeRecommendationController
                     .routeResponseModel.value.data!.estimasiBiaya!.format
                     .toString(),

@@ -4,14 +4,14 @@ import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
 import 'package:tourease/pages/destinasi_detail/destinasi_detail_page.dart';
 
-class RouteCardWidget extends StatelessWidget {
+class ResultRouteCardWidget extends StatelessWidget {
   final String photoUrl;
   final String namaTempat;
   final String openTime;
   final String biaya;
   final String id;
 
-  const RouteCardWidget(
+  const ResultRouteCardWidget(
       {super.key,
       required this.namaTempat,
       required this.openTime,

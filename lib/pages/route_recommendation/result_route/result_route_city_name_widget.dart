@@ -4,8 +4,8 @@ import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
 import 'package:tourease/controllers/route_recommendation_controller.dart';
 
-class CityNameWidget extends StatelessWidget {
-  CityNameWidget({super.key});
+class ResultRouteCityNameWidget extends StatelessWidget {
+  ResultRouteCityNameWidget({super.key});
   final RouteRecommendationController _routeRecomendationController =
       Get.put(RouteRecommendationController());
   @override

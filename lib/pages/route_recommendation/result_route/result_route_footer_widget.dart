@@ -8,10 +8,10 @@ import 'package:tourease/widgets/button_widget.dart';
 import 'package:tourease/model/save_route_request_model.dart';
 import 'package:tourease/widgets/snackbar_widget.dart';
 
-class FooterSaveRouteWidget extends StatelessWidget {
+class ResultRouteFooterWidget extends StatelessWidget {
   final String fullBiaya;
 
-  FooterSaveRouteWidget({
+  ResultRouteFooterWidget({
     super.key,
     required this.fullBiaya,
   });
