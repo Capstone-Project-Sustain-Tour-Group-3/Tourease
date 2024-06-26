@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:tourease/constants/color_constant.dart';
 import 'package:tourease/constants/text_style_constant.dart';
 import 'package:tourease/controllers/search_route_controller.dart';
-import 'package:tourease/pages/route_recommendation/search_route/search_route_model.dart';
+import 'package:tourease/model/search_route_model.dart';
 
 class RouteListTile extends StatelessWidget {
   final SearchRouteModel destination;
