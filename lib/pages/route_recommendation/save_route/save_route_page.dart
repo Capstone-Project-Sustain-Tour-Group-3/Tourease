@@ -11,15 +11,12 @@ import 'package:tourease/pages/route_recommendation/save_route/timeline_starting
 
 class SaveRoutePage extends StatelessWidget {
   SaveRoutePage({super.key});
-  final RouteRecommendationController _routeRecomendationController =
+  final RouteRecommendationController _routeRecommendationController =
       Get.put(RouteRecommendationController());
 
   @override
   Widget build(BuildContext context) {
     StatusBarConstant.statusBar;
-
-    final detailRute = _routeRecomendationController
-        .routeResponseModel.value.data!.detailRute!;
 
     return Scaffold(
       backgroundColor: ColorNeutral.neutral50,
@@ -28,8 +25,8 @@ class SaveRoutePage extends StatelessWidget {
         surfaceTintColor: ColorNeutral.neutral50,
         centerTitle: true,
         title: Text(
-          textAlign: TextAlign.center,
           'Rute Perjalanan',
+          textAlign: TextAlign.center,
           style: TextStyleCollection.subtitleBold.copyWith(
             color: ColorNeutral.neutral900,
             fontSize: 18,
@@ -62,23 +59,33 @@ class SaveRoutePage extends StatelessWidget {
                   child: Column(
                     children: [
                       TimelineStartingPlaceWidget(),
-                      for (var i = 0; i < detailRute.length; i++)
-                        TimelineRouteWidget(
-                          id: detailRute[i].destinasi!.id!,
-                          waktuPerjalanan:
-                              detailRute[i].durasi!.simple!.toString(),
-                          isLast: i == detailRute.length - 1,
-                          destinationLength: i + 1,
-                          urlGambar: detailRute[i].destinasi!.urlGambar!,
-                          namaDestinasi: detailRute[i].destinasi!.nama!,
-                          waktuKunjungan: detailRute[i].waktuKunjungan!,
-                          waktuSelesai: detailRute[i].waktuSelesai!,
-                          biaya: detailRute[i]
-                              .destinasi!
-                              .biayaMasuk!
-                              .format
-                              .toString(),
-                        ),
+                      Obx(() {
+                        var detailRute = _routeRecommendationController
+                            .routeResponseModel.value.data!.detailRute!;
+                        return ListView.builder(
+                          physics:
+                              const NeverScrollableScrollPhysics(), 
+                          shrinkWrap:
+                              true, 
+                          itemCount: detailRute.length,
+                          itemBuilder: (_, i) => TimelineRouteWidget(
+                            id: detailRute[i].destinasi!.id!,
+                            waktuPerjalanan:
+                                detailRute[i].durasi!.simple!.toString(),
+                            isLast: i == detailRute.length - 1,
+                            destinationLength: i + 1,
+                            urlGambar: detailRute[i].destinasi!.urlGambar!,
+                            namaDestinasi: detailRute[i].destinasi!.nama!,
+                            waktuKunjungan: detailRute[i].waktuKunjungan!,
+                            waktuSelesai: detailRute[i].waktuSelesai!,
+                            biaya: detailRute[i]
+                                .destinasi!
+                                .biayaMasuk!
+                                .format
+                                .toString(),
+                          ),
+                        );
+                      }),
                       const SizedBox(height: 126),
                     ],
                   ),
@@ -90,7 +97,7 @@ class SaveRoutePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               FooterSaveRouteWidget(
-                fullBiaya: _routeRecomendationController
+                fullBiaya: _routeRecommendationController
                     .routeResponseModel.value.data!.estimasiBiaya!.format
                     .toString(),
               ),
